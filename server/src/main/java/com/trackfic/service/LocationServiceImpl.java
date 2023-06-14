@@ -2,9 +2,11 @@ package com.trackfic.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.trackfic.dao.LocationDaoInterface;
 import com.trackfic.model.Location;
-
+@Service
 public class LocationServiceImpl implements LocationServiceInterface {
 
 	Location returnedLocation;

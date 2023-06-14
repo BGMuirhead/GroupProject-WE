@@ -2,9 +2,11 @@ package com.trackfic.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.trackfic.dao.AccidentTypeDaoInterface;
 import com.trackfic.model.AccidentType;
-
+@Service
 public class AccidentTypeServiceImpl implements AccidentTypeServiceInterface{
 
 	AccidentType returnedAccidentType;

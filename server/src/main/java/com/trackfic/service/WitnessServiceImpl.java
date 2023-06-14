@@ -2,9 +2,11 @@ package com.trackfic.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.trackfic.dao.WitnessDaoInterface;
 import com.trackfic.model.Witness;
-
+@Service
 public class WitnessServiceImpl implements WitnessServiceInterface {
 
 	Witness returnedWitness;

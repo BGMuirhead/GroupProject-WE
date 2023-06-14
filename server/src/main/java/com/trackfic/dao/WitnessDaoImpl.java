@@ -2,8 +2,11 @@ package com.trackfic.dao;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.trackfic.model.Witness;
 
+@Component
 public class WitnessDaoImpl implements WitnessDaoInterface {
 
 	@Override
