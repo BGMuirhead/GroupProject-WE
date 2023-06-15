@@ -14,7 +14,7 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" 
         crossorigin="anonymous">
     </script>
-    <script src="functions.js"></script>
+    <script src="../JS/trackfic_functions.js"></script>
     <link href="../BOOTSTRAP/bootstrap-5.1.0-dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../BOOTSTRAP/external.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -29,70 +29,52 @@
 </head>
 <body>
     <div id="header">
-        <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
-                <img class="logo border border-4 border-warning" src="../images/trackfic_logo_bg.jpg"/>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="border-bottom: 5px solid black;">
+            <div class="container-fluid" style="width: 100%">
+                <img class="logo border border-4 border-warning" src="../images/trackfic_logo_bg.jpg" style="margin-left: 5px;"/>
+                <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarOffcanvasLg" aria-controls="navbarOffcanvasLg">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse justify-content-center" id="navbarToggler">
-                    <ul class="navbar-nav">
-                        <li class="nav-item border-end border-2" style="padding: 0 25px 0 0;">
-                            <a class="nav-link active" href="#" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Submit New Accident</a>
-                        </li>
-                        <li class="nav-item border-end border-2" style="padding: 0 25px 0 25px;">
-                            <a class="nav-link active" href="#" >View Map</a>
-                        </li>
-                        <li class="nav-item" style="padding: 0 0 0 25px;">
-                            <a class="nav-link active" href="#">View All Accidents</a>
-                        </li>
-                        <button type="button" id="login" class="btn btn-warning mx-2">Login</button>
-                        <button type="button" id="something" class="btn btn-warning mx-2">Someting</button>
-                    </ul>
-                    
-                </div>
-            </div>
-        </nav> -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-            <div class="container-fluid">
-                <img class="logo border border-4 border-warning" src="../images/trackfic_logo_bg.jpg"/>
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarOffcanvasLg" aria-controls="navbarOffcanvasLg">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="navbarOffcanvasLg" aria-labelledby="navbarOffcanvasLgLabel">
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="navbarOffcanvasLg" aria-labelledby="navbarOffcanvasLgLabel" style="width: 300px;">
                     <div class="offcanvas-header bg-warning">
                         <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div class="offcanvas-body bg-dark">
                         <ul class="navbar-nav justify-content-center flex-grow-1 mt-1">
-                            <li class="nav-item px-3">
+                            <li class="nav-item pe-4">
                                 <a class="nav-link" aria-current="page" href="#">Home</a>
                             </li>
-                            <li class="nav-item pe-3">
+                            <li class="nav-item pe-4">
                                 <a class="nav-link active" href="#">New Accident</a>
                             </li>
-                            <li class="nav-item pe-3">
+                            <li class="nav-item pe-4">
                                 <a class="nav-link active" href="#">View Map</a>
                             </li>
-                            <li class="nav-item pe-3">
-                                <a class="nav-link active" href="#">All Accidents</a>
+                            <li class="nav-item pe-2">
+                                <a class="nav-link active" href="all_accidents_page.html">All Accidents</a>
                             </li>
                         </ul>
-                            <button type="button" id="login" class="btn btn-warning my-1" style="margin-right: 20px;">Login</button>
-                            <button type="button" id="something" class="btn btn-warning my-1" style="margin-right: 15px;">Something</button>
+                            <button type="button" id="login" class="btn btn-warning nav-button my-1" style="margin-right: 15px;">Login</button>
+                            <button type="button" id="something" class="btn btn-warning nav-button my-1" style="margin-right: 5px;">Something</button>
                     </div>
                 </div>
             </div>
         </nav>
     </div>
     <div class="vid-container">
-        <video src="../videos/herovid.mp4" autoPlay loop muted />
+        <video src="../videos/herovid.mp4" autoPlay loop muted></video>
 
+        <div>
+            <h1 class="title">WITNESSED AN ACCIDENT?</h1>
+            <button type="button" id="new_accident_btn" class="btn btn-warning my-1">Create Accident Form</button>
+            <button type="button" id="view_map_btn" class="btn btn-warning my-1">View The Map</button>
+        </div>
 
     </div>
-    <footer class="bg-dark text-center text-white fixed-bottom">
-        <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.2);">
+    <footer class="bg-dark text-center text-white fixed-bottom" style="border-top: 5px solid black;">
+        <div class="text-center p-4 pb-2" style="background-color: rgba(0, 0, 0, 0.2);">
+            <p>Developed by Traffic Buffering... <span>&copy</span> 2023</p>
         </div>
     </footer>
 
