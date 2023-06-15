@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.trackfic.exception.AccidentNotFoundException;
 import com.trackfic.model.Accident;
 import com.trackfic.service.AccidentServiceImpl;
 
@@ -35,6 +36,7 @@ public class AccidentController {
 	public Accident getAccidentById(@PathVariable int id)
 	{
 		Accident accident = accidentService.getAccidentById(id);
+		
 		return accident;
 	}
 	

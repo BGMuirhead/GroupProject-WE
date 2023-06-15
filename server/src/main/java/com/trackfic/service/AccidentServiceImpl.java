@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.trackfic.dao.AccidentDaoInterface;
+import com.trackfic.exception.ForeignKeyDeletionException;
 import com.trackfic.model.Accident;
 @Service
 public class AccidentServiceImpl implements AccidentServiceInterface {

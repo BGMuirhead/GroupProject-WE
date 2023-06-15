@@ -2,6 +2,7 @@ package com.trackfic.service;
 
 import java.util.List;
 
+import com.trackfic.exception.ForeignKeyDeletionException;
 import com.trackfic.model.Accident;
 
 public interface AccidentServiceInterface {
@@ -14,6 +15,6 @@ public interface AccidentServiceInterface {
 
 	Accident updateAccidentData(int id, Accident accident);
 
-	void deleteAccident(int id);
+	void deleteAccident(int id) throws ForeignKeyDeletionException;
 
 }

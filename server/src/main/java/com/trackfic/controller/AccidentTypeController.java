@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.trackfic.exception.AccidentTypeNotFoundException;
 import com.trackfic.model.AccidentType;
 import com.trackfic.service.AccidentTypeServiceImpl;
 

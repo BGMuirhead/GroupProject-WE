@@ -19,5 +19,40 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 		return new ResponseEntity(response, HttpStatus.INTERNAL_SERVER_ERROR);
 
 	}
+	
+	@ExceptionHandler(WitnessNotFoundException.class)
+	public final ResponseEntity<Object> handleWitnessNotFoundException(WitnessNotFoundException ex, WebRequest req)
+	{
+		ExceptionResponse response = new ExceptionResponse(new Date(), ex.getMessage(), "Witness with specified email not found");
+		return new ResponseEntity(response , HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(LocationNotFoundException.class)
+	public final ResponseEntity<Object> handleLocationNotFoundException(LocationNotFoundException ex, WebRequest req)
+	{
+		ExceptionResponse response = new ExceptionResponse(new Date(), ex.getMessage(), "Location with specified ID not found");
+		return new ResponseEntity(response , HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(AccidentTypeNotFoundException.class)
+	public final ResponseEntity<Object> handleAccidentTypeNotFoundException(AccidentTypeNotFoundException ex, WebRequest req)
+	{
+		ExceptionResponse response = new ExceptionResponse(new Date(), ex.getMessage(), "AccidentType with specified ID not found");
+		return new ResponseEntity(response , HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(AccidentNotFoundException.class)
+	public final ResponseEntity<Object> handleAccidentNotFoundException(AccidentNotFoundException ex, WebRequest req)
+	{
+		ExceptionResponse response = new ExceptionResponse(new Date(), ex.getMessage(), "Accident with specified ID not found");
+		return new ResponseEntity(response , HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(ForeignKeyDeletionException.class)
+	public final ResponseEntity<Object> handleForeignKeyDeletionException(ForeignKeyDeletionException ex, WebRequest req)
+	{
+		ExceptionResponse response = new ExceptionResponse(new Date(), ex.getMessage(), "User is attempting to delete an entry that is referenced by foreign keys");
+		return new ResponseEntity(response , HttpStatus.CONFLICT);
+	}
 
 }

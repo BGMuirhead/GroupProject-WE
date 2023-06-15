@@ -1,10 +1,13 @@
 package com.trackfic.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import com.trackfic.exception.AccidentNotFoundException;
+import com.trackfic.exception.ForeignKeyDeletionException;
 import com.trackfic.mapper.AccidentMapper;
 import com.trackfic.model.Accident;
 
@@ -12,9 +15,11 @@ import com.trackfic.model.Accident;
 public class AccidentDaoImpl implements AccidentDaoInterface {
 
 	private final JdbcTemplate jdbcTemplate;
+	private Accident returnedAccident;
 
 	public AccidentDaoImpl(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
+		returnedAccident=new Accident();
 	}
 
 	@Override
@@ -40,7 +45,14 @@ public class AccidentDaoImpl implements AccidentDaoInterface {
 
 		String sql = "select * from accident where accident_id=?";
 
-		return jdbcTemplate.queryForObject(sql, new Object[] { id }, new AccidentMapper());
+		try {
+			returnedAccident=jdbcTemplate.queryForObject(sql, new Object[] { id }, new AccidentMapper());
+		}
+		catch(Exception ex)
+		{
+			throw new AccidentNotFoundException("Accident with ID: "+id+" not found");
+		}
+		return returnedAccident;
 	}
 
 	@Override
@@ -52,10 +64,16 @@ public class AccidentDaoImpl implements AccidentDaoInterface {
 	}
 
 	@Override
-	public void deleteAccident(int id) {
-
-		String sql = "delete from accident where accident_id=?";
-		jdbcTemplate.update(sql, new Object[] { id });
+	public void deleteAccident(int id){
+		try {
+			String sql = "delete from accident where accident_id=?";
+			jdbcTemplate.update(sql, new Object[] { id });
+		}
+		catch(Exception e)
+		{
+			throw new ForeignKeyDeletionException("Foreign key references object to be deleted ensure correct delete order is followed");
+		}
+		
 	}
 
 }

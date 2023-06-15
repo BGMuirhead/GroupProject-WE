@@ -2,6 +2,7 @@ package com.trackfic.dao;
 
 import java.util.List;
 
+import com.trackfic.exception.ForeignKeyDeletionException;
 import com.trackfic.model.Accident;
 
 public interface AccidentDaoInterface {
