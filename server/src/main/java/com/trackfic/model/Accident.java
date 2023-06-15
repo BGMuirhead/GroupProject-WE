@@ -13,6 +13,8 @@ public class Accident {
 	private int locationId;
 	private int accidentTypeId;
 	private String witnessEmail;
+	
+	
 	public Accident(int accidentId, int vehicleCount, Time accidentTime, Date accidentDate, String accidentDesc,
 			int locationId, int accidentTypeId, String witnessEmail) {
 		super();
@@ -25,6 +27,9 @@ public class Accident {
 		this.accidentTypeId = accidentTypeId;
 		this.witnessEmail = witnessEmail;
 	}
+	public Accident() {
+	}
+	
 	public int getAccidentId() {
 		return accidentId;
 	}

@@ -41,7 +41,7 @@ public class LocationServiceImpl implements LocationServiceInterface {
 			//throw an error 
 		}
 		
-		locationDao.updateLocationType(location);
+		locationDao.updateLocation(location);
 		
 		return location;
 	}

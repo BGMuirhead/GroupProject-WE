@@ -12,7 +12,7 @@ public interface WitnessDaoInterface {
 
 	Witness findWitnessByEmail(String email);
 
-	void updateWitnessType(Witness witness);
+	void updateWitness(Witness witness);
 
 	void deleteWitness(String email);
 

@@ -12,7 +12,7 @@ public class AccidentTypeMapper implements RowMapper<AccidentType> {
 	@Override
 	public AccidentType mapRow(ResultSet rs, int rowNum) throws SQLException {
 
-		int typeId = rs.getInt("type_id");
+		int typeId = rs.getInt("accident_type_id");
 		String accidentType = rs.getString("accident_type");
 		
 		AccidentType accType = new AccidentType(typeId, accidentType);

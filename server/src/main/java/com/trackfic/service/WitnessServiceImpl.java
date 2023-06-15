@@ -25,12 +25,12 @@ public class WitnessServiceImpl implements WitnessServiceInterface {
 
 	public Witness getWitnessByEmail(String email) {
 
-		witnessDao.findWitnessByEmail(email);
+		returnedWitness =witnessDao.findWitnessByEmail(email);
 		return returnedWitness;
 	}
 
 	public Witness addNewWitness(Witness witness) {
-		witnessDao.createNewWitness(witness);
+		returnedWitness =witnessDao.createNewWitness(witness);
 		return returnedWitness;
 	}
 
@@ -40,7 +40,7 @@ public class WitnessServiceImpl implements WitnessServiceInterface {
 		{
 			//throw an error 
 		}
-		witnessDao.updateWitnessType(witness);
+		witnessDao.updateWitness(witness);
 		return witness;
 	}
 

@@ -21,13 +21,13 @@ public class AccidentMapper implements RowMapper<Accident> {
 	public Accident mapRow(ResultSet rs, int rowNum) throws SQLException {
 		
 		
-		int accidentId = rs.getInt("type_id");
+		int accidentId = rs.getInt("accident_id");
 		int vehicleCount = rs.getInt("vehicle_count");
 		Date accidentDate = rs.getDate("accident_date");
 		Time accidentTime = rs.getTime("accident_time");
 		String accidentDesc=rs.getString("acccident_desc");
 		int locationId= rs.getInt("location_id");
-		int typeId= rs.getInt("accident_type");
+		int typeId= rs.getInt("accident_type_id");
 		String witnessEmail= rs.getString("witness_email");
 		
 		

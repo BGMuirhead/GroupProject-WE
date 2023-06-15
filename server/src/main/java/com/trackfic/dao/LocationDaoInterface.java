@@ -12,7 +12,7 @@ public interface LocationDaoInterface {
 
 	Location findLocationById(int id);
 
-	void updateLocationType(Location location);
+	void updateLocation(Location location);
 
 	void deleteLocation(int id);
 }

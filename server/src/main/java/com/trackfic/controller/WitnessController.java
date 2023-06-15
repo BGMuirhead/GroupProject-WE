@@ -24,8 +24,8 @@ public class WitnessController {
 	@Autowired
 	WitnessServiceImpl witnessService;
 
-	@GetMapping("/witnesss")
-	public List<Witness> getAllWitnesss() {
+	@GetMapping("/witnesses")
+	public List<Witness> getAllWitnesses() {
 
 		List<Witness> witness = witnessService.getAllWitnesses();
 		return witness;

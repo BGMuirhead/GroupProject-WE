@@ -12,7 +12,7 @@ public interface AccidentTypeDaoInterface {
 
 	AccidentType findAccidentTypeById(int id);
 
-	void updateAccidentTypeType(AccidentType accidentType);
+	void updateAccidentType(AccidentType accidentType);
 
 	void deleteAccidentType(int id);
 

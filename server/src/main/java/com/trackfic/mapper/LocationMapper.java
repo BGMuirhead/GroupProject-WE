@@ -17,11 +17,11 @@ public class LocationMapper implements RowMapper<Location> {
 		String streetName = rs.getString("street_name");
 		String suburb = rs.getString("suburb");
 		int postcode = rs.getInt("postcode");
-		String state = rs.getString("state");
+		String state = rs.getString("loc_state");
 		double latitude = rs.getDouble("latitude");
 		double longitude = rs.getDouble("longitude");
 
-		Location location = new Location(locationId, streetNumber,streetName, suburb, postcode, state, latitude, longitude);
+		Location location = new Location(locationId,streetName, streetNumber, suburb, postcode, state, latitude, longitude);
 
 		return location;
 	}

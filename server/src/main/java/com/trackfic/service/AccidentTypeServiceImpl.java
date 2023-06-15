@@ -41,7 +41,7 @@ public class AccidentTypeServiceImpl implements AccidentTypeServiceInterface{
 			//throw an error 
 		}
 		
-		accidentTypeDao.updateAccidentTypeType(accidentType);
+		accidentTypeDao.updateAccidentType(accidentType);
 		
 		return accidentType;
 	}

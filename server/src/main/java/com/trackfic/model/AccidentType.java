@@ -9,6 +9,9 @@ public class AccidentType {
 		this.typeId = typeId;
 		this.accidentType = accidentType;
 	}
+	
+	public AccidentType() {
+	}
 	public int getTypeId() {
 		return typeId;
 	}

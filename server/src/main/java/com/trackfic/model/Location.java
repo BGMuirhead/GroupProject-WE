@@ -22,6 +22,9 @@ public class Location {
 		this.latitude = latitude;
 		this.longitude = longitude;
 	}
+	public Location() {
+	}
+	
 	public int getLocationId() {
 		return locationId;
 	}
