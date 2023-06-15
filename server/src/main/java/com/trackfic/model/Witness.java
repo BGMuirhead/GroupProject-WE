@@ -2,14 +2,14 @@ package com.trackfic.model;
 
 public class Witness {
 
-	private String email;
+	private String witnessEmail;
 	private String firstName;
 	private String lastName;
 	private int mobile;
 
 	public Witness(String email, String firstName, String lastName, int mobile) {
 		super();
-		this.email = email;
+		this.witnessEmail = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.mobile = mobile;
@@ -19,11 +19,11 @@ public class Witness {
 	}
 
 	public String getEmail() {
-		return email;
+		return witnessEmail;
 	}
 
 	public void setEmail(String email) {
-		this.email = email;
+		this.witnessEmail = email;
 	}
 
 	public String getFirstName() {

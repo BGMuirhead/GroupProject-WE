@@ -25,12 +25,13 @@ public class AccidentMapper implements RowMapper<Accident> {
 		int vehicleCount = rs.getInt("vehicle_count");
 		Date accidentDate = rs.getDate("accident_date");
 		Time accidentTime = rs.getTime("accident_time");
+		String accidentDesc=rs.getString("acccident_desc");
 		int locationId= rs.getInt("location_id");
-		int witnessId= rs.getInt("witness_id");
 		int typeId= rs.getInt("accident_type");
+		String witnessEmail= rs.getString("witness_email");
 		
 		
-		Accident accident = new Accident(accidentId, vehicleCount, accidentTime, accidentDate, locationId, witnessId, typeId);
+		Accident accident = new Accident(accidentId, vehicleCount, accidentTime, accidentDate, accidentDesc,locationId, typeId, witnessEmail);
 
 		return accident;
 	}

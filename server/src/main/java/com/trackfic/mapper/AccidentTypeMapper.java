@@ -13,11 +13,9 @@ public class AccidentTypeMapper implements RowMapper<AccidentType> {
 	public AccidentType mapRow(ResultSet rs, int rowNum) throws SQLException {
 
 		int typeId = rs.getInt("type_id");
-		String accidentDesc = rs.getString("accident_desc");;
-		String accidentType = rs.getString("accident_type");;;
-
+		String accidentType = rs.getString("accident_type");
 		
-		AccidentType accType = new AccidentType(typeId, accidentDesc, accidentType);
+		AccidentType accType = new AccidentType(typeId, accidentType);
 		return accType;
 	}
 

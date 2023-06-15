@@ -13,6 +13,7 @@ public class LocationMapper implements RowMapper<Location> {
 	public Location mapRow(ResultSet rs, int rowNum) throws SQLException {
 
 		int locationId = rs.getInt("location_id");
+		String streetNumber = rs.getString("street_number");
 		String streetName = rs.getString("street_name");
 		String suburb = rs.getString("suburb");
 		int postcode = rs.getInt("postcode");
@@ -20,7 +21,7 @@ public class LocationMapper implements RowMapper<Location> {
 		double latitude = rs.getDouble("latitude");
 		double longitude = rs.getDouble("longitude");
 
-		Location location = new Location(locationId, streetName, suburb, postcode, state, latitude, longitude);
+		Location location = new Location(locationId, streetNumber,streetName, suburb, postcode, state, latitude, longitude);
 
 		return location;
 	}
