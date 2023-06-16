@@ -1,12 +1,15 @@
 package com.trackfic.model;
 
-public class Location {
+import javax.validation.constraints.NotBlank;
 
+public class Location {
+	
 	private int locationId;
 	private String streetName;
 	private String streetNumber;
 	private String suburb;
 	private int postcode;
+	@NotBlank(message = "Location state is required")
 	private String state;
 	private double latitude;
 	private double longitude;
@@ -15,7 +18,7 @@ public class Location {
 		super();
 		this.locationId = locationId;
 		this.streetName = streetName;
-		streetNumber = streetNumber;
+		this.streetNumber = streetNumber;
 		this.suburb = suburb;
 		this.postcode = postcode;
 		this.state = state;

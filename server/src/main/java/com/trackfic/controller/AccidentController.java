@@ -2,6 +2,8 @@ package com.trackfic.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,7 +43,7 @@ public class AccidentController {
 	}
 	
 	@PostMapping("/add")
-	public Accident addAccident(@RequestBody Accident accident)
+	public Accident addAccident(@Valid @RequestBody Accident accident)
 	{
 		Accident accident1 = accidentService.addNewAccident(accident);
 		return accident1;

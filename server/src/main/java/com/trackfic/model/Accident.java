@@ -3,6 +3,8 @@ package com.trackfic.model;
 import java.sql.Date;
 import java.sql.Time;
 
+import javax.validation.constraints.NotBlank;
+
 import com.trackfic.enums.AccidentSeverity;
 
 public class Accident {
@@ -14,7 +16,9 @@ public class Accident {
 	private String accidentDesc;
 	private int locationId;
 	private int accidentTypeId;
+	@NotBlank(message = "Witness email is required")
 	private String witnessEmail;
+	
 	private AccidentSeverity accidentSeverity;
 	public Accident(int accidentId, int vehicleCount, Time accidentTime, Date accidentDate, String accidentDesc,
 			int locationId, int accidentTypeId, String witnessEmail, AccidentSeverity accidentSeverity) {

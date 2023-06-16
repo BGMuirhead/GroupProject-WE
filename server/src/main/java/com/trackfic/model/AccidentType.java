@@ -1,8 +1,11 @@
 package com.trackfic.model;
 
+import javax.validation.constraints.NotBlank;
+
 public class AccidentType {
 	
 	private int typeId;
+	@NotBlank(message = "Accident type is required")
 	private String accidentType;
 	public AccidentType(int typeId, String accidentType) {
 		super();
