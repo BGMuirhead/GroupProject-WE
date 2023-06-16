@@ -4,7 +4,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import com.trackfic.enums.AccidentSeverity;
-import com.trackfic.exception.AccidentNotFoundException;
+import com.trackfic.exception.SeverityNotFoundException;
 import com.trackfic.mapper.SeverityMapper;
 
 @Component
@@ -27,7 +27,7 @@ public class SeverityDaoImpl implements SeverityDaoInterface {
 		}
 		catch(Exception ex)
 		{
-			throw new AccidentNotFoundException("Severity with value: "+value+" not found");
+			throw new SeverityNotFoundException("Severity with value: "+value+" not found");
 		}
 		return severity;
 		
