@@ -26,7 +26,7 @@ public class AccidentTypeController {
 	@Autowired
 	AccidentTypeServiceImpl accidentTypeService;
 
-	@GetMapping("/accidentTypes")
+	@GetMapping("/accidenttypes")
 	public List<AccidentType> getAllAccidentTypes() {
 
 		List<AccidentType> accidentTypes = accidentTypeService.getAllAccidentTypes();

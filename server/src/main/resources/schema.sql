@@ -1,12 +1,6 @@
-/* DROP TABLE IF EXISTS student;
-CREATE TABLE student (
-  sid int AUTO_INCREMENT PRIMARY KEY,
-  fName varchar(255) DEFAULT NULL,
-  lName varchar(255) DEFAULT NULL
-); */
-
 --drop tables in order
 DROP TABLE IF EXISTS accident;
+DROP TABLE IF EXISTS severity;
 DROP TABLE IF EXISTS location;
 DROP TABLE IF EXISTS accidenttype;
 DROP TABLE IF EXISTS witness;
@@ -22,6 +16,11 @@ CREATE TABLE witness (
 CREATE TABLE accidenttype(
   accident_type_id int AUTO_INCREMENT PRIMARY KEY, 
   accident_type VARCHAR(20) DEFAULT NULL
+);
+
+CREATE TABLE severity(
+  severity varchar(8) PRIMARY KEY
+  
 );
 
 CREATE TABLE location(
@@ -44,9 +43,11 @@ CREATE TABLE accident(
  location_id int NOT NULL,
  accident_type_id int NOT NULL,
  witness_email VARCHAR(40) NOT NULL, 
+ severity varchar(8) NOT NULL,
  
  CONSTRAINT FK_acc_type FOREIGN KEY (accident_type_id) REFERENCES accidenttype(accident_type_id),
  CONSTRAINT FK_witness FOREIGN KEY (witness_email) REFERENCES witness(witness_email),
- CONSTRAINT FK_location FOREIGN KEY (location_id) REFERENCES location(location_id)
+ CONSTRAINT FK_location FOREIGN KEY (location_id) REFERENCES location(location_id),
+ CONSTRAINT FK_severity FOREIGN KEY (severity) REFERENCES severity(severity)
  
 );

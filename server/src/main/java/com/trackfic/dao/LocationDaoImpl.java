@@ -24,12 +24,18 @@ public class LocationDaoImpl implements LocationDaoInterface {
 	@Override
 	public Location createNewLocation(Location location) {
 
-		String sql = "insert into location values(?,?,?,?,?,?,?,?)";
+		String sql = "insert into location (street_number, street_name, suburb, postcode, loc_state, latitude, longitude)" + 
+				" values(?,?,?,?,?,?,?)";
 
-		jdbcTemplate.update(sql, location.getLocationId(), location.getStreetNumber(), location.getStreetName(),
+		jdbcTemplate.update(sql, location.getStreetNumber(), location.getStreetName(),
 				location.getSuburb(), location.getPostcode(), location.getState(), location.getLatitude(),
 				location.getLongitude());
 
+		sql = "select max(location_id) from location";
+		int max = jdbcTemplate.queryForObject(sql, Integer.class);
+		
+		location.setLocationId(max);
+		
 		return location;
 	}
 
