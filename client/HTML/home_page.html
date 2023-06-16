@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trackfic</title>
+    <script
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" 
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" 
+        crossorigin="anonymous">
+    </script>
+    <script src="../JS/trackfic_functions.js"></script>
+    <link href="../BOOTSTRAP/bootstrap-5.1.0-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../BOOTSTRAP/external.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="../BOOTSTRAP/bootstrap-5.1.0-dist/js/bootstrap.bundle.min.js">
+        const navLinks = document.querySelectorAll('.nav-item');
+        const menuToggle = document.getElementById('navbarToggler');
+        const bsCollapse = new bootstrap.Collapse(menuToggle);
+        navLinks.forEach((l) => {
+            l.addEventListener('click', () => { bsCollapse.toggle() })
+        });
+    </script>
+</head>
+<body style="overflow-x: hidden;">
+    <div id="header">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="border-bottom: 5px solid black; font-weight: bold;">
+            <div class="container-fluid" style="width: 100%">
+                <img class="logo border border-4 border-warning" src="../images/trackfic_logo_bg.jpg" style="margin-left: 5px;"/>
+                <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarOffcanvasLg" aria-controls="navbarOffcanvasLg">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="navbarOffcanvasLg" aria-labelledby="navbarOffcanvasLgLabel" style="width: 300px;">
+                    <div class="offcanvas-header bg-warning">
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="font-weight: bold;">Menu</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body bg-dark">
+                        <ul class="navbar-nav justify-content-center flex-grow-1 mt-1">
+                            <li class="nav-item pe-4">
+                                <a class="nav-link" aria-current="page" href="#">Home</a>
+                            </li>
+                            <li class="nav-item pe-4">
+                                <a class="nav-link active" href="#">New Accident</a>
+                            </li>
+                            <li class="nav-item pe-4">
+                                <a class="nav-link active" href="#">View Map</a>
+                            </li>
+                            <li class="nav-item pe-2">
+                                <a class="nav-link active" href="all_accidents_page.html">All Accidents</a>
+                            </li>
+                        </ul>
+                        <button type="button" id="login" class="btn btn-warning nav-button my-1" style="margin-right: 15px; font-weight: bold;">Login</button>
+                        <button type="button" id="something" class="btn btn-warning nav-button my-1" style="margin-right: 5px; font-weight: bold;">Call Triple Zero</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="vid-container">
+        <video src="../videos/herovid.mp4" autoPlay loop muted></video>
+
+        <div class="text-center">
+            <h1 class="title pb-3">WITNESSED AN ACCIDENT?</h1>
+            <div class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-10 col-xxl-10 mx-auto">
+                <button type="button" id="new_accident_btn" class="btn btn-warning my-1 py-2 home-btn">Create Accident Form</button>
+                <button type="button" id="view_map_btn" class="btn btn-warning my-1 py-2 home-btn">View The Map</button>
+                <button type="button" id="all_accidents_btn" class="btn btn-warning my-1 py-2 home-btn">View All Accidents</button>
+            </div>
+        </div>
+
+    </div>
+    <footer class="bg-dark text-center text-white fixed-bottom" style="border-top: 5px solid black;">
+        <div class="text-center p-4 pb-2" style="background-color: rgba(0, 0, 0, 0.2);">
+            <p class="footer-group">Developed by Traffic Buffering... <span>&copy</span> 2023</p>
+        </div>
+    </footer>
+
+</body>
+</html>
