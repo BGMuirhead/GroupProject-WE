@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 
 import org.springframework.jdbc.core.RowMapper;
 
+import com.trackfic.enums.AccidentSeverity;
 import com.trackfic.model.Accident;
 import com.trackfic.model.AccidentType;
 import com.trackfic.model.Location;
@@ -29,9 +30,10 @@ public class AccidentMapper implements RowMapper<Accident> {
 		int locationId= rs.getInt("location_id");
 		int typeId= rs.getInt("accident_type_id");
 		String witnessEmail= rs.getString("witness_email");
+		AccidentSeverity severity = AccidentSeverity.valueOf(rs.getString("severity"));
 		
 		
-		Accident accident = new Accident(accidentId, vehicleCount, accidentTime, accidentDate, accidentDesc,locationId, typeId, witnessEmail);
+		Accident accident = new Accident(accidentId, vehicleCount, accidentTime, accidentDate, accidentDesc,locationId, typeId, witnessEmail,severity);
 
 		return accident;
 	}

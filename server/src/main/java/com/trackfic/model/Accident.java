@@ -3,6 +3,8 @@ package com.trackfic.model;
 import java.sql.Date;
 import java.sql.Time;
 
+import com.trackfic.enums.AccidentSeverity;
+
 public class Accident {
 
 	private int accidentId;
@@ -13,10 +15,9 @@ public class Accident {
 	private int locationId;
 	private int accidentTypeId;
 	private String witnessEmail;
-	
-	
+	private AccidentSeverity accidentSeverity;
 	public Accident(int accidentId, int vehicleCount, Time accidentTime, Date accidentDate, String accidentDesc,
-			int locationId, int accidentTypeId, String witnessEmail) {
+			int locationId, int accidentTypeId, String witnessEmail, AccidentSeverity accidentSeverity) {
 		super();
 		this.accidentId = accidentId;
 		this.vehicleCount = vehicleCount;
@@ -26,10 +27,10 @@ public class Accident {
 		this.locationId = locationId;
 		this.accidentTypeId = accidentTypeId;
 		this.witnessEmail = witnessEmail;
+		this.accidentSeverity = accidentSeverity;
 	}
 	public Accident() {
 	}
-	
 	public int getAccidentId() {
 		return accidentId;
 	}
@@ -78,6 +79,13 @@ public class Accident {
 	public void setWitnessEmail(String witnessEmail) {
 		this.witnessEmail = witnessEmail;
 	}
-
+	public AccidentSeverity getAccidentSeverity() {
+		return accidentSeverity;
+	}
+	public void setAccidentSeverity(AccidentSeverity accidentSeverity) {
+		this.accidentSeverity = accidentSeverity;
+	}
+	
+	
 	
 }

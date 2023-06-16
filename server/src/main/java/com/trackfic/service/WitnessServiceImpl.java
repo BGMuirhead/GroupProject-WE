@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.trackfic.dao.WitnessDaoInterface;
+import com.trackfic.exception.DataMismatchException;
 import com.trackfic.model.Witness;
 @Service
 public class WitnessServiceImpl implements WitnessServiceInterface {
@@ -39,6 +40,7 @@ public class WitnessServiceImpl implements WitnessServiceInterface {
 		if(email.equals(witness.getEmail()))
 		{
 			//throw an error 
+			throw new DataMismatchException("Witness email does not match");
 		}
 		witnessDao.updateWitness(witness);
 		return witness;
