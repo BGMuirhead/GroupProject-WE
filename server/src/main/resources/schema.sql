@@ -39,7 +39,7 @@ CREATE TABLE accident(
  vehicle_count int DEFAULT NULL,
  accident_date DATE DEFAULT NULL,
  accident_time TIME DEFAULT NULL,
- acccident_desc VARCHAR(100) DEFAULT NULL, 
+ accident_desc VARCHAR(100) DEFAULT NULL, 
  location_id int NOT NULL,
  accident_type_id int NOT NULL,
  witness_email VARCHAR(40) NOT NULL, 
