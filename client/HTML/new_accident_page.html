@@ -64,44 +64,94 @@
     </div>
     <div id="body" class="img-container">
         <img class="bg-image" src="../images/city_bg.jpg" />
-        <div class="row w-100 show-constantly mt-1 mt-sm-2 mt-md-3 mt-lg-4 mt-xl-5" style="color: white;">
+        <div class="row w-100" style="color: white; padding-top: 100px;">
             <div id="left-section" class="col-1 col-sm-2 col-md-2 col-lg-2 col-xl-3 col-xxl-3"></div>
-            <div class="text-center mt-5 mt-sm-5 mt-md-5 mt-lg-5 mt-xl-5 col-10 col-sm-8 col-md-8 col-lg-8 col-xl-6 col-xxl-6">
-                <h2 class="container mt-5 mt-sm-5 mt-md-5 mt-lg-5 mt-xl-5 mt-xxl-3">New Accident</h2>
+            <div class="text-center col-10 col-sm-8 col-md-8 col-lg-8 col-xl-6 col-xxl-6">
+                <h2 class="container">New Accident</h2>
                 <h6 class="text-center m-auto" style="width: 90%;">Please fill in the appropriate data for the accident.</h6>
             </div>
             <div id="right-section" class="col-1 col-sm-2 col-md-2 col-lg-2 col-xl-3 col-xxl-3"></div>
         </div>
         <div id="body-form" class="w-100 row my-5">
             <div id="left-section" class="col-1 col-sm-2 col-md-2 col-lg-3 col-xl-3 col-xxl-3"></div>
-            <div id="form-section" class="col-10 col-sm-8 col-md-8 col-lg-6 col-xl-6 col-xxl-6 py-5 border border-4 border-dark" style="background-color: white;">
-                <!-- <form class="pt-1" role="form" id="addForm">
-                    <div class="mb-3 w-75 mx-auto">
-                    <label for="inputName" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="inputName">
+            <div id="form-section" class="col-10 col-sm-8 col-md-8 col-lg-6 col-xl-6 col-xxl-6 py-5 border border-4 border-dark" style="margin-bottom: 120px; background-color: white;">
+                <form class="pt-1" role="form" id="addForm">
+                    
+                    <div class="row pb-3 mx-auto" style="width: 95%">
+                        <div class="col">
+                            <label for="inputName" class="form-label">Latitude</label>
+                            <input type="number" class="form-control" id="inputName">
+                        </div>
+                        <div class="col">
+                            <label for="inputName" class="form-label">Longitude</label>
+                            <input type="number" class="form-control" id="inputName">
+                        </div>
                     </div>
-                    <div class="mb-3 w-75 mx-auto">
-                    <label for="inputAge" class="form-label">Age</label>
-                    <input type="number" class="form-control" id="inputAge">
+                    <div class="text-center mx-auto pb-3">
+                        <button type="button" class="btn btn-primary w-25" >Use Location</button>
                     </div>
-                    <div class="mb-3 w-75 mx-auto">
-                        <label for="inputMobile" class="form-label">Mobile</label>
+                    <hr>
+                    <div class="row py-3 mx-auto" style="width: 95%">
+                        <div class="col-3">
+                            <label for="inputAge" class="form-label">Street No.</label>
+                            <input type="text" class="form-control" id="inputAge">
+                        </div>
+                        <div class="col-5">
+                            <label for="inputMobile" class="form-label">Street Name</label>
+                            <input type="text" class="form-control" id="inputMobile">
+                        </div>
+                        <div class="col-4">
+                            <label for="inputMobile" class="form-label">Suburb</label>
+                            <input type="text" class="form-control" id="inputMobile">
+                        </div>
+                    </div>
+                    <div class="row py-3 mx-auto" style="width: 95%">
+                        <div class="col">
+                            <label for="inputMobile" class="form-label">Postcode</label>
+                            <input type="number" class="form-control" id="inputMobile">
+                        </div>
+                        <div class="col">
+                            <label for="inputMobile" class="form-label">State</label>
+                            <input type="text" class="form-control" id="inputMobile">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row py-3 mx-auto" style="width: 95%">
+                        <div class="col">
+                            <label for="inputMobile" class="form-label">Accident Description</label>
+                            <input type="textarea" class="form-control" id="inputMobile">
+                        </div>
+                    </div>
+                    <div class="row pb-3 mx-auto" style="width: 95%">   
+                        <div class="col">
+                            <label for="inputMobile" class="form-label">Accident Type</label>
+                            <input type="text" class="form-control" id="inputMobile">
+                        </div>
+                        <div class="col">
+                            <label for="inputMobile" class="form-label">Severity</label>
+                            <input type="text" class="form-control" id="inputMobile">
+                        </div>
+                    </div>   
+                    <div class="row pb-3 mx-auto" style="width: 95%">   
+                        <div class="col-5">
+                            <label for="inputMobile" class="form-label">Vehicles Involved</label>
                         <input type="number" class="form-control" id="inputMobile">
+                        </div>
+                        <div class="col-7">
+                            <label for="inputMobile" class="form-label">Witness Email</label>
+                            <input type="email" class="form-control" id="inputMobile">
+                        </div>    
+                        
+                        
                     </div>
-                    <div class="mb-3 w-75 mx-auto">
-                        <label for="inputAddress" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="inputAddress">
-                    </div>
+                    <hr>
                     <div class="text-center pt-4">
                         <button type="submit" id="addStudent" class="btn btn-primary w-25" style="font-size: larger; font-weight: bold; border-color: rgb(102, 180, 122); background-color: rgb(102, 180, 122);">Submit</button>
                         <button type="reset" class="btn btn-primary w-25" style="font-size: larger; font-weight: bold; border-color: rgb(192, 93, 106); background-color: rgb(192, 93, 106);">Reset</button>
                     </div>
-                </form> -->
+                </form>
             </div>
-            <div id="right-section" class="col-1 col-sm-2 col-md-2 col-lg-3 col-xl-3 col-xxl-3"></div>
-        </div>
-        <div class="row">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 my-5"></div>
+            <div id="right-section" class="col-1 col-sm-2 col-md-2 col-lg-3 col-xl-3 col-xxl-3 mb-5"></div>
         </div>
     </div>
     <footer class="bg-dark text-center text-white fixed-bottom" style="border-top: 5px solid black;">
