@@ -54,5 +54,12 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 		ExceptionResponse response = new ExceptionResponse(new Date(), ex.getMessage(), "User is attempting to delete an entry that is referenced by foreign keys");
 		return new ResponseEntity(response , HttpStatus.CONFLICT);
 	}
+	
+	@ExceptionHandler(DataMismatchException.class)
+	public final ResponseEntity<Object> handleForeignKeyDeletionException(DataMismatchException ex, WebRequest req)
+	{
+		ExceptionResponse response = new ExceptionResponse(new Date(), ex.getMessage(), "User is attmepting to update data with inconsistencies");
+		return new ResponseEntity(response , HttpStatus.CONFLICT);
+	}
 
 }

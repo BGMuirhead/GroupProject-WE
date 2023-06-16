@@ -28,7 +28,7 @@ public class AccidentDaoImpl implements AccidentDaoInterface {
 
 		jdbcTemplate.update(sql, accident.getVehicleCount(), accident.getAccidentDate(),
 				accident.getAccidentTime(), accident.getAccidentDesc(), accident.getLocationId(),
-				accident.getAccidentTypeId(), accident.getWitnessEmail(), accident.getAccidentSeverity());
+				accident.getAccidentTypeId(), accident.getWitnessEmail(), accident.getAccidentSeverity().toString());
 
 		sql = "select max(accident_id) from accident";
 		int max = jdbcTemplate.queryForObject(sql, Integer.class);
@@ -61,10 +61,10 @@ public class AccidentDaoImpl implements AccidentDaoInterface {
 
 	@Override
 	public void updateAccident(Accident accident) {
-		String sql = "update accident set vehicle_count=?, accident_date=?, accident_time=?, acccident_desc=?, location_id=?, accident_type_id=?, witness_email=? severity=?, where accident_id=? ";
+		String sql = "update accident set vehicle_count=?, accident_date=?, accident_time=?, acccident_desc=?, location_id=?, accident_type_id=?, witness_email=?, severity=? where accident_id=? ";
 		jdbcTemplate.update(sql, accident.getVehicleCount(), accident.getAccidentDate(), accident.getAccidentTime(),
 				accident.getAccidentDesc(), accident.getLocationId(), accident.getAccidentTypeId(),
-				accident.getWitnessEmail(), accident.getAccidentSeverity() , accident.getAccidentId());
+				accident.getWitnessEmail(), accident.getAccidentSeverity().toString() , accident.getAccidentId());
 	}
 
 	@Override
