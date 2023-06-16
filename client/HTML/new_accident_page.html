@@ -2,10 +2,114 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Trackfic</title>
+    <script
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" 
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" 
+        crossorigin="anonymous">
+    </script>
+    <script src="../JS/trackfic_functions.js"></script>
+    <link href="../BOOTSTRAP/bootstrap-5.1.0-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../BOOTSTRAP/external.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="../BOOTSTRAP/bootstrap-5.1.0-dist/js/bootstrap.bundle.min.js">
+        const navLinks = document.querySelectorAll('.nav-item');
+        const menuToggle = document.getElementById('navbarToggler');
+        const bsCollapse = new bootstrap.Collapse(menuToggle);
+        navLinks.forEach((l) => {
+            l.addEventListener('click', () => { bsCollapse.toggle() })
+        });
+    </script>
 </head>
-<body>
-    
+<body style="overflow-x: hidden;">
+    <div id="header">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="border-bottom: 5px solid black; font-weight: bold;">
+            <div class="container-fluid" style="width: 100%">
+                <img class="logo border border-4 border-warning" src="../images/trackfic_logo_bg.jpg" style="margin-left: 5px;"/>
+                <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarOffcanvasLg" aria-controls="navbarOffcanvasLg">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="navbarOffcanvasLg" aria-labelledby="navbarOffcanvasLgLabel" style="width: 300px;">
+                    <div class="offcanvas-header bg-warning">
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="font-weight: bold;">Menu</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body bg-dark mb-2 mb-lg-0 mb-xl-0">
+                        <ul class="navbar-nav justify-content-center flex-grow-1 mt-1">
+                            <li class="nav-item pe-4">
+                                <a class="nav-link active" href="home_page.html">Home</a>
+                            </li>
+                            <li class="nav-item pe-4">
+                                <a class="nav-link" aria-current="page"  href="new_accident_page.html">New Accident</a>
+                            </li>
+                            <li class="nav-item pe-4">
+                                <a class="nav-link active" href="#">View Map</a>
+                            </li>
+                            <li class="nav-item pe-1">
+                                <a class="nav-link active" href="all_accidents_page.html">All Accidents</a>
+                            </li>
+                        </ul>
+                        <button type="button" id="login" class="btn btn-warning nav-button my-1" style="margin-right: 10px; font-weight: bold;">Login</button>
+                        <button type="button" id="something" class="btn btn-warning nav-button my-1" style="font-weight: bold;">Call Triple Zero</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div id="body" class="img-container">
+        <img class="bg-image" src="../images/city_bg.jpg" />
+        <div class="row w-100 show-constantly mt-1 mt-sm-2 mt-md-3 mt-lg-4 mt-xl-5" style="color: white;">
+            <div id="left-section" class="col-1 col-sm-2 col-md-2 col-lg-2 col-xl-3 col-xxl-3"></div>
+            <div class="text-center mt-5 mt-sm-5 mt-md-5 mt-lg-5 mt-xl-5 col-10 col-sm-8 col-md-8 col-lg-8 col-xl-6 col-xxl-6">
+                <h2 class="container mt-5 mt-sm-5 mt-md-5 mt-lg-5 mt-xl-5 mt-xxl-3">New Accident</h2>
+                <h6 class="text-center m-auto" style="width: 90%;">Please fill in the appropriate data for the accident.</h6>
+            </div>
+            <div id="right-section" class="col-1 col-sm-2 col-md-2 col-lg-2 col-xl-3 col-xxl-3"></div>
+        </div>
+        <div id="body-form" class="w-100 row my-5">
+            <div id="left-section" class="col-1 col-sm-2 col-md-2 col-lg-3 col-xl-3 col-xxl-3"></div>
+            <div id="form-section" class="col-10 col-sm-8 col-md-8 col-lg-6 col-xl-6 col-xxl-6 py-5 border border-4 border-dark" style="background-color: white;">
+                <!-- <form class="pt-1" role="form" id="addForm">
+                    <div class="mb-3 w-75 mx-auto">
+                    <label for="inputName" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="inputName">
+                    </div>
+                    <div class="mb-3 w-75 mx-auto">
+                    <label for="inputAge" class="form-label">Age</label>
+                    <input type="number" class="form-control" id="inputAge">
+                    </div>
+                    <div class="mb-3 w-75 mx-auto">
+                        <label for="inputMobile" class="form-label">Mobile</label>
+                        <input type="number" class="form-control" id="inputMobile">
+                    </div>
+                    <div class="mb-3 w-75 mx-auto">
+                        <label for="inputAddress" class="form-label">Address</label>
+                        <input type="text" class="form-control" id="inputAddress">
+                    </div>
+                    <div class="text-center pt-4">
+                        <button type="submit" id="addStudent" class="btn btn-primary w-25" style="font-size: larger; font-weight: bold; border-color: rgb(102, 180, 122); background-color: rgb(102, 180, 122);">Submit</button>
+                        <button type="reset" class="btn btn-primary w-25" style="font-size: larger; font-weight: bold; border-color: rgb(192, 93, 106); background-color: rgb(192, 93, 106);">Reset</button>
+                    </div>
+                </form> -->
+            </div>
+            <div id="right-section" class="col-1 col-sm-2 col-md-2 col-lg-3 col-xl-3 col-xxl-3"></div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 my-5"></div>
+        </div>
+    </div>
+    <footer class="bg-dark text-center text-white fixed-bottom" style="border-top: 5px solid black;">
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            <p>Developed by Traffic Buffering... <span>&copy</span> 2023</p>
+            <p style="margin-top: -10px; margin-bottom: 3px; font-size: x-small;"><a class="text-white" style="text-decoration: none;" href="https://www.vecteezy.com/free-vector/night">Night Vectors by Vecteezy</a></p>
+        </div>
+    </footer>
+
 </body>
 </html>

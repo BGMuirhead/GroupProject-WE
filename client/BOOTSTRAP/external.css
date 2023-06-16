@@ -54,7 +54,6 @@ video {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: inset ;
   object-fit: contain;
 }
 
@@ -70,7 +69,7 @@ video {
 }
 
 .show-constantly {
-  padding-top: calc(200px - 4%);
+  padding-top: calc(140px - 4%);
 }
 
 .home-btn {
