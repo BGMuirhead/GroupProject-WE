@@ -18,7 +18,7 @@ video {
   }
   
 .vid-container {
-    height: 78vh;
+    height: 85vh;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -37,10 +37,6 @@ video {
   margin-right: 10px;
 } 
 
-body {
-  padding-top: 70px;
-}
-
 .bg-image {
   object-fit: cover;
   width: 100%;
@@ -52,7 +48,7 @@ body {
 }
 
 .img-container {
-  height: 40vh;
+  height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -64,6 +60,22 @@ body {
 
 .title {
   color: white;
-  font-size: 50pt;
+  font-size: 8vmin;
+  font-weight: bolder;
+}
+
+.footer-group {
+  font-size: 1.8vmin;
+
+}
+
+.show-constantly {
+  padding-top: calc(200px - 4%);
+}
+
+.home-btn {
+  margin-left: 5px;
+  margin-right: 5px;
+  width: 220px;
   font-weight: bolder;
 }
