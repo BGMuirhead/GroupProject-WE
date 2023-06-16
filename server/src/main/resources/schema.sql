@@ -8,14 +8,14 @@ DROP TABLE IF EXISTS witness;
 -- create tables
 CREATE TABLE witness (
   witness_email VARCHAR(40) PRIMARY KEY,
-  first_name varchar(20) DEFAULT NULL,
-  last_name varchar(20) DEFAULT NULL,
+  first_name varchar(20) NOT NULL,
+  last_name varchar(20) NOT NULL,
   mobile int
 );
 
 CREATE TABLE accidenttype(
   accident_type_id int AUTO_INCREMENT PRIMARY KEY, 
-  accident_type VARCHAR(20) DEFAULT NULL
+  accident_type VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE severity(
@@ -39,7 +39,7 @@ CREATE TABLE accident(
  vehicle_count int DEFAULT NULL,
  accident_date DATE DEFAULT NULL,
  accident_time TIME DEFAULT NULL,
- acccident_desc VARCHAR(100) DEFAULT NULL, 
+ accident_desc VARCHAR(100) DEFAULT NULL, 
  location_id int NOT NULL,
  accident_type_id int NOT NULL,
  witness_email VARCHAR(40) NOT NULL, 

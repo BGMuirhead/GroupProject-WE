@@ -1,9 +1,14 @@
 package com.trackfic.model;
 
+import javax.validation.constraints.NotBlank;
+
 public class Witness {
 
+	@NotBlank(message = "Witness email is required")
 	private String witnessEmail;
+	@NotBlank(message = "Witness firstname is required")
 	private String firstName;
+	@NotBlank(message = "Witness lastname is required")
 	private String lastName;
 	private int mobile;
 

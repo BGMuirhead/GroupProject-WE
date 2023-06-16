@@ -2,8 +2,10 @@ package com.trackfic.exception;
 
 import java.util.Date;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
@@ -60,6 +62,24 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 	{
 		ExceptionResponse response = new ExceptionResponse(new Date(), ex.getMessage(), "User is attmepting to update data with inconsistencies");
 		return new ResponseEntity(response , HttpStatus.CONFLICT);
+	}
+	
+	@Override
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+			HttpHeaders headers, HttpStatus status, WebRequest request) {
+
+//		ExceptionResponse response = new ExceptionResponse(new Date(),"Validation Failed",ex.getBindingResult().toString());
+		ExceptionResponse response = new ExceptionResponse(new Date(),"Validation Failed",ex.getBindingResult().getAllErrors().get(0).getDefaultMessage());
+		
+		
+//		List<ObjectError> errors = ex.getBindingResult().getAllErrors();
+//		
+//		for(ObjectError e: errors)
+//		{
+//			System.out.println(e.getDefaultMessage());
+//		}
+		
+		return new ResponseEntity(response , HttpStatus.BAD_REQUEST);
 	}
 
 }

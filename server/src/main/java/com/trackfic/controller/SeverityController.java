@@ -1,5 +1,7 @@
 package com.trackfic.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.trackfic.enums.AccidentSeverity;
+import com.trackfic.model.Witness;
 import com.trackfic.service.SeverityServiceImpl;
 
 @RestController
@@ -21,10 +24,17 @@ public class SeverityController {
 
 	
 	@GetMapping("/{value}")
-	public AccidentSeverity getAccidentTypeById(@PathVariable String value)
+	public AccidentSeverity getAccidentSeverityByValue(@PathVariable String value)
 	{
 		AccidentSeverity severity = severityService.getSeverityByValue(value);
 		return severity;
+	}
+	
+	@GetMapping("/severities")
+	public List<AccidentSeverity> getAllSeverities() {
+
+		List<AccidentSeverity> severities = severityService.getAllSeverities();
+		return severities;
 	}
 	
 	

@@ -24,7 +24,7 @@ public class AccidentDaoImpl implements AccidentDaoInterface {
 
 	@Override
 	public Accident createNewAccident(Accident accident) {
-		String sql = "insert into accident (vehicle_count,accident_date,accident_time,acccident_desc,location_id,accident_type_id,witness_email,severity) values(?,?,?,?,?,?,?,?)";
+		String sql = "insert into accident (vehicle_count,accident_date,accident_time,accident_desc,location_id,accident_type_id,witness_email,severity) values(?,?,?,?,?,?,?,?)";
 
 		jdbcTemplate.update(sql, accident.getVehicleCount(), accident.getAccidentDate(),
 				accident.getAccidentTime(), accident.getAccidentDesc(), accident.getLocationId(),
@@ -61,7 +61,7 @@ public class AccidentDaoImpl implements AccidentDaoInterface {
 
 	@Override
 	public void updateAccident(Accident accident) {
-		String sql = "update accident set vehicle_count=?, accident_date=?, accident_time=?, acccident_desc=?, location_id=?, accident_type_id=?, witness_email=?, severity=? where accident_id=? ";
+		String sql = "update accident set vehicle_count=?, accident_date=?, accident_time=?, accident_desc=?, location_id=?, accident_type_id=?, witness_email=?, severity=? where accident_id=? ";
 		jdbcTemplate.update(sql, accident.getVehicleCount(), accident.getAccidentDate(), accident.getAccidentTime(),
 				accident.getAccidentDesc(), accident.getLocationId(), accident.getAccidentTypeId(),
 				accident.getWitnessEmail(), accident.getAccidentSeverity().toString() , accident.getAccidentId());
