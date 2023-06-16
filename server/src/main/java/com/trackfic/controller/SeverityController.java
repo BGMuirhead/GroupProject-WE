@@ -24,14 +24,14 @@ public class SeverityController {
 
 	
 	@GetMapping("/{value}")
-	public AccidentSeverity getAccidentTypeById(@PathVariable String value)
+	public AccidentSeverity getAccidentSeverityByValue(@PathVariable String value)
 	{
 		AccidentSeverity severity = severityService.getSeverityByValue(value);
 		return severity;
 	}
 	
 	@GetMapping("/severities")
-	public List<AccidentSeverity> getAllWitnesses() {
+	public List<AccidentSeverity> getAllSeverities() {
 
 		List<AccidentSeverity> severities = severityService.getAllSeverities();
 		return severities;
