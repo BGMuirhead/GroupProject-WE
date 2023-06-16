@@ -1,5 +1,7 @@
 package com.trackfic.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.trackfic.dao.SeverityDaoInterface;
@@ -17,6 +19,12 @@ public class SeverityServiceImpl implements SeverityServiceInterface {
 	@Override
 	public AccidentSeverity getSeverityByValue(String value) {
 		return severityDao.findSeverityByValue(value);
+	}
+
+	@Override
+	public List<AccidentSeverity> getAllSeverities() {
+		// TODO Auto-generated method stub
+		return severityDao.getAllSeverities();
 	}
 
 }

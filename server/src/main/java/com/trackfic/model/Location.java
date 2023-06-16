@@ -4,7 +4,7 @@ public class Location {
 
 	private int locationId;
 	private String streetName;
-	private String StreetNumber;
+	private String streetNumber;
 	private String suburb;
 	private int postcode;
 	private String state;
@@ -15,7 +15,7 @@ public class Location {
 		super();
 		this.locationId = locationId;
 		this.streetName = streetName;
-		StreetNumber = streetNumber;
+		streetNumber = streetNumber;
 		this.suburb = suburb;
 		this.postcode = postcode;
 		this.state = state;
@@ -38,10 +38,10 @@ public class Location {
 		this.streetName = streetName;
 	}
 	public String getStreetNumber() {
-		return StreetNumber;
+		return streetNumber;
 	}
 	public void setStreetNumber(String streetNumber) {
-		StreetNumber = streetNumber;
+		this.streetNumber = streetNumber;
 	}
 	public String getSuburb() {
 		return suburb;

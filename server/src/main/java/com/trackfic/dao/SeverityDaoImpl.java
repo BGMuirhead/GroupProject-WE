@@ -1,5 +1,7 @@
 package com.trackfic.dao;
 
+import java.util.List;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -31,6 +33,14 @@ public class SeverityDaoImpl implements SeverityDaoInterface {
 		}
 		return severity;
 		
+	}
+
+	@Override
+	public List<AccidentSeverity> getAllSeverities() {
+
+		String sql = "select * from severity";
+
+		return jdbcTemplate.query(sql,new SeverityMapper());
 	}
 
 }
