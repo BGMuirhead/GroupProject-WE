@@ -26,11 +26,6 @@
             l.addEventListener('click', () => { bsCollapse.toggle() })
         });
     </script>
-    <script>
-        $(window).on('load', function(){
-            $('#inputOtherType').hide();
-        });
-    </script>
 </head>
 <body style="overflow-x: hidden;">
     <div id="header">
@@ -48,16 +43,16 @@
                     <div class="offcanvas-body bg-dark mb-2 mb-lg-0 mb-xl-0">
                         <ul class="navbar-nav justify-content-center flex-grow-1 mt-1">
                             <li class="nav-item pe-4">
-                                <a class="nav-link active" href="home_page.html">Home</a>
+                                <a class="nav-link active" id="home-page-nav-link" onclick="showHomePage()">Home</a>
                             </li>
                             <li class="nav-item pe-4">
-                                <a class="nav-link" aria-current="page"  href="new_accident_page.html">New Accident</a>
+                                <a class="nav-link" id="new-accident-nav-link" onclick="showNewAccident()">New Accident</a>
                             </li>
                             <li class="nav-item pe-4">
-                                <a class="nav-link active" href="#">View Map</a>
+                                <a class="nav-link active" id="view-map-nav-link" href="#">View Map</a>
                             </li>
                             <li class="nav-item pe-1">
-                                <a class="nav-link active" href="all_accidents_page.html">All Accidents</a>
+                                <a class="nav-link active" id="all-accidents-nav-link" onclick="showAllAccidents()">All Accidents</a>
                             </li>
                         </ul>
                         <button type="button" id="login" class="btn btn-warning nav-button my-1" style="margin-right: 10px; font-weight: bold;">Login</button>
@@ -67,21 +62,33 @@
             </div>
         </nav>
     </div>
-    <div id="body" class="img-container">
+    <div class="home-page vid-container">
+        <video src="../videos/herovid.mp4" autoPlay loop muted></video>
+        <div class="text-center">
+            <h1 class="title pb-3">WITNESSED AN ACCIDENT?</h1>
+            <div class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-10 col-xxl-10 mx-auto">
+                <button type="button" id="new_accident_btn" class="btn btn-warning my-1 py-2 home-btn">Create Accident Form</button>
+                <button type="button" id="view_map_btn" class="btn btn-warning my-1 py-2 home-btn">View The Map</button>
+                <button type="button" id="all_accidents_btn" class="btn btn-warning my-1 py-2 home-btn">View All Accidents</button>
+            </div>
+        </div>
+    </div>
+    <div id="new-accident-body" class="new-accident img-container">
         <img class="bg-image" src="../images/city_bg.jpg" />
         <div class="row" style="color: white; padding-top: 100px;">
-            <div id="left-section" class="col-1 col-sm-2 col-md-2 col-lg-2 col-xl-3 col-xxl-3"></div>
+            <div id="new-accident-left-section" class="col-1 col-sm-2 col-md-2 col-lg-2 col-xl-3 col-xxl-3"></div>
             <div class="text-center col-10 col-sm-8 col-md-8 col-lg-8 col-xl-6 col-xxl-6">
                 <h2 class="container">New Accident</h2>
                 <h6 class="text-center m-auto" style="width: 96%;">Please fill in the appropriate data for the accident.</h6>
                 <h6 class="text-center m-auto" style="width: 96%;">You can choose to use your current location, or fill in the address manually.</h6>
             </div>
-            <div id="right-section" class="col-1 col-sm-2 col-md-2 col-lg-2 col-xl-3 col-xxl-3"></div>
+            <div id="new-accident-right-section" class="col-1 col-sm-2 col-md-2 col-lg-2 col-xl-3 col-xxl-3"></div>
         </div>
-        <div id="body-form" class="row my-5">
-            <div id="left-section" class="col-1 col-sm-2 col-md-2 col-lg-3 col-xl-3 col-xxl-3"></div>
-            <div id="form-section" class="col-10 col-sm-8 col-md-8 col-lg-6 col-xl-6 col-xxl-6 py-5 border border-4 border-warning" style="margin-bottom: 120px; background-color: white;">
-                <form role="form" id="addForm">      
+        <div id="new-accident-body-form" class="row my-5">
+            <div id="new-accident-left-section" class="col-1 col-sm-2 col-md-2 col-lg-3 col-xl-3 col-xxl-3"></div>
+            <div id="new-accident-form-section" class="col-10 col-sm-8 col-md-8 col-lg-6 col-xl-6 col-xxl-6 pb-5 pt-3 border border-4 border-warning" style="margin-bottom: 120px; background-color: white;">
+                <h5 class="text-center py-2" id="new-accident-post-notification"></h5>
+                <form role="form" id="new-accident-addForm" method="POST">      
                     <div class="row pb-3 mx-auto" style="width: 96%">
                         <div class="col-6">
                             <label for="inputLatitude" class="form-label">Latitude <span style="color:red">*</span></label>
@@ -119,7 +126,7 @@
                         <div class="col-4">
                             <label for="inputState" id="stateLabel" class="form-label">State <span style="color:red">*</span></label>
                             <select class="form-control" id="inputState" onchange="getLocation(false)">
-                                <option value="" selected disabled>Select State...</option>
+                                <option value="bad" selected disabled>Select State...</option>
                                 <option value="NSW">NSW</option>
                                 <option value="QLD">QLD</option>
                                 <option value="SA">SA</option>
@@ -143,15 +150,15 @@
                             <label for="inputAccType" class="form-label">Accident Type <span style="color:red">*</span></label>
                             <select class="form-control" id="inputAccType" onchange="isOther()" required>
                                 <option value="" selected disabled>Select Severity...</option>
-                                <option value="car">Car Crash</option>
-                                <option value="truck">Truck Crash</option>
-                                <option value="motorcycle">Motorcycle Crash</option>
-                                <option value="bus">Bus Crash</option>
-                                <option value="hit_and_run">Hit and Run</option>
-                                <option value="overturned_truck">Overturned Truck</option>
-                                <option value="car_fire">Car Fire</option>
-                                <option value="spill">Spill</option>
-                                <option value="vehicle_pedestrian">Vehicle and Pedestrian</option>
+                                <option value="Car Crash">Car Crash</option>
+                                <option value="Truck Crash">Truck Crash</option>
+                                <option value="Motorcycle Crash">Motorcycle Crash</option>
+                                <option value="Bus Crash">Bus Crash</option>
+                                <option value="Hit and Run">Hit and Run</option>
+                                <option value="Overturned Truck">Overturned Truck</option>
+                                <option value="Car Fire">Car Fire</option>
+                                <option value="Spill">Spill</option>
+                                <option value="Vehicle and Pedestrian">Vehicle and Pedestrian</option>
                                 <option value="other">Other</option>
                             </select>
                         </div>
@@ -166,7 +173,7 @@
                         </div>
                         <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3 col-xxl-3">
                             <label for="inputSeverity" class="form-label">Severity <span style="color:red">*</span></label>
-                            <select class="form-control" id="inputState" required>
+                            <select class="form-control" id="inputSeverity" required>
                                 <option value="" selected disabled>Select Severity...</option>
                                 <option value="Minor">Minor</option>
                                 <option value="Major">Major</option>
@@ -174,28 +181,80 @@
                             </select>
                         </div>
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-5 col-xxl-6 pt-3 pt-sm-3 pt-md-3 pt-lg-3 pt-xl-0">
-                            <label for="inputEmail" class="form-label">Witness Email <span style="color:red">*</span></label>
-                            <input type="email" class="form-control" id="inputEmail" required>
+                            <label for="inputWitnessEmail" class="form-label">Witness Email <span style="color:red">*</span></label>
+                            <input type="email" class="form-control" id="inputWitnessEmail" required>
                         </div>    
                         
                         
                     </div>
                     <hr>
                     <div class="text-center pt-4">
-                        <button type="submit" id="addStudent" class="btn btn-warning w-25" style="font-size: larger; font-weight: bold;">Submit</button>
+                        <button type="submit" id="addAccident" class="btn btn-warning w-25" style="font-size: larger; font-weight: bold;">Submit</button>
                         <button type="reset" class="btn btn-secondary w-25" style="font-size: larger; font-weight: bold; color: black;">Reset</button>
                     </div>
                 </form>
             </div>
-            <div id="right-section" class="col-1 col-sm-2 col-md-2 col-lg-3 col-xl-3 col-xxl-3 mb-5"></div>
+            <div id="new-accident-right-section" class="col-1 col-sm-2 col-md-2 col-lg-3 col-xl-3 col-xxl-3 mb-5"></div>
         </div>
     </div>
-    <footer class="bg-dark text-center text-white fixed-bottom" style="border-top: 5px solid black;">
+    <div id="all-accidents-body" class="all-accidents img-container">
+        <img class="bg-image" src="../images/city_bg.jpg" />
+        <div class="row" style="color: white; padding-top: 100px;">
+            <div id="all-accidents-left-section" class="col-1 col-sm-2 col-md-2 col-lg-2 col-xl-3 col-xxl-3"></div>
+            <div class="text-center col-10 col-sm-8 col-md-8 col-lg-8 col-xl-6 col-xxl-6">
+                <h2 class="container">All Accidents</h2>
+                <h6 class="text-center m-auto" style="width: 90%;">Here you can choose the accident severities and the state in which you are located, and it will display a list of the filtered accidents.</h6>
+            </div>
+            <div id="all-accidents-right-section" class="col-1 col-sm-2 col-md-2 col-lg-2 col-xl-3 col-xxl-3"></div>
+        </div>
+        <div class="row mb-1" style="color: white;">
+            <div id="all-accidents-left-section" class="col-1 col-sm-1 col-md-2 col-lg-2 col-xl-2 col-xxl-3"></div>
+            <div id="all-accidents-selector-body" class="col-10 col-sm-10 col-md-8 col-lg-8 col-xl-8 col-xxl-6 text-center mt-4 mb-1 m-auto border border-4 border-dark" style="border-radius: 15px; background-color: white; height: 75%">
+                <form style="color: black;" class="form-inline text-center pt-2 mb-2">
+                    <div class="row align-items-center" style="padding-left: 3%; padding-right: 3%;">
+                        <label style="word-wrap:break-word;" class="col-3 my-2" for="minorOpt"><input type="checkbox" id="minor_opt" name="selector[]" value="Minor" onchange="allAccidents()" checked/> Minor Accidents</label>
+                        <label style="word-wrap:break-word;" class="col-3 my-2" for="majorOpt"><input type="checkbox" id="major_opt" name="selector[]" value="Major" onchange="allAccidents()" checked/> Major Accidents</label>
+                        <label style="word-wrap:break-word;" class="col-3 my-2" for="severeOpt"><input type="checkbox" id="severe_opt" name="selector[]" value="Severe" onchange="allAccidents()" checked/> Severe Accidents</label>
+                        <select class="form-control col" id="state_dd" onchange="allAccidents()">
+                            <option value="All" id="all_state" selected>All States</option>
+                            <option value="NSW" id="nsw_state">NSW</option>
+                            <option value="QLD" id="qld_state">QLD</option>
+                            <option value="SA" id="sa_state">SA</option>
+                            <option value="TAS" id="tas_state">TAS</option>
+                            <option value="WA" id="wa_state">WA</option>
+                            <option value="NT" id="nt_state">NT</option>
+                            <option value="ACT" id="act_state">ACT</option>
+                            <option value="VIC" id="vic_state">VIC</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div id="all-accidents-right-section" class="col-1 col-sm-1 col-md-2 col-lg-2 col-xl-2 col-xxl-3"></div>
+        </div>
+        <div id="all-accidents-inside-body" class="row mb-1 mt-2" style="min-height: 45vh">
+            <div id="all-accidents-left-section" class="col-1 col-sm-1 col-md-2 col-lg-2 col-xl-2 col-xxl-3"></div>
+            <div id="all-accidents-form-section" class="col-10 col-sm-10 col-md-8 col-lg-8 col-xl-8 col-xxl-6 pb-5 pt-2 border border-4 border-dark" style="margin-bottom: 100px; background-color: white;">
+                <h6 id="display_acc_error" class="text-center pb-3"></h6>
+                
+                <div id="allAccidents"></div>
+                
+            </div>
+            <div id="all-accidents-right-section" class="col-1 col-sm-1 col-md-2 col-lg-2 col-xl-2 col-xxl-3"></div>
+        </div>
+        <div class="row ">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-5"></div>
+        </div>
+    </div>
+    <footer class="new-accident all-accidents view-map bg-dark text-center text-white fixed-bottom" style="border-top: 5px solid black;">
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
             <p>Developed by Traffic Buffering... <span>&copy</span> 2023</p>
             <p style="margin-top: -10px; margin-bottom: 3px; font-size: x-small;"><a class="text-white" style="text-decoration: none;" href="https://www.vecteezy.com/free-vector/night">Night Vectors by Vecteezy</a></p>
         </div>
     </footer>
-
+    <footer class="home-page bg-dark text-center text-white fixed-bottom" style="border-top: 5px solid black;">
+        <div class="text-center p-4 pb-2" style="background-color: rgba(0, 0, 0, 0.2);">
+            <p class="footer-group">Developed by Traffic Buffering... <span>&copy</span> 2023</p>
+        </div>
+    </footer>
 </body>
 </html>
