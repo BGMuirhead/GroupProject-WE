@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.trackfic.dao.AccidentDaoInterface;
 import com.trackfic.exception.ForeignKeyDeletionException;
+import com.trackfic.exception.SeverityNotFoundException;
 import com.trackfic.model.Accident;
 @Service
 public class AccidentServiceImpl implements AccidentServiceInterface {
@@ -36,6 +37,12 @@ public class AccidentServiceImpl implements AccidentServiceInterface {
 	}
 
 	public Accident addNewAccident(Accident accident) {
+		
+		//safeguards against accident severity not being selected
+		if(String.valueOf(accident.getAccidentSeverity()).equals("null"))
+		{
+			throw new SeverityNotFoundException("Accident severity not selected");
+		}
 		
 		returnedAccident = accidentDao.createNewAccident(accident);
 		
