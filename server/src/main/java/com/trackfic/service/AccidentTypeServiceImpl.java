@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.trackfic.dao.AccidentTypeDaoInterface;
+import com.trackfic.exception.DataMismatchException;
 import com.trackfic.model.AccidentType;
 @Service
 public class AccidentTypeServiceImpl implements AccidentTypeServiceInterface{
@@ -39,6 +40,7 @@ public class AccidentTypeServiceImpl implements AccidentTypeServiceInterface{
 		if(id!= accidentType.getTypeId())
 		{
 			//throw an error 
+			throw new DataMismatchException("Accident type id does not match");
 		}
 		
 		accidentTypeDao.updateAccidentType(accidentType);

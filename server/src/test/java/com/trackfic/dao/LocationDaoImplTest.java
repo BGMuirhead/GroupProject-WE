@@ -5,14 +5,17 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
 
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import com.trackfic.model.Location;
 
-//@DataJdbcTest
+@TestMethodOrder(OrderAnnotation.class)
 public class LocationDaoImplTest {
 
 	@Autowired
@@ -33,6 +36,7 @@ public class LocationDaoImplTest {
 	}
 	
 	@Test
+	@Order(1)
 	public void createTest()
 	{
 		Location location = new Location();
@@ -41,18 +45,20 @@ public class LocationDaoImplTest {
 		locationDao.createNewLocation(location);
 		List<Location> list = locationDao.getAllLocations();
 		assertNotNull(list);
-		assertEquals(3, list.size());
+		assertEquals(4, list.size());
 	}
 	
 	@Test
+	@Order(2)
 	public void getAllTest()
 	{
 		List<Location> list = locationDao.getAllLocations();
 		assertNotNull(list);
-		assertEquals(2, list.size());
+		assertEquals(4, list.size());
 	}
 	
 	@Test
+	@Order(3)
 	public void getOneTest()
 	{
 		Location location = locationDao.findLocationById(1);
@@ -61,28 +67,30 @@ public class LocationDaoImplTest {
 	}
 	
 	@Test
+	@Order(4)
 	public void updateTest()
 	{
-		Location location = new Location(2, "Test Street", "2", "Test Suburb", 1, "NSW", 0, 0);
+		Location location = new Location(5, "Test Street", "2", "Test Suburb", 1, "NSW", 0, 0);
 		locationDao.createNewLocation(location);
 		location.setSuburb("New Suburb");
 		locationDao.updateLocation(location);
 		
-		Location returned = locationDao.findLocationById(2);
+		Location returned = locationDao.findLocationById(5);
 		assertEquals(returned.getSuburb(), "New Suburb");
 	}
 	
 	@Test
+	@Order(5)
 	public void deleteTest()
 	{
-		locationDao.deleteLocation(2);
-		locationDao.deleteLocation(3);
+		locationDao.deleteLocation(4);
+		locationDao.deleteLocation(5);
 
 		
 //		assertNull(locationDao.getAllLocations());
 		
 		List<Location> list = locationDao.getAllLocations();
 		assertNotNull(list);
-		assertEquals(1, list.size());
+		assertEquals(3, list.size());
 	}
 }

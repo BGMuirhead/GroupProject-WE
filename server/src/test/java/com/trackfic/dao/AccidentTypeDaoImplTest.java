@@ -42,11 +42,11 @@ public class AccidentTypeDaoImplTest {
 	@Order(1)
 	public void createTest()
 	{
-		AccidentType accidentType = new AccidentType(2, "Test");
+		AccidentType accidentType = new AccidentType(4, "Test");
 		accidentTypeDao.createNewAccidentType(accidentType);
 		List<AccidentType> list = accidentTypeDao.getAllAccidentTypes();
 		assertNotNull(list);
-		assertEquals(2, list.size());
+		assertEquals(11, list.size());
 	}
 	
 	@Test
@@ -55,14 +55,14 @@ public class AccidentTypeDaoImplTest {
 	{
 		List<AccidentType> list = accidentTypeDao.getAllAccidentTypes();
 		assertNotNull(list);
-		assertEquals(2, list.size());
+		assertEquals(11, list.size());
 	}
 	
 	@Test
 	@Order(3)
 	public void getOneTest()
 	{
-		AccidentType accidentType = accidentTypeDao.findAccidentTypeById(2);
+		AccidentType accidentType = accidentTypeDao.findAccidentTypeById(11);
 		assertNotNull(accidentType);
 		assertEquals("Test", accidentType.getAccidentType());
 	}
@@ -71,12 +71,12 @@ public class AccidentTypeDaoImplTest {
 	@Order(4)
 	public void updateTest()
 	{
-		AccidentType accidentType = new AccidentType(3, "Test2");
+		AccidentType accidentType = new AccidentType(12, "Test2");
 		accidentTypeDao.createNewAccidentType(accidentType);
 		accidentType.setAccidentType("NotTest");
 		accidentTypeDao.updateAccidentType(accidentType);
 		
-		AccidentType returned = accidentTypeDao.findAccidentTypeById(3);
+		AccidentType returned = accidentTypeDao.findAccidentTypeById(12);
 		assertEquals(returned.getAccidentType(), "NotTest");
 	}
 	
@@ -84,11 +84,11 @@ public class AccidentTypeDaoImplTest {
 	@Order(5)
 	public void deleteTest()
 	{
-		accidentTypeDao.deleteAccidentType(2);
-		accidentTypeDao.deleteAccidentType(3);
+		accidentTypeDao.deleteAccidentType(11);
+		accidentTypeDao.deleteAccidentType(12);
 		
 		List<AccidentType> list = accidentTypeDao.getAllAccidentTypes();
 		assertNotNull(list);
-		assertEquals(1, list.size());
+		assertEquals(10, list.size());
 	}
 }
