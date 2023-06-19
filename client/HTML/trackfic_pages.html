@@ -139,17 +139,11 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="row py-3 mx-auto" style="width: 96%">
-                        <div class="col">
-                            <label for="inputAccDesc" class="form-label">Accident Description <span style="color:red">*</span></label>
-                            <input type="textarea" class="form-control" id="inputAccDesc" required>
-                        </div>
-                    </div>
                     <div class="row pb-3 mx-auto" style="width: 96%">
                         <div class="col-12">
                             <label for="inputAccType" class="form-label">Accident Type <span style="color:red">*</span></label>
                             <select class="form-control" id="inputAccType" onchange="isOther()" required>
-                                <option value="" selected disabled>Select Severity...</option>
+                                <option value="" selected disabled>Select Accident Type...</option>
                                 <option value="Car Crash">Car Crash</option>
                                 <option value="Truck Crash">Truck Crash</option>
                                 <option value="Motorcycle Crash">Motorcycle Crash</option>
@@ -159,11 +153,12 @@
                                 <option value="Car Fire">Car Fire</option>
                                 <option value="Spill">Spill</option>
                                 <option value="Vehicle and Pedestrian">Vehicle and Pedestrian</option>
-                                <option value="other">Other</option>
+                                <option value="Other">Other</option>
                             </select>
                         </div>
-                        <div class="col-12">
-                            <input type="textarea" class="form-control mt-2" id="inputOtherType" placeholder="Enter other accident type..." required>
+                        <div class="col-12 pt-3">
+                            <label for="inputAccDesc" id="inputAccDescLabel" class="form-label">Accident Description <span style="color:red">*</span></label>
+                            <input type="textarea" class="form-control" id="inputAccDesc" required>
                         </div>
                     </div>   
                     <div class="row pb-3 mx-auto" style="width: 96%">   

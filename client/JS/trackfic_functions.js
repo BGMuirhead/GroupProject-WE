@@ -48,7 +48,6 @@ function showNewAccident(){
   $('.home-page').hide();
   $('.view-map').hide();
   $('.new-accident').show();
-  $('#inputOtherType').hide();
 
   sessionStorage.setItem("activePage", '2');
   //console.log("sessionStorage: " + sessionStorage.getItem('activePage'))
@@ -221,13 +220,19 @@ function getLocation(isCoords){
       $('#postcodeLabel').html('Postcode');
       document.getElementById('inputState').required = false;
       $('#stateLabel').html('State');
+
+      document.getElementById('inputStreetNum').disabled = true;
+      document.getElementById('inputStreetName').disabled = true;
+      document.getElementById('inputSuburb').disabled = true;
+      document.getElementById('inputPostcode').disabled = true;
+      document.getElementById('inputState').disabled = true;
     };
 
     const errorCallback = (error) => {
       $('#coordsError').html('<h6 class="pt-3" style="color: darkred">Geolocation is not supported by this browser, please enter your address manually.</h6>');
       
       document.getElementById('inputLatitude').disabled = true;
-      document.getElementById('inputLatitude').disabled = true;
+      document.getElementById('inputLongitude').disabled = true;
 
       document.getElementById('inputStreetNum').required = true;
       document.getElementById('inputStreetName').required = true;
@@ -248,12 +253,12 @@ function getLocation(isCoords){
 
 function isOther(){
   //alert($('#inputAccType').val());
-  if($('#inputAccType').val() == "other"){
-    $('#inputOtherType').show();
-    document.getElementById('inputOtherType').required = true;
+  if($('#inputAccType').val() == "Other"){
+    document.getElementById('inputAccDesc').required = true;
+    $('#inputAccDescLabel').html('Accident Description <span style="color:red">*</span>');
   } else {
-    $('#inputOtherType').hide();
-    document.getElementById('inputOtherType').required = false;
+    document.getElementById('inputAccDesc').required = false;
+    $('#inputAccDescLabel').html('Accident Description');
   }
 }
 
@@ -309,6 +314,7 @@ $(document).ready(function(){
           console.log(response);
           return response.json();
         }).then(jsonData => {
+          //console.log(jsonData);
           //console.log(jsonData.results[0].geometry.location.lat);
           //console.log(jsonData.results[0].geometry.location.lng);
           $('#inputLatitude').val(jsonData.results[0].geometry.location.lat);
@@ -319,7 +325,6 @@ $(document).ready(function(){
           console.log(error);
         })
       }
-
              
   });
 });
@@ -342,7 +347,7 @@ function postLocationData(){
     success: function (data) {
         console.log('location was created: ' + data);
 
-        postAccidentType();
+        getRelevantAccidentData();
     },
     error: function (event, xhr) {
       // var err = JSON.parse(event.responseText);
@@ -356,40 +361,6 @@ function postLocationData(){
       alert(event.responseText);
     }
   })
-}
-
-function postAccidentType(){
-  if($('#inputAccType').val() == "other"){
-    $.ajax({
-      type: 'POST',
-      url: 'http://localhost:3333/accidenttype/add',
-      data: JSON.stringify({
-          accidenType: $('#inputOtherType').val()
-      }),
-      contentType: 'application/json',
-      accept: 'application/json',
-      success: function (data) {
-          console.log('accidentType was created: ' + data);
-  
-          getRelevantAccidentData();
-      },
-      error: function (event, xhr) {
-        // var err = JSON.parse(event.responseText);
-        // // var notify = $('#display_acc_error');
-        // // notify.empty();
-        // // notify.append(err.details);
-        // alert(err.details);
-        $('#new-accident-post-notification').empty();
-        $('#new-accident-post-notification').append("Oh no! There's been an error with the <b>accident type</b> in the form, please fix accordingly.");
-        console.log("failed at accidenttype");
-        alert(event.responseText);
-        console.log(xhr);
-      }
-    });
-  } else {
-    console.log("skipping postAccidentType...");
-    getRelevantAccidentData();
-  }
 }
 
 function getRelevantAccidentData(){
@@ -414,7 +385,7 @@ function getRelevantAccidentData(){
         url: 'http://localhost:3333/accidenttype/accidenttypes',
         success: function (accidentTypeArray) {
           $.each(accidentTypeArray, function (index, accidentType) {
-            if(accidentType.accidentType == $('#inputAccType').val() || accidentType.accidentType == $('#inputOtherType').val()){
+            if(accidentType.accidentType == $('#inputAccType').val()){
               accidentTypeId = accidentType.typeId;
               //console.log("finished accident types");
               //console.log(accidentTypeId);
