@@ -63,6 +63,7 @@ function showMap(){
   $('.home-page').hide();
   $('.all-accidents').hide();
   $('.view-map').show();
+  viewMap();
 
   sessionStorage.setItem("activePage", '3');
   //console.log("sessionStorage: " + sessionStorage.getItem('activePage'))
@@ -88,6 +89,15 @@ function showAllAccidents(){
   document.getElementById('view-map-nav-link').classList.remove('active');
   document.getElementById('all-accidents-nav-link').classList.add('active');
 }
+
+function viewMap() {
+  let map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: -34.397, lng: 150.644 },
+    zoom: 8,
+  });
+}
+
+
 
 function allAccidents() {
   var selectElement = document.querySelector('#state_dd');
@@ -173,33 +183,23 @@ function allAccidents() {
                 }
               })
             },
-            error: function (event) {
-              // var err = JSON.parse(event.responseText);
-              console.log("failed at accidents list: " + event);
-              // var notify = $('#display_acc_error');
-              // notify.empty();
-              // notify.append(err.details);
+            error: function (xhr) {
+              var err = JSON.parse(xhr.responseText);
+              alert(err.details + ": " + err.message);
             }
           });
         },
-        error: function (event) {
-          // var err = JSON.parse(event.responseText);
-          console.log("failed at accident types list: " + event);
-          // var notify = $('#display_acc_error');
-          // notify.empty();
-          // notify.append(err.details);
+        error: function (xhr) {
+          var err = JSON.parse(xhr.responseText);
+          alert(err.details + ": " + err.message);
         }
       });
     },
-    error: function (event, xhr) {
-      // var err = JSON.parse(event.responseText);
-      console.log("failed at locations list: " + event);
-      // var notify = $('#display_acc_error');
-      // notify.empty();
-      // notify.append(err.details);
+    error: function (xhr) {
+      var err = JSON.parse(xhr.responseText);
+      alert(err.details + ": " + err.message);
     }
   });
-
 }
 
 function getLocation(isCoords){
@@ -298,9 +298,9 @@ $(document).ready(function(){
   
             postLocationData();
         },
-        error: function(error) {
-            console.log(error);
-            console.log(error.status);
+        error: function (xhr) {
+          var err = JSON.parse(xhr.responseText);
+          alert(err.details + ": " + err.message);
         }
         })  
       } else {
@@ -349,16 +349,12 @@ function postLocationData(){
 
         getRelevantAccidentData();
     },
-    error: function (event, xhr) {
-      // var err = JSON.parse(event.responseText);
-      // // var notify = $('#display_acc_error');
-      // // notify.empty();
-      // // notify.append(err.details);
-      // alert(err.details);
+    error: function (xhr) {
+      var err = JSON.parse(xhr.responseText);
+      alert(err.details + ": " + err.message);
+    
       $('#new-accident-post-notification').empty();
       $('#new-accident-post-notification').append("Oh no! There's been an error with the <b>location information</b> in the form, please fix accordingly.");
-      console.log("failed");
-      alert(event.responseText);
     }
   })
 }
@@ -394,18 +390,20 @@ function getRelevantAccidentData(){
           postAccidentData(locationId, accidentTypeId);
         },
         error: function (xhr) {
+          var err = JSON.parse(xhr.responseText);
+          alert(err.details + ": " + err.message);
+        
           $('#new-accident-post-notification').empty();
           $('#new-accident-post-notification').append("Oh no! There's been an error with the <b>accident type reference</b> in the form.");
-          console.log("failed at get accident types");
-          console.log(xhr.status);
         }
       });
     },
     error: function (xhr) {
+      var err = JSON.parse(xhr.responseText);
+      alert(err.details + ": " + err.message);
+    
       $('#new-accident-post-notification').empty();
       $('#new-accident-post-notification').append("Oh no! There's been an error with the <b>location reference</b> in the form.");
-      console.log("failed at get locations");
-      console.log(xhr.status);
     }
   });
 }
@@ -448,13 +446,12 @@ function postAccidentData(newLocationId, newAccidentTypeId){
       $('#new-accident-post-notification').empty();
       $('#new-accident-post-notification').append("Success! The accident has been created and placed on the map.");
     },
-    error: function (event, xhr) {
+    error: function (xhr) {
+      var err = JSON.parse(xhr.responseText);
+      alert(err.details + ": " + err.message);
+    
       $('#new-accident-post-notification').empty();
       $('#new-accident-post-notification').append("Oh no! There's been an error with the <b>accident information</b> in the form, please fix accordingly.");
-      console.log("failed at post accident");
-      alert(event.responseText);
-      console.log(event);
-      console.log(xhr);
     }
   });
 }
