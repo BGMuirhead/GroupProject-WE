@@ -25,12 +25,15 @@ public class WitnessController {
 	@Autowired
 	WitnessServiceImpl witnessService;
 
-	@GetMapping("/witnesses")
-	public List<Witness> getAllWitnesses() {
-
-		List<Witness> witness = witnessService.getAllWitnesses();
-		return witness;
-	}
+	
+//	Currently unimplemented in front end so hiding end point	
+//	
+//	@GetMapping("/witnesses")
+//	public List<Witness> getAllWitnesses() {
+//
+//		List<Witness> witness = witnessService.getAllWitnesses();
+//		return witness;
+//	}
 	
 	@GetMapping("/{email}")
 	public Witness getWitnessById(@PathVariable String email)

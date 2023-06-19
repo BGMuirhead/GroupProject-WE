@@ -27,6 +27,7 @@ public class AccidentController {
 	@Autowired
 	AccidentServiceImpl accidentService;
 
+	//USED
 	@GetMapping("/accidents")
 	public List<Accident> getAllAccidents() {
 
@@ -34,14 +35,24 @@ public class AccidentController {
 		return accidents;
 	}
 	
-	@GetMapping("/{id}")
-	public Accident getAccidentById(@PathVariable int id)
+	//USED
+	@GetMapping("/bywitnessemail/{email}")
+	public List<Accident> getAccidentByWitnessEmail(@PathVariable String email)
 	{
-		Accident accident = accidentService.getAccidentById(id);
+		return accidentService.getAccidentsByWitnessEmail(email);
 		
-		return accident;
 	}
+//	Currently unimplemented in front end so hiding end point	
+//	
+//	@GetMapping("/{id}")
+//	public Accident getAccidentById(@PathVariable int id)
+//	{
+//		Accident accident = accidentService.getAccidentById(id);
+//		
+//		return accident;
+//	}
 	
+	//USED
 	@PostMapping("/add")
 	public Accident addAccident(@Valid @RequestBody Accident accident)
 	{
@@ -49,14 +60,15 @@ public class AccidentController {
 		return accident1;
 	}
 	
-	
-	@PutMapping("{id}")
-	public Accident updateAccident(@PathVariable int id, @RequestBody Accident accident)
-	{
-		Accident accident1 = accidentService.updateAccidentData(id, accident);
-		return accident1;
-		
-	}
+//	Currently unimplemented in front end so hiding end point	
+//	
+//	@PutMapping("{id}")
+//	public Accident updateAccident(@PathVariable int id, @RequestBody Accident accident)
+//	{
+//		Accident accident1 = accidentService.updateAccidentData(id, accident);
+//		return accident1;
+//		
+//	}
 	
 	@DeleteMapping("/{id}")
 	public void deleteAccident(@PathVariable int id)
