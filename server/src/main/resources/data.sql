@@ -1,10 +1,10 @@
 
 INSERT INTO witness VALUES
-('testperson@email.com','Test', 'Person', 123456789),
-('bevanmuirhead@gmail.com','Bevan', 'Muirhead', 987654321),
-('genericman@email.com','Generic', 'Man', 111111111),
-('genericwoman@email.com','Generic', 'Woman', 111111112),
-('cayden.darley@gmail.com', 'Cayden', 'Darley', 1111222333);
+('testperson@email.com','Test', 'Person', 123456789 , 1),
+('bevanmuirhead@gmail.com','Bevan', 'Muirhead', 987654321, 2),
+('genericman@email.com','Generic', 'Man', 111111111, 3),
+('genericwoman@email.com','Generic', 'Woman', 111111112, 4),
+('cayden.darley@gmail.com', 'Cayden', 'Darley', 1111222333, 5);
 
 INSERT INTO accidenttype values
 (1,"Car Crash"),
@@ -26,8 +26,8 @@ INSERT INTO severity values
 
 INSERT INTO location VALUES
 (1,'1', "Wellgate Avenue" ,"Kellyville",2155, "NSW", "-33.68359941231308", "150.93210341670581" ),
-(2,"", "" ,"Cardiff South",2285, "NSW", "-32.950974", "151.662222" ),
-(3,'', "" ,"Red Hill",4059, "QLD", "0", "0" );
+(2,"2", "May Street" ,"Cardiff South",2285, "NSW", "-32.950974", "151.662222" ),
+(3,'2', "Staple Street" ,"Seventeen Mile Rocks",4073, "QLD", "-27.545100", "152.954106" );
 
 
 INSERT INTO accident VALUES

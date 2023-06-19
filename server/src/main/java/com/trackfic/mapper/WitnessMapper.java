@@ -16,8 +16,9 @@ public class WitnessMapper implements RowMapper<Witness> {
 		String firstName = rs.getString("first_name");
 		String lastName = rs.getString("last_name");
 		int mobile = rs.getInt("mobile");
+		String password = rs.getString("password");
 
-		Witness witness = new Witness(email, firstName, lastName, mobile);
+		Witness witness = new Witness(email, firstName, lastName, mobile,password);
 
 		return witness;
 	}

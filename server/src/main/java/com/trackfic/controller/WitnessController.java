@@ -49,6 +49,13 @@ public class WitnessController {
 		return witness1;
 	}
 	
+	@PostMapping("/login")
+	public Witness loginWitness(@RequestBody Witness witness)
+	{
+		Witness witness1 = witnessService.loginWitness(witness.getEmail(), witness.getPassword());
+		return witness1;
+	}
+	
 	
 	@PutMapping("{email}")
 	public Witness updateWitness(@PathVariable String email, @RequestBody Witness witness)

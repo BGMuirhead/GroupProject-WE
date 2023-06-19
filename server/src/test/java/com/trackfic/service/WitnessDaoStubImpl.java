@@ -11,7 +11,7 @@ public class WitnessDaoStubImpl implements WitnessDaoInterface{
 	public Witness singleWitness;
 	
 	public WitnessDaoStubImpl() {
-		singleWitness = new Witness("email", "firstName", "lastName", 1);
+		singleWitness = new Witness("email", "firstName", "lastName", 1,"1");
 	}
 	
 	@Override
@@ -49,6 +49,16 @@ public class WitnessDaoStubImpl implements WitnessDaoInterface{
 	@Override
 	public void deleteWitness(String email) {
 		 //Pass through method no tests		
+	}
+
+	@Override
+	public Witness login(String email, String password) {
+		
+		if(singleWitness.getEmail().equals(email) && singleWitness.getPassword().equals(password))
+		{
+			return singleWitness;
+		}
+		return null;
 	}
 
 	
