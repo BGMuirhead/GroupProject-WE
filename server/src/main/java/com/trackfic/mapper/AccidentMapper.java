@@ -32,6 +32,10 @@ public class AccidentMapper implements RowMapper<Accident> {
 		String witnessEmail= rs.getString("witness_email");
 		AccidentSeverity severity = AccidentSeverity.valueOf(rs.getString("severity"));
 		
+		if(severity.equals("null"))
+		{
+			
+		}
 		
 		Accident accident = new Accident(accidentId, vehicleCount, accidentTime, accidentDate, accidentDesc,locationId, typeId, witnessEmail,severity);
 

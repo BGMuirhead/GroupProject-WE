@@ -1,13 +1,14 @@
 package com.trackfic.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import com.trackfic.exception.AccidentNotFoundException;
 import com.trackfic.exception.ForeignKeyDeletionException;
+import com.trackfic.exception.IntegrityConstraintUnsatisfiedException;
 import com.trackfic.mapper.AccidentMapper;
 import com.trackfic.model.Accident;
 
@@ -24,22 +25,26 @@ public class AccidentDaoImpl implements AccidentDaoInterface {
 
 	@Override
 	public Accident createNewAccident(Accident accident) {
-		
-		//used to reset auto_increment if there is any fail on insert prior
-		jdbcTemplate.update("ALTER TABLE accident AUTO_INCREMENT =1;");
-		
-		
-		//Insert new record into DB
-		String sql = "insert into accident (vehicle_count,accident_date,accident_time,accident_desc,location_id,accident_type_id,witness_email,severity) values(?,?,?,?,?,?,?,?)";
-		jdbcTemplate.update(sql, accident.getVehicleCount(), accident.getAccidentDate(),
-				accident.getAccidentTime(), accident.getAccidentDesc(), accident.getLocationId(),
-				accident.getAccidentTypeId(), accident.getWitnessEmail(), accident.getAccidentSeverity().toString());
 
-		sql = "select max(accident_id) from accident";
-		int max = jdbcTemplate.queryForObject(sql, Integer.class);
-		
-		accident.setAccidentId(max);
-		return accident;
+		// used to reset auto_increment if there is any fail on insert prior
+		jdbcTemplate.update("ALTER TABLE accident AUTO_INCREMENT =1;");
+
+		// Insert new record into DB
+		String sql = "insert into accident (vehicle_count,accident_date,accident_time,accident_desc,location_id,accident_type_id,witness_email,severity) values(?,?,?,?,?,?,?,?)";
+		try {
+			jdbcTemplate.update(sql, accident.getVehicleCount(), accident.getAccidentDate(), accident.getAccidentTime(),
+					accident.getAccidentDesc(), accident.getLocationId(), accident.getAccidentTypeId(),
+					accident.getWitnessEmail(), accident.getAccidentSeverity().toString());
+
+			sql = "select max(accident_id) from accident";
+			int max = jdbcTemplate.queryForObject(sql, Integer.class);
+
+			accident.setAccidentId(max);
+			return accident;
+		} catch (DataAccessException e) {
+			throw new IntegrityConstraintUnsatisfiedException("Witness email does not match an existing record");
+		}
+
 	}
 
 	@Override

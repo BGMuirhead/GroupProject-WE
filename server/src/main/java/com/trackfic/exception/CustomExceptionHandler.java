@@ -22,6 +22,14 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
 	}
 	
+	@ExceptionHandler(IntegrityConstraintUnsatisfiedException.class)
+	public final ResponseEntity<Object> handleAllExceptions(IntegrityConstraintUnsatisfiedException ex, WebRequest req) {
+		ExceptionResponse response = new ExceptionResponse(new Date(), ex.getMessage(), "A data integrity exception has occured");
+
+		return new ResponseEntity(response, HttpStatus.INTERNAL_SERVER_ERROR);
+
+	}
+	
 	@ExceptionHandler(WitnessNotFoundException.class)
 	public final ResponseEntity<Object> handleWitnessNotFoundException(WitnessNotFoundException ex, WebRequest req)
 	{
