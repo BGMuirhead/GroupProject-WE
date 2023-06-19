@@ -15,7 +15,7 @@ CREATE TABLE witness (
 
 CREATE TABLE accidenttype(
   accident_type_id int AUTO_INCREMENT PRIMARY KEY, 
-  accident_type VARCHAR(20) NOT NULL
+  accident_type VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE severity(

@@ -23,7 +23,7 @@ public class WitnessDaoImpl implements WitnessDaoInterface {
 
 	@Override
 	public Witness createNewWitness(Witness witness) {
-
+		
 		String sql = "insert into witness values (?,?,?,?)";
 		jdbcTemplate.update(sql, witness.getEmail(), witness.getFirstName(), witness.getLastName(),
 				witness.getMobile());

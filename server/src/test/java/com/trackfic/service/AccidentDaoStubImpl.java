@@ -9,6 +9,8 @@ import com.trackfic.dao.AccidentDaoInterface;
 import com.trackfic.enums.AccidentSeverity;
 import com.trackfic.model.Accident;
 
+
+//class used to act as the Dao would without altering the DB
 public class AccidentDaoStubImpl implements AccidentDaoInterface{
 
 	

@@ -38,6 +38,8 @@ public class AccidentDaoImplTest {
 		
 	}
 	
+	
+	//tests the create method of accident dao layer
 	@Test
 	@Order(1)
 	public void createTest()
@@ -51,7 +53,7 @@ public class AccidentDaoImplTest {
 		assertEquals(2, list.size());
 	}
 	
-	@Test
+	//tests the get all method of accident dao layer
 	@Order(2)
 	public void getAllTest()
 	{
@@ -59,7 +61,7 @@ public class AccidentDaoImplTest {
 		assertNotNull(list);
 		assertEquals(2, list.size());
 	}
-	
+	//tests the find accident by id method of accident dao layer
 	@Test
 	@Order(3)
 	public void getOneTest()
@@ -68,7 +70,8 @@ public class AccidentDaoImplTest {
 		assertNotNull(accident);
 		assertEquals("Description", accident.getAccidentDesc());
 	}
-	
+	 
+	//tests the update accident of accident dao layer
 	@Test
 	@Order(4)
 	public void updateTest()
@@ -82,7 +85,8 @@ public class AccidentDaoImplTest {
 		Accident returned = accidentDao.findAccidentById(3);
 		assertEquals(returned.getAccidentDesc(), "Test Description");
 	}
-	
+	 
+	//tests the delete accident of accident dao layer
 	@Test
 	@Order(5)
 	public void deleteTest()
