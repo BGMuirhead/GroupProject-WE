@@ -14,6 +14,15 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" 
         crossorigin="anonymous">
     </script>
+    <script>
+        (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+        key: "AIzaSyBIV-yfyLwbrQh7fGqgrkMFHGXGjgn6258",
+        v: "weekly",
+        // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
+        // Add other bootstrap parameters as needed, using camel case.
+        });
+    </script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIV-yfyLwbrQh7fGqgrkMFHGXGjgn6258&callback=viewMap"></script>
     <script src="../JS/trackfic_functions.js"></script>
     <link href="../BOOTSTRAP/bootstrap-5.1.0-dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../BOOTSTRAP/external.css" rel="stylesheet">
@@ -49,7 +58,7 @@
                                 <a class="nav-link" id="new-accident-nav-link" onclick="showNewAccident()">New Accident</a>
                             </li>
                             <li class="nav-item pe-4">
-                                <a class="nav-link active" id="view-map-nav-link" href="#">View Map</a>
+                                <a class="nav-link active" id="view-map-nav-link" onclick="showMap()">View Map</a>
                             </li>
                             <li class="nav-item pe-1">
                                 <a class="nav-link active" id="all-accidents-nav-link" onclick="showAllAccidents()">All Accidents</a>
@@ -67,9 +76,9 @@
         <div class="text-center">
             <h1 class="title pb-3">WITNESSED AN ACCIDENT?</h1>
             <div class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-10 col-xxl-10 mx-auto">
-                <button type="button" id="new_accident_btn" class="btn btn-warning my-1 py-2 home-btn">Create Accident Form</button>
-                <button type="button" id="view_map_btn" class="btn btn-warning my-1 py-2 home-btn">View The Map</button>
-                <button type="button" id="all_accidents_btn" class="btn btn-warning my-1 py-2 home-btn">View All Accidents</button>
+                <button type="button" id="new_accident_btn" class="btn btn-warning my-1 py-2 home-btn" onclick="showNewAccident()">Create Accident Form</button>
+                <button type="button" id="view_map_btn" class="btn btn-warning my-1 py-2 home-btn" onclick="showMap()">View The Map</button>
+                <button type="button" id="all_accidents_btn" class="btn btn-warning my-1 py-2 home-btn" onclick="showAllAccidents()">View All Accidents</button>
             </div>
         </div>
     </div>
@@ -91,11 +100,11 @@
                 <form role="form" id="new-accident-addForm" method="POST">      
                     <div class="row pb-3 mx-auto" style="width: 96%">
                         <div class="col-6">
-                            <label for="inputLatitude" class="form-label">Latitude <span style="color:red">*</span></label>
+                            <label for="inputLatitude" id="latitudeLabel" class="form-label">Latitude <span style="color:red">*</span></label>
                             <input type="number" step="any" class="form-control" id="inputLatitude" required>
                         </div>
                         <div class="col-6">
-                            <label for="inputLongitude" class="form-label">Longitude <span style="color:red">*</span></label>
+                            <label for="inputLongitude" id="longitudeLabel" class="form-label">Longitude <span style="color:red">*</span></label>
                             <input type="number" step="any" class="form-control" id="inputLongitude" required>
                         </div>
                     </div>
@@ -139,17 +148,11 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="row py-3 mx-auto" style="width: 96%">
-                        <div class="col">
-                            <label for="inputAccDesc" class="form-label">Accident Description <span style="color:red">*</span></label>
-                            <input type="textarea" class="form-control" id="inputAccDesc" required>
-                        </div>
-                    </div>
                     <div class="row pb-3 mx-auto" style="width: 96%">
                         <div class="col-12">
                             <label for="inputAccType" class="form-label">Accident Type <span style="color:red">*</span></label>
                             <select class="form-control" id="inputAccType" onchange="isOther()" required>
-                                <option value="" selected disabled>Select Severity...</option>
+                                <option value="" selected disabled>Select Accident Type...</option>
                                 <option value="Car Crash">Car Crash</option>
                                 <option value="Truck Crash">Truck Crash</option>
                                 <option value="Motorcycle Crash">Motorcycle Crash</option>
@@ -159,11 +162,12 @@
                                 <option value="Car Fire">Car Fire</option>
                                 <option value="Spill">Spill</option>
                                 <option value="Vehicle and Pedestrian">Vehicle and Pedestrian</option>
-                                <option value="other">Other</option>
+                                <option value="Other">Other</option>
                             </select>
                         </div>
-                        <div class="col-12">
-                            <input type="textarea" class="form-control mt-2" id="inputOtherType" placeholder="Enter other accident type..." required>
+                        <div class="col-12 pt-3">
+                            <label for="inputAccDesc" id="inputAccDescLabel" class="form-label">Accident Description <span style="color:red">*</span></label>
+                            <input type="textarea" class="form-control" id="inputAccDesc" required>
                         </div>
                     </div>   
                     <div class="row pb-3 mx-auto" style="width: 96%">   
@@ -195,6 +199,23 @@
                 </form>
             </div>
             <div id="new-accident-right-section" class="col-1 col-sm-2 col-md-2 col-lg-3 col-xl-3 col-xxl-3 mb-5"></div>
+        </div>
+    </div>
+    <div id="view-map-body" class="img-container">
+        <img class="bg-image" src="../images/city_bg.jpg" />
+        <div class="row" style="color: white; padding-top: 100px;">
+            <div id="view-map-left-section" class="col-1 col-sm-2 col-md-2 col-lg-2 col-xl-3 col-xxl-3"></div>
+            <div class="text-center col-10 col-sm-8 col-md-8 col-lg-8 col-xl-6 col-xxl-6">
+                <h2 class="container">The Accidents Map</h2>
+                <h6 class="text-center m-auto" style="width: 90%;">View all the accidents around a location.</h6>
+            </div>
+            <div id="view-map-right-section" class="col-1 col-sm-2 col-md-2 col-lg-2 col-xl-3 col-xxl-3"></div>
+        </div>
+        <div class="row map-container justify-content-center">
+            <div id="map"></div>
+        </div>
+        <div class="row" style="padding-bottom: 100px;">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-5"></div>
         </div>
     </div>
     <div id="all-accidents-body" class="all-accidents img-container">
