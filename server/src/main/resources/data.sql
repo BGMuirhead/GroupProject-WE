@@ -18,6 +18,7 @@ INSERT INTO accidenttype values
 (9,"Vehicle and Pedestrian"),
 (10,"Other");
 
+
 INSERT INTO severity values
 ("Minor"),
 ("Major"),
@@ -33,3 +34,5 @@ INSERT INTO accident VALUES
 (1,2,"2023-06-15","08:15:12","Two car major crash in middle of road",1,1,'testperson@email.com',"Minor"),
 (2,1,"2023-06-17","09:15:15","Massive Oil Spill",2,7,'genericman@email.com',"Major"),
 (3,3,"2023-06-19","10:15:19","2x motorbikes and one truck involved",3,3,'genericwoman@email.com',"Severe");
+
+
