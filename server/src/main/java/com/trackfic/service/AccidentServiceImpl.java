@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.trackfic.dao.AccidentDaoInterface;
+import com.trackfic.exception.DataMismatchException;
 import com.trackfic.exception.ForeignKeyDeletionException;
 import com.trackfic.exception.SeverityNotFoundException;
 import com.trackfic.model.Accident;
@@ -29,7 +30,6 @@ public class AccidentServiceImpl implements AccidentServiceInterface {
 
 	public Accident getAccidentById(int id) {
 
-		returnedAccident.setAccidentId(id);
 
 		returnedAccident = accidentDao.findAccidentById(id);
 
@@ -54,6 +54,7 @@ public class AccidentServiceImpl implements AccidentServiceInterface {
 		if(id!= accident.getAccidentId())
 		{
 			//throw an error 
+			throw new DataMismatchException("Accident id does not match");
 		}
 		accidentDao.updateAccident(accident);
 		
@@ -64,6 +65,14 @@ public class AccidentServiceImpl implements AccidentServiceInterface {
 		
 		accidentDao.deleteAccident(id);
 
+	}
+
+	@Override
+	public List<Accident> getAccidentsByWitnessEmail(String email) {
+
+		
+
+		return accidentDao.getAccidentsByWitnessEmail(email);
 	}
 
 }
