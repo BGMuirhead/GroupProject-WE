@@ -23,7 +23,8 @@ public class LocationDaoImpl implements LocationDaoInterface {
 
 	@Override
 	public Location createNewLocation(Location location) {
-
+		
+		jdbcTemplate.update("ALTER TABLE location AUTO_INCREMENT =1;");
 		String sql = "insert into location (street_number, street_name, suburb, postcode, loc_state, latitude, longitude)" + 
 				" values(?,?,?,?,?,?,?)";
 

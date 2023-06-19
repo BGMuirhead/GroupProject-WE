@@ -23,7 +23,7 @@ public class AccidentServiceTests {
 		
 	}
 	
-	
+	//tests the create accident method of the accident service layer
 	@Test
 	public void createAccidentTest()
 	{
@@ -40,6 +40,7 @@ public class AccidentServiceTests {
 		
 	}
 	
+	//tests the update accident method of the accident service layer
 	public void updateAccidentTest()
 	{
 		Accident temp =  new Accident(1, 1, new java.sql.Time(11, 51, 10), new Date(2020, 10, 23), "accidentDesc", 1, 1, "email", AccidentSeverity.Major);
@@ -58,9 +59,9 @@ public class AccidentServiceTests {
 		
 		
 		
-		
 	}
 	
+	//tests the find accident by id method of the accident service layer
 	public void findAccidentByIdTest() {
 		Accident temp =  new Accident(1, 1, new java.sql.Time(11, 51, 10), (java.sql.Date) new Date(2023, 6, 6), "accidentDesc", 1, 1, "email", AccidentSeverity.Major);
 		Accident test = accidentService.getAccidentById(1);
@@ -69,6 +70,8 @@ public class AccidentServiceTests {
 		assertNull(test);
 		
 	}
+	
+	//remaining service methods are passthrough methods so are untested here 
 	
 	
 }
