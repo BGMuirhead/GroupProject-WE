@@ -104,6 +104,10 @@ function allAccidents() {
   var locationIds = [];
   var locationList = [];
   var locationStates = [];
+  
+  var typeIds = [];
+  var typeList = [];
+  
   $.ajax({
     type: 'GET',
     url: 'http://localhost:3333/location/locations',
@@ -123,78 +127,80 @@ function allAccidents() {
         locationList[index] = locationData;
         locationStates[index] = location.state;
       })
+
+      $.ajax({
+        type: 'GET',
+        url: 'http://localhost:3333/accidenttype/accidenttypes',
+        success: function (accidentTypeArray) {
+          //for each accidenttype
+          $.each(accidentTypeArray, function (index, accidentType) {
+            typeIds[index] = accidentType.typeId;
+            typeList[index] = accidentType.accidentType;
+          })
+    
+          $.ajax({
+            type: 'GET',
+            url: 'http://localhost:3333/accident/accidents',
+            success: function (accidentArray) {
+              var accidentDiv = $('div#allAccidents');
+        
+              //         accident.accidentId;
+              //         accident.vehicleCount;
+              //         accident.accidentTime;
+              //         accident.accidentDate;
+              //         accident.accidentDesc;
+              //         accident.locationId;
+              //         accident.accidentTypeId;
+              //         accident.witnessEmail;
+              //         accident.accidentSeverity;
+        
+              $.each(accidentArray, function (index, accident) {
+        
+                var accidentInfo = '<p style="margin-left: 10px;">';
+                accidentInfo += '<b>Accident Description:</b> ' + accident.accidentDesc + '<br>';
+                accidentInfo += '<b>Accident Type:</b> ' + typeList[accident.accidentTypeId-1] + '<br>';
+                accidentInfo += '<b>Vehicles Involved:</b> ' + accident.vehicleCount + '<br>';
+                accidentInfo += '<b>Recorded at:</b> ' + accident.accidentTime + ' on ' + accident.accidentDate + '<br>';
+                accidentInfo += '<b>Located at:</b> ' + locationList[accident.locationId-1] + '<br>';
+                accidentInfo += '<b>Severity:</b> ' + accident.accidentSeverity + '<br>';
+                accidentInfo += '</p><hr>';
+        
+                for (let i = 0; i < checkboxed.length; i++) {
+                  if (checkboxed[i] == accident.accidentSeverity) {
+                    if(stateOutput == "All" || stateOutput == locationStates[index]){
+                      accidentDiv.append(accidentInfo);
+                    }
+                  }
+                }
+              })
+            },
+            error: function (event) {
+              // var err = JSON.parse(event.responseText);
+              console.log("failed at accidents list: " + event);
+              // var notify = $('#display_acc_error');
+              // notify.empty();
+              // notify.append(err.details);
+            }
+          });
+        },
+        error: function (event) {
+          // var err = JSON.parse(event.responseText);
+          console.log("failed at accident types list: " + event);
+          // var notify = $('#display_acc_error');
+          // notify.empty();
+          // notify.append(err.details);
+        }
+      });
     },
     error: function (event, xhr) {
-      var err = JSON.parse(event.responseText);
-      var notify = $('#display_acc_error');
-      notify.empty();
-      notify.append(err.details);
+      // var err = JSON.parse(event.responseText);
+      console.log("failed at locations list: " + event);
+      // var notify = $('#display_acc_error');
+      // notify.empty();
+      // notify.append(err.details);
     }
   });
 
-  var typeIds = [];
-  var typeList = [];
-  $.ajax({
-    type: 'GET',
-    url: 'http://localhost:3333/accidenttype/accidenttypes',
-    success: function (accidentTypeArray) {
-      //for each accidenttype
-      $.each(accidentTypeArray, function (index, accidentType) {
-        typeIds[index] = accidentType.typeId;
-        typeList[index] = accidentType.accidentType;
-      })
-    },
-    error: function (event) {
-      var err = JSON.parse(event.responseText);
-      var notify = $('#display_acc_error');
-      notify.empty();
-      notify.append(err.details);
-    }
-  });
-
-  $.ajax({
-    type: 'GET',
-    url: 'http://localhost:3333/accident/accidents',
-    success: function (accidentArray) {
-      var accidentDiv = $('div#allAccidents');
-
-      //         accident.accidentId;
-      //         accident.vehicleCount;
-      //         accident.accidentTime;
-      //         accident.accidentDate;
-      //         accident.accidentDesc;
-      //         accident.locationId;
-      //         accident.accidentTypeId;
-      //         accident.witnessEmail;
-      //         accident.accidentSeverity;
-
-      $.each(accidentArray, function (index, accident) {
-
-        var accidentInfo = '<p style="margin-left: 10px;">';
-        accidentInfo += '<b>Accident Description:</b> ' + accident.accidentDesc + '<br>';
-        accidentInfo += '<b>Accident Type:</b> ' + typeList[index] + '<br>';
-        accidentInfo += '<b>Vehicles Involved:</b> ' + accident.vehicleCount + '<br>';
-        accidentInfo += '<b>Recorded at:</b> ' + accident.accidentTime + ' on ' + accident.accidentDate + '<br>';
-        accidentInfo += '<b>Located at:</b> ' + locationList[index] + '<br>';
-        accidentInfo += '<b>Severity:</b> ' + accident.accidentSeverity + '<br>';
-        accidentInfo += '</p><hr>';
-
-        for (let i = 0; i < checkboxed.length; i++) {
-          if (checkboxed[i] == accident.accidentSeverity) {
-            if(stateOutput == "All" || stateOutput == locationStates[index]){
-              accidentDiv.append(accidentInfo);
-            }
-          }
-        }
-      })
-    },
-    error: function (event) {
-      var err = JSON.parse(event.responseText);
-      var notify = $('#display_acc_error');
-      notify.empty();
-      notify.append(err.details);
-    }
-  });
 }
 
 function getLocation(isCoords){
@@ -220,6 +226,9 @@ function getLocation(isCoords){
     const errorCallback = (error) => {
       $('#coordsError').html('<h6 class="pt-3" style="color: darkred">Geolocation is not supported by this browser, please enter your address manually.</h6>');
       
+      document.getElementById('inputLatitude').disabled = true;
+      document.getElementById('inputLatitude').disabled = true;
+
       document.getElementById('inputStreetNum').required = true;
       document.getElementById('inputStreetName').required = true;
       document.getElementById('inputSuburb').required = true;
@@ -231,7 +240,9 @@ function getLocation(isCoords){
 
   } else {
     document.getElementById('inputLatitude').required = false;
+    $('#latitudeLabel').html('Latitude');
     document.getElementById('inputLongitude').required = false;
+    $('#longitudeLabel').html('Longitude');
   }
 }
 
@@ -250,43 +261,66 @@ $(document).ready(function(){
   $('#addAccident').on("click", function(event) {
       event.preventDefault();
 
+      const api = "AIzaSyBIV-yfyLwbrQh7fGqgrkMFHGXGjgn6258";
+
       // set relevant location data to fill it in
       var reverseGeocodingUrl = "";
-      if($('#inputLatitude').val() != null){
-        reverseGeocodingUrl = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + $('#inputLatitude').val() + "," + $('#inputLongitude').val() + "&key=AIzaSyBIV-yfyLwbrQh7fGqgrkMFHGXGjgn6258";
+      console.log($('#inputLatitude').val());
+      if($('#inputLatitude').val() != ""){
+        reverseGeocodingUrl = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + $('#inputLatitude').val() + "," + $('#inputLongitude').val() + "&key=" + api;
+
+        $.ajax({
+          type: 'GET',
+          url: reverseGeocodingUrl,
+          success: function(data) {
+            //console.log("Street Number: " + data.results[0].address_components[0].long_name);
+            //console.log("Street Name: " + data.results[0].address_components[1].short_name);
+            //console.log("Suburb: " + data.results[0].address_components[2].long_name);
+            //console.log("State: " + data.results[0].address_components[4].short_name);   
+            //console.log("Country: " + data.results[0].address_components[5].long_name);
+            //console.log("Postcode: " + data.results[0].address_components[6].long_name);
+  
+            $('#inputStreetNum').val(data.results[0].address_components[0].long_name);
+            $('#inputStreetName').val(data.results[0].address_components[1].short_name);
+            $('#inputSuburb').val(data.results[0].address_components[2].long_name);
+            $('#inputState').val(data.results[0].address_components[4].short_name);
+            $('#inputPostcode').val(data.results[0].address_components[6].long_name);
+            console.log($('#inputStreetNum').val());
+            console.log($('#inputStreetName').val());
+            console.log($('#inputSuburb').val());
+            console.log($('#inputState').val());
+            console.log($('#inputPostcode').val());
+  
+            postLocationData();
+        },
+        error: function(error) {
+            console.log(error);
+            console.log(error.status);
+        }
+        })  
       } else {
-        reverseGeocodingUrl = "https://maps.googleapis.com/maps/api/geocode/json?place_id=ChIJeRpOeF67j4AR9ydy_PIzPuM&key=AIzaSyBIV-yfyLwbrQh7fGqgrkMFHGXGjgn6258";
-      }
 
-      $.ajax({
-        type: 'GET',
-        url: reverseGeocodingUrl,
-        success: function(data) {
-          //console.log("Street Number: " + data.results[0].address_components[0].long_name);
-          //console.log("Street Name: " + data.results[0].address_components[1].short_name);
-          //console.log("Suburb: " + data.results[0].address_components[2].long_name);
-          //console.log("State: " + data.results[0].address_components[4].short_name);   
-          //console.log("Country: " + data.results[0].address_components[5].long_name);
-          //console.log("Postcode: " + data.results[0].address_components[6].long_name);
+        const address = $('#inputStreetNum').val() + " " + $('#inputStreetName').val() + ", " + $('#inputSuburb').val() + ", " + $('#inputState').val() + " " + $('#inputPostcode').val();
 
-          $('#inputStreetNum').val(data.results[0].address_components[0].long_name);
-          $('#inputStreetName').val(data.results[0].address_components[1].short_name);
-          $('#inputSuburb').val(data.results[0].address_components[2].long_name);
-          $('#inputState').val(data.results[0].address_components[4].short_name);
-          $('#inputPostcode').val(data.results[0].address_components[6].long_name);
-          console.log($('#inputStreetNum').val());
-          console.log($('#inputStreetName').val());
-          console.log($('#inputSuburb').val());
-          console.log($('#inputState').val());
-          console.log($('#inputPostcode').val());
+        console.log($('#inputStreetNum').val() + " " + $('#inputStreetName').val() + ", " + $('#inputSuburb').val() + ", " + $('#inputState').val() + " " + $('#inputPostcode').val());
+
+        fetch(reverseGeocodingUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=" + api)
+        .then((response) => {
+          console.log(response);
+          return response.json();
+        }).then(jsonData => {
+          //console.log(jsonData.results[0].geometry.location.lat);
+          //console.log(jsonData.results[0].geometry.location.lng);
+          $('#inputLatitude').val(jsonData.results[0].geometry.location.lat);
+          $('#inputLongitude').val(jsonData.results[0].geometry.location.lng);
 
           postLocationData();
-      },
-      error: function(error) {
+        }).catch(error => {
           console.log(error);
-          console.log(error.status);
+        })
       }
-      })         
+
+             
   });
 });
 

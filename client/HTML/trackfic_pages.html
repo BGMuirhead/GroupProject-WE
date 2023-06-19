@@ -67,9 +67,9 @@
         <div class="text-center">
             <h1 class="title pb-3">WITNESSED AN ACCIDENT?</h1>
             <div class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-10 col-xxl-10 mx-auto">
-                <button type="button" id="new_accident_btn" class="btn btn-warning my-1 py-2 home-btn">Create Accident Form</button>
+                <button type="button" id="new_accident_btn" class="btn btn-warning my-1 py-2 home-btn" onclick="showNewAccident()">Create Accident Form</button>
                 <button type="button" id="view_map_btn" class="btn btn-warning my-1 py-2 home-btn">View The Map</button>
-                <button type="button" id="all_accidents_btn" class="btn btn-warning my-1 py-2 home-btn">View All Accidents</button>
+                <button type="button" id="all_accidents_btn" class="btn btn-warning my-1 py-2 home-btn" onclick="showAllAccidents()">View All Accidents</button>
             </div>
         </div>
     </div>
@@ -91,11 +91,11 @@
                 <form role="form" id="new-accident-addForm" method="POST">      
                     <div class="row pb-3 mx-auto" style="width: 96%">
                         <div class="col-6">
-                            <label for="inputLatitude" class="form-label">Latitude <span style="color:red">*</span></label>
+                            <label for="inputLatitude" id="latitudeLabel" class="form-label">Latitude <span style="color:red">*</span></label>
                             <input type="number" step="any" class="form-control" id="inputLatitude" required>
                         </div>
                         <div class="col-6">
-                            <label for="inputLongitude" class="form-label">Longitude <span style="color:red">*</span></label>
+                            <label for="inputLongitude" id="longitudeLabel" class="form-label">Longitude <span style="color:red">*</span></label>
                             <input type="number" step="any" class="form-control" id="inputLongitude" required>
                         </div>
                     </div>
