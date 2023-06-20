@@ -92,12 +92,139 @@ function showAllAccidents(){
 
 function viewMap() {
   let map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -34.397, lng: 150.644 },
-    zoom: 8,
+    center: { lat: -25, lng: 135  },
+    zoom: 4,
   });
+
+  // const contentString =
+    // '<div id="content">' +
+    // '<div id="siteNotice">' +
+    // "</div>" +
+    // '<h1 id="firstHeading" class="firstHeading">Uluru</h1>' +
+    // '<div id="bodyContent">' +
+    // "<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large " +
+    // "sandstone rock formation in the southern part of the " +
+    // "Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) " +
+    // "south west of the nearest large town, Alice Springs; 450&#160;km " +
+    // "(280&#160;mi) by road. Kata Tjuta and Uluru are the two major " +
+    // "features of the Uluru - Kata Tjuta National Park. Uluru is " +
+    // "sacred to the Pitjantjatjara and Yankunytjatjara, the " +
+    // "Aboriginal people of the area. It has many springs, waterholes, " +
+    // "rock caves and ancient paintings. Uluru is listed as a World " +
+    // "Heritage Site.</p>" +
+    // '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
+    // "https://en.wikipedia.org/w/index.php?title=Uluru</a> " +
+    // "(last visited June 22, 2009).</p>" +
+    // "</div>" +
+    // "</div>";
+
+  // const contentString = '<div><p>some details about the accident</p></div>'
+
+  var locationIds = [];
+  var locationList = [];
+  var locationLat = [];
+  var locationLng = [];
+  
+  var typeIds = [];
+  var typeList = [];
+  
+  $.ajax({
+    type: 'GET',
+    url: 'http://localhost:3333/location/locations',
+    success: function (locationArray) {
+      //for each location
+      $.each(locationArray, function (index, location) {
+
+        locationIds[index] = location.locationId;
+
+        var locationData = "";
+        locationData += location.suburb + " ";
+        locationData += location.postcode + ", ";
+        locationData += location.state;
+
+        locationList[index] = locationData;
+        locationLat[index] = location.latitude;
+        locationLng[index] = location.longitude;
+      })
+
+      $.ajax({
+        type: 'GET',
+        url: 'http://localhost:3333/accidenttype/accidenttypes',
+        success: function (accidentTypeArray) {
+          //for each accidenttype
+          $.each(accidentTypeArray, function (index, accidentType) {
+            typeIds[index] = accidentType.typeId;
+            typeList[index] = accidentType.accidentType;
+          })
+    
+          $.ajax({
+            type: 'GET',
+            url: 'http://localhost:3333/accident/accidents',
+            success: function (accidentArray) { 
+              $.each(accidentArray, function (index, accident) {
+        
+                var contentString =
+                '<div id="content">' +
+                '<h3>' + typeList[accident.accidentTypeId-1] + '</h3><div>' +
+                "<p><b>Accident Description:</b> " + accident.accidentDesc + "<br>" + 
+                '<b>Accident Type:</b> ' + typeList[accident.accidentTypeId-1] + '<br>' +
+                '<b>Severity:</b> ' + accident.accidentSeverity + '<br>' +
+                '<b>Vehicles Involved:</b> ' + accident.vehicleCount + '<br>' +
+                '<b>Recorded at:</b> ' + accident.accidentTime + ' on ' + accident.accidentDate + '<br></p>' +
+                "</div></div>";
+
+                const infowindow = new google.maps.InfoWindow({
+                  content: contentString,
+                  ariaLabel: typeList[accident.accidentTypeId-1],
+                });
+
+                var severityIcon = "";
+                if(accident.accidentSeverity == "Minor"){
+                  severityIcon = "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png";
+                } else if (accident.accidentSeverity == "Major"){
+                  severityIcon = "http://maps.google.com/mapfiles/ms/icons/orange-dot.png";
+                } else {
+                  severityIcon = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+                }
+
+                const marker = new google.maps.Marker({
+                  position: { lat: locationLat[index], lng: locationLng[index]  },
+                  map,
+                  title: typeList[accident.accidentTypeId-1] + " at " + locationList[accident.locationId-1],
+                  icon: severityIcon
+                });
+              
+                marker.addListener("click", () => {
+                  infowindow.open({
+                    anchor: marker,
+                    map,
+                  });
+                });
+              })
+            },
+            error: function (xhr) {
+              var err = JSON.parse(xhr.responseText);
+              alert(err.details + ": " + err.message);
+            }
+          });
+        },
+        error: function (xhr) {
+          var err = JSON.parse(xhr.responseText);
+          alert(err.details + ": " + err.message);
+        }
+      });
+    },
+    error: function (xhr) {
+      var err = JSON.parse(xhr.responseText);
+      alert(err.details + ": " + err.message);
+    }
+  });
+
+
+
+
+
 }
-
-
 
 function allAccidents() {
   var selectElement = document.querySelector('#state_dd');
@@ -314,7 +441,7 @@ $(document).ready(function(){
           console.log(response);
           return response.json();
         }).then(jsonData => {
-          //console.log(jsonData);
+          console.log(jsonData);
           //console.log(jsonData.results[0].geometry.location.lat);
           //console.log(jsonData.results[0].geometry.location.lng);
           $('#inputLatitude').val(jsonData.results[0].geometry.location.lat);

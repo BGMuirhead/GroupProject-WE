@@ -49,7 +49,7 @@ video {
 
 .img-container {
   height: 100vh;
-  width: 100%;
+  width: fit-content;
   justify-content: center;
   align-items: center;
   object-fit: contain;
@@ -89,4 +89,14 @@ video {
   padding-top: 40px;
   justify-content: center;
   align-items: center;
+}
+
+.row {
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: calc(var(--bs-gutter-y) * -1);
+  margin-right: calc(var(--bs-gutter-x) * -.5);
+  /* margin-left: calc(var(--bs-gutter-x) * -.5); */
 }
