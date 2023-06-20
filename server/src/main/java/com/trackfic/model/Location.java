@@ -5,8 +5,11 @@ import javax.validation.constraints.NotBlank;
 public class Location {
 	
 	private int locationId;
+	@NotBlank(message = "Location street namestate is required")
 	private String streetName;
+	@NotBlank(message = "street number is required")
 	private String streetNumber;
+	@NotBlank(message = "Location suburb is required")
 	private String suburb;
 	private int postcode;
 	@NotBlank(message = "Location state is required")

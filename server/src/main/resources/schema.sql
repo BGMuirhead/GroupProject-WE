@@ -26,13 +26,13 @@ CREATE TABLE severity(
 
 CREATE TABLE location(
  location_id int AUTO_INCREMENT PRIMARY KEY,
- street_number varchar(5),
- street_name varchar(30),
- suburb VARCHAR(30),
+ street_number varchar(5) NOT NULL,
+ street_name varchar(30) NOT NULL,
+ suburb VARCHAR(30) NOT NULL,
  postcode int NOT NULL,
  loc_state VARCHAR(3) NOT NULL,
- latitude double ,
- longitude double 
+ latitude double NOT NULL,
+ longitude double NOT NULL
 );
 
 CREATE TABLE accident(

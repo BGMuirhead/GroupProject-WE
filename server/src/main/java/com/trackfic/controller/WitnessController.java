@@ -59,16 +59,23 @@ public class WitnessController {
 		return witness1;
 	}
 	
+//	@PostMapping("/login")
+//	public RedirectView  loginWitness(@RequestBody Witness witness, RedirectAttributes redirectAttrs)
+//	{
+//		Witness witness1 = witnessService.loginWitness(witness.getEmail(), witness.getPassword());
+//		
+//		redirectAttrs.addFlashAttribute("witness", witness1);
+//		List<Accident> accidents = accidentService.getAccidentsByWitnessEmail(witness1.getEmail());
+//		redirectAttrs.addFlashAttribute("accidents", accidents);
+//		
+//		return new RedirectView ("/thyme");
+//	}
+	
 	@PostMapping("/login")
-	public RedirectView  loginWitness(@RequestBody Witness witness, RedirectAttributes redirectAttrs)
+	public Witness loginWitness(@RequestBody Witness witness)
 	{
-		Witness witness1 = witnessService.loginWitness(witness.getEmail(), witness.getPassword());
-		
-		redirectAttrs.addFlashAttribute("witness", witness1);
-		List<Accident> accidents = accidentService.getAccidentsByWitnessEmail(witness1.getEmail());
-		redirectAttrs.addFlashAttribute("accidents", accidents);
-		
-		return new RedirectView ("/thyme");
+		Witness witness1 = witnessService.loginWitness(witness.getEmail(), witness.getPassword());		
+		return witness1;
 	}
 	
 	

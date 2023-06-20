@@ -22,12 +22,26 @@ public class ThymeleafController {
 //		Witness w = (Witness) redirectAttrs.getAttribute("witness");
 //		return "thymetemplate";
 //	}
-	@GetMapping(value = "/thyme")
-	public String getTemplate(ModelMap model, @ModelAttribute("witness") Object witness, @ModelAttribute("accidents") List<Accident> accidents) {
+	
+	
+//	@GetMapping(value = "/login")
+//	public String loginUser(ModelMap model, @ModelAttribute("witness") Object witness, @ModelAttribute("accidents") List<Accident> accidents) {
+//
+//		Witness w = (Witness) witness;
+//		model.addAttribute("witness" , witness);
+//		model.addAttribute("accidents" , accidents);
+//		return "login";
+//	}
+	
+	
+	
+	@GetMapping(value = "/home")
+	public String goHome(ModelMap model) {
 
-		Witness w = (Witness) witness;
-		model.addAttribute("witness" , witness);
-		model.addAttribute("accidents" , accidents);
-		return "thymetemplate";
+		model.addAttribute("witness" , "null");
+//		return "login";
+		return "trackfic";
 	}
+	
+	
 }
