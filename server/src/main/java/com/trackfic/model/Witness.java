@@ -11,13 +11,16 @@ public class Witness {
 	@NotBlank(message = "Witness lastname is required")
 	private String lastName;
 	private int mobile;
+	@NotBlank(message = "Witness password is required")
+	private String password;
 
-	public Witness(String email, String firstName, String lastName, int mobile) {
+	public Witness(String email, String firstName, String lastName, int mobile , String password) {
 		super();
 		this.witnessEmail = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.mobile = mobile;
+		this.password = password;
 	}
 
 	public Witness() {
@@ -53,6 +56,14 @@ public class Witness {
 
 	public void setMobile(int mobile) {
 		this.mobile = mobile;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }

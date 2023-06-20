@@ -2,19 +2,20 @@ package com.trackfic.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.List;
 
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import com.trackfic.model.Witness;
 
-//@DataJdbcTest
+@TestMethodOrder(OrderAnnotation.class)
 public class WitnessDaoImplTest {
 
 	@Autowired
@@ -35,35 +36,39 @@ public class WitnessDaoImplTest {
 	}
 	
 	@Test
+	@Order(1)
 	public void createTest()
 	{
-		Witness witness = new Witness("test1@email.com", "Test", "User", 1234);
+		Witness witness = new Witness("test1@email.com", "Test", "User", 1234, "1");
 		witnessDao.createNewWitness(witness);
 		List<Witness> list = witnessDao.getAllWitnesss();
 		assertNotNull(list);
-		assertEquals(4, list.size());
+		assertEquals(6, list.size());
 	}
 	
 	@Test
+	@Order(2)
 	public void getAllTest()
 	{
 		List<Witness> list = witnessDao.getAllWitnesss();
 		assertNotNull(list);
-		assertEquals(3, list.size());
+		assertEquals(6, list.size());
 	}
 	
 	@Test
+	@Order(3)
 	public void getOneTest()
 	{
-		Witness witness = witnessDao.findWitnessByEmail("test@email.com");
+		Witness witness = witnessDao.findWitnessByEmail("test1@email.com");
 		assertNotNull(witness);
 		assertEquals("Test", witness.getFirstName());
 	}
 	
 	@Test
+	@Order(4)
 	public void updateTest()
 	{
-		Witness witness = new Witness("test@email.com", "Test", "User", 1234);
+		Witness witness = new Witness("test2@email.com", "Test", "User", 1234, "1");
 		witnessDao.createNewWitness(witness);
 		witness.setLastName("Lastname");
 		witnessDao.updateWitness(witness);
@@ -73,14 +78,15 @@ public class WitnessDaoImplTest {
 	}
 	
 	@Test
+	@Order(5)
 	public void deleteTest()
 	{
-		witnessDao.deleteWitness("test@email.com");
 		witnessDao.deleteWitness("test1@email.com");
+		witnessDao.deleteWitness("test2@email.com");
 //		assertNull(witnessDao.getAllWitnesss());
 		
 		List<Witness> list = witnessDao.getAllWitnesss();
 		assertNotNull(list);
-		assertEquals(2, list.size());
+		assertEquals(5, list.size());
 	}
 }

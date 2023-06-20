@@ -10,6 +10,8 @@ public interface AccidentDaoInterface {
 	Accident createNewAccident(Accident accident);
 
 	List<Accident> getAllAccidents();
+	
+	List<Accident> getAccidentsByWitnessEmail(String email);
 
 	Accident findAccidentById(int id);
 

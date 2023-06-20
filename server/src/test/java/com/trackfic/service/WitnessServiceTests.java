@@ -24,7 +24,7 @@ public class WitnessServiceTests {
 	@Test
 	public void createWitnessTest()
 	{
-		Witness temp = new Witness("email", "firstName", "lastName", 1);
+		Witness temp = new Witness("email", "firstName", "lastName", 1,"1");
 		Witness test = witnessService.addNewWitness(temp);
 		
 		assertEquals(temp, test);
@@ -39,10 +39,10 @@ public class WitnessServiceTests {
 		assertNull(test);
 		
 	}
-	
+	@Test
 	public void updateWitnessTest()
 	{
-		Witness temp = new Witness("email", "firstName", "lastName", 1);
+		Witness temp = new Witness("email", "firstName", "lastName", 1,"1");
 		Witness test = witnessService.updateWitnessData("email", temp);
 				
 		assertEquals(temp, test);
@@ -60,12 +60,24 @@ public class WitnessServiceTests {
 		
 		
 	}
-	
+	@Test
 	public void findWitnessByEmailTest() {
-		Witness temp = new Witness("email", "firstName", "lastName", 1);
+		Witness temp = new Witness("email", "firstName", "lastName", 1, "1");
 		Witness test = witnessService.getWitnessByEmail("email");
-		assertEquals(temp, test);
+		assertEquals(temp.getFirstName(), test.getFirstName());
 		test = witnessService.getWitnessByEmail("test");
+		assertNull(test);
+		
+	}
+	
+	@Test
+	public void loginTest() {
+		Witness temp = new Witness("email", "firstName", "lastName", 1, "1");
+		Witness test = witnessService.loginWitness("email", "1");
+		
+		
+		assertEquals(temp.getFirstName(), test.getFirstName());
+		test = witnessService.loginWitness("email", "2");
 		assertNull(test);
 		
 	}

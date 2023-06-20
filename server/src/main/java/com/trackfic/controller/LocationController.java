@@ -25,6 +25,8 @@ public class LocationController {
 	@Autowired
 	LocationServiceImpl locationService;
 
+	
+	//USED 
 	@GetMapping("/locations")
 	public List<Location> getAllLocations() {
 
@@ -32,13 +34,16 @@ public class LocationController {
 		return locations;
 	}
 	
-	@GetMapping("/{id}")
-	public Location getLocationById(@PathVariable int id)
-	{
-		Location location = locationService.getLocationById(id);
-		return location;
-	}
+//	Currently unimplemented in front end so hiding end point	
+//	
+//	@GetMapping("/{id}")
+//	public Location getLocationById(@PathVariable int id)
+//	{
+//		Location location = locationService.getLocationById(id);
+//		return location;
+//	}
 	
+	//USED
 	@PostMapping("/add")
 	public Location addLocation(@RequestBody Location location)
 	{
@@ -46,14 +51,16 @@ public class LocationController {
 		return location1;
 	}
 	
+//	Currently unimplemented in front end so hiding end point	
+//	
+//	@PutMapping("{id}")
+//	public Location updateLocation(@PathVariable int id, @RequestBody Location location)
+//	{
+//		Location location1 = locationService.updateLocationData(id, location);
+//		return location1;
+//		
+//	}
 	
-	@PutMapping("{id}")
-	public Location updateLocation(@PathVariable int id, @RequestBody Location location)
-	{
-		Location location1 = locationService.updateLocationData(id, location);
-		return location1;
-		
-	}
 	
 	@DeleteMapping("/{id}")
 	public void deleteLocation(@PathVariable int id)
