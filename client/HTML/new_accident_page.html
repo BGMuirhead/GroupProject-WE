@@ -54,14 +54,14 @@
                                 <a class="nav-link" aria-current="page"  href="new_accident_page.html">New Accident</a>
                             </li>
                             <li class="nav-item pe-4">
-                                <a class="nav-link active" href="#">View Map</a>
+                                <a class="nav-link active" href="map_view_page.html">View Map</a>
                             </li>
                             <li class="nav-item pe-1">
                                 <a class="nav-link active" href="all_accidents_page.html">All Accidents</a>
                             </li>
                         </ul>
-                        <button type="button" id="login" class="btn btn-warning nav-button my-1" style="margin-right: 10px; font-weight: bold;">Login</button>
-                        <button type="button" id="something" class="btn btn-warning nav-button my-1" style="font-weight: bold;">Call Triple Zero</button>
+                        <button type="button" onclick="location.href='signup_login_page.html'" id="login-btn" class="btn btn-warning nav-button my-1" style="margin-right: 10px; font-weight: bold;">Login</button>
+                        <button type="button" onclick="location.href='signup_login_page.html'" id="signup-btn" class="btn btn-warning nav-button my-1" style="font-weight: bold;">Signup</button>
                     </div>
                 </div>
             </div>
@@ -69,7 +69,7 @@
     </div>
     <div id="body" class="img-container">
         <img class="bg-image" src="../images/city_bg.jpg" />
-        <div class="row" style="color: white; padding-top: 100px;">
+        <div class="row" style="margin-right: 0px !important; color: white; padding-top: 100px;">
             <div id="left-section" class="col-1 col-sm-2 col-md-2 col-lg-2 col-xl-3 col-xxl-3"></div>
             <div class="text-center col-10 col-sm-8 col-md-8 col-lg-8 col-xl-6 col-xxl-6">
                 <h2 class="container">New Accident</h2>
@@ -78,7 +78,7 @@
             </div>
             <div id="right-section" class="col-1 col-sm-2 col-md-2 col-lg-2 col-xl-3 col-xxl-3"></div>
         </div>
-        <div id="body-form" class="row my-5">
+        <div id="body-form" class="row my-5" style="margin-right: 0px !important; ">
             <div id="left-section" class="col-1 col-sm-2 col-md-2 col-lg-3 col-xl-3 col-xxl-3"></div>
             <div id="form-section" class="col-10 col-sm-8 col-md-8 col-lg-6 col-xl-6 col-xxl-6 py-5 border border-4 border-warning" style="margin-bottom: 120px; background-color: white;">
                 <form role="form" id="addForm">      

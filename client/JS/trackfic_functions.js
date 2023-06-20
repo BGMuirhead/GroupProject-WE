@@ -26,67 +26,135 @@ $('document').ready(function () {
     //console.log("Its equal to 4!");
     showAllAccidents();
   }
+  if(sessionStorage.getItem('activePage') == '5'){
+    //console.log("Its equal to 5!");
+    loginSignup();
+  }
+  if(sessionStorage.getItem('activePage') == '6'){
+    //console.log("Its equal to 6!");
+    showProfile();
+  }
 });
 
 function showHomePage(){
   $('.new-accident').hide();
   $('.all-accidents').hide();
   $('.view-map').hide();
+  $('.login-signup').hide();
+  $('.profile').hide();
   $('.home-page').show();
+
+  document.getElementById('login-btn').disabled = false;
+  document.getElementById('signup-btn').disabled = false;
 
   sessionStorage.setItem("activePage", '1');
   //console.log("sessionStorage: " + sessionStorage.getItem('activePage'))
 
-  document.getElementById('home-page-nav-link').classList.add('active');
-  document.getElementById('new-accident-nav-link').classList.remove('active');
-  document.getElementById('view-map-nav-link').classList.remove('active');
-  document.getElementById('all-accidents-nav-link').classList.remove('active');
+  document.getElementById('home-page-nav-link').classList.remove('active');
+  document.getElementById('new-accident-nav-link').classList.add('active');
+  document.getElementById('view-map-nav-link').classList.add('active');
+  document.getElementById('all-accidents-nav-link').classList.add('active');
 }
 
 function showNewAccident(){
   $('.all-accidents').hide();
   $('.home-page').hide();
   $('.view-map').hide();
+  $('.login-signup').hide();
+  $('.profile').hide();
   $('.new-accident').show();
+
+  document.getElementById('login-btn').disabled = false;
+  document.getElementById('signup-btn').disabled = false;
 
   sessionStorage.setItem("activePage", '2');
   //console.log("sessionStorage: " + sessionStorage.getItem('activePage'))
 
-  document.getElementById('home-page-nav-link').classList.remove('active');
-  document.getElementById('new-accident-nav-link').classList.add('active');
-  document.getElementById('view-map-nav-link').classList.remove('active');
-  document.getElementById('all-accidents-nav-link').classList.remove('active');
+  document.getElementById('home-page-nav-link').classList.add('active');
+  document.getElementById('new-accident-nav-link').classList.remove('active');
+  document.getElementById('view-map-nav-link').classList.add('active');
+  document.getElementById('all-accidents-nav-link').classList.add('active');
 }
 
 function showMap(){
   $('.new-accident').hide();
   $('.home-page').hide();
   $('.all-accidents').hide();
+  $('.login-signup').hide();
+  $('.profile').hide();
   $('.view-map').show();
   viewMap();
+
+  document.getElementById('login-btn').disabled = false;
+  document.getElementById('signup-btn').disabled = false;
 
   sessionStorage.setItem("activePage", '3');
   //console.log("sessionStorage: " + sessionStorage.getItem('activePage'))
 
-  document.getElementById('home-page-nav-link').classList.remove('active');
-  document.getElementById('new-accident-nav-link').classList.remove('active');
-  document.getElementById('view-map-nav-link').classList.add('active');
-  document.getElementById('all-accidents-nav-link').classList.remove('active');
+  document.getElementById('home-page-nav-link').classList.add('active');
+  document.getElementById('new-accident-nav-link').classList.add('active');
+  document.getElementById('view-map-nav-link').classList.remove('active');
+  document.getElementById('all-accidents-nav-link').classList.add('active');
 }
 
 function showAllAccidents(){
   $('.new-accident').hide();
   $('.home-page').hide();
   $('.view-map').hide();
+  $('.login-signup').hide();
+  $('.profile').hide();
   $('.all-accidents').show();
   allAccidents();
+
+  document.getElementById('login-btn').disabled = false;
+  document.getElementById('signup-btn').disabled = false;
 
   sessionStorage.setItem("activePage", '4');
   //console.log("sessionStorage: " + sessionStorage.getItem('activePage'))
 
-  document.getElementById('home-page-nav-link').classList.remove('active');
-  document.getElementById('new-accident-nav-link').classList.remove('active');
-  document.getElementById('view-map-nav-link').classList.remove('active');
+  document.getElementById('home-page-nav-link').classList.add('active');
+  document.getElementById('new-accident-nav-link').classList.add('active');
+  document.getElementById('view-map-nav-link').classList.add('active');
+  document.getElementById('all-accidents-nav-link').classList.remove('active');
+}
+
+function loginSignup(){
+  $('.new-accident').hide();
+  $('.home-page').hide();
+  $('.view-map').hide();
+  $('.all-accidents').hide();
+  $('.profile').hide();
+  $('.login-signup').show();
+
+  document.getElementById('login-btn').disabled = true;
+  document.getElementById('signup-btn').disabled = true;
+
+  sessionStorage.setItem("activePage", '5');
+  //console.log("sessionStorage: " + sessionStorage.getItem('activePage'))
+
+  document.getElementById('home-page-nav-link').classList.add('active');
+  document.getElementById('new-accident-nav-link').classList.add('active');
+  document.getElementById('view-map-nav-link').classList.add('active');
+  document.getElementById('all-accidents-nav-link').classList.add('active');
+}
+
+function showProfile(){
+  $('.new-accident').hide();
+  $('.home-page').hide();
+  $('.view-map').hide();
+  $('.all-accidents').hide();
+  $('.login-signup').hide();
+  $('.profile').show();
+
+  document.getElementById('login-btn').disabled = false;
+  document.getElementById('signup-btn').disabled = false;
+
+  sessionStorage.setItem("activePage", '6');
+  //console.log("sessionStorage: " + sessionStorage.getItem('activePage'))
+
+  document.getElementById('home-page-nav-link').classList.add('active');
+  document.getElementById('new-accident-nav-link').classList.add('active');
+  document.getElementById('view-map-nav-link').classList.add('active');
   document.getElementById('all-accidents-nav-link').classList.add('active');
 }
 
@@ -95,30 +163,6 @@ function viewMap() {
     center: { lat: -25, lng: 135  },
     zoom: 4,
   });
-
-  // const contentString =
-    // '<div id="content">' +
-    // '<div id="siteNotice">' +
-    // "</div>" +
-    // '<h1 id="firstHeading" class="firstHeading">Uluru</h1>' +
-    // '<div id="bodyContent">' +
-    // "<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large " +
-    // "sandstone rock formation in the southern part of the " +
-    // "Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) " +
-    // "south west of the nearest large town, Alice Springs; 450&#160;km " +
-    // "(280&#160;mi) by road. Kata Tjuta and Uluru are the two major " +
-    // "features of the Uluru - Kata Tjuta National Park. Uluru is " +
-    // "sacred to the Pitjantjatjara and Yankunytjatjara, the " +
-    // "Aboriginal people of the area. It has many springs, waterholes, " +
-    // "rock caves and ancient paintings. Uluru is listed as a World " +
-    // "Heritage Site.</p>" +
-    // '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
-    // "https://en.wikipedia.org/w/index.php?title=Uluru</a> " +
-    // "(last visited June 22, 2009).</p>" +
-    // "</div>" +
-    // "</div>";
-
-  // const contentString = '<div><p>some details about the accident</p></div>'
 
   var locationIds = [];
   var locationList = [];
@@ -220,10 +264,12 @@ function viewMap() {
     }
   });
 
+}
 
+function allUserAccidents(){
 
-
-
+  // get the user's accidents and display them here very similar to allAccidents()
+  console.log("allUserAccidents()");
 }
 
 function allAccidents() {

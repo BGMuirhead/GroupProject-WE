@@ -43,20 +43,20 @@
                     <div class="offcanvas-body bg-dark mb-2 mb-lg-0 mb-xl-0">
                         <ul class="navbar-nav justify-content-center flex-grow-1 mt-1">
                             <li class="nav-item pe-4">
-                                <a class="nav-link active" id="home-page-nav-link" onclick="showHomePage()">Home</a>
+                                <a class="nav-link active" id="home-page-nav-link" href="home_page.html">Home</a>
                             </li>
                             <li class="nav-item pe-4">
-                                <a class="nav-link" id="new-accident-nav-link" onclick="showNewAccident()">New Accident</a>
+                                <a class="nav-link" id="new-accident-nav-link" href="new_accident_page.html">New Accident</a>
                             </li>
                             <li class="nav-item pe-4">
-                                <a class="nav-link active" id="view-map-nav-link" onclick="showMap()">View Map</a>
+                                <a class="nav-link active" id="view-map-nav-link" href="map_view_page.html">View Map</a>
                             </li>
                             <li class="nav-item pe-1">
-                                <a class="nav-link active" id="all-accidents-nav-link" onclick="showAllAccidents()">All Accidents</a>
+                                <a class="nav-link active" id="all-accidents-nav-link" href="all_accidents_page.html">All Accidents</a>
                             </li>
                         </ul>
-                        <button type="button" id="login" class="btn btn-warning nav-button my-1" style="margin-right: 10px; font-weight: bold;">Login</button>
-                        <button type="button" id="something" class="btn btn-warning nav-button my-1" style="font-weight: bold;">Call Triple Zero</button>
+                        <button type="button" onclick="location.href='signup_login_page.html'" id="login-btn" class="btn btn-warning nav-button my-1" style="margin-right: 10px; font-weight: bold;" disabled>Login</button>
+                        <button type="button" onclick="location.href='signup_login_page.html'" id="signup-btn" class="btn btn-warning nav-button my-1" style="font-weight: bold;" disabled>Signup</button>
                     </div>
                 </div>
             </div>
