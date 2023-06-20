@@ -98,4 +98,13 @@ public class AccidentDaoImplTest {
 		assertNotNull(list);
 		assertEquals(3, list.size());
 	}
+	
+	@Test
+	@Order(6)
+	public void getAccidentsByEmailTest()
+	{
+		List<Accident> list = accidentDao.getAccidentsByWitnessEmail("genericman@email.com");
+		assertNotNull(list);
+		assertEquals(1, list.size());
+	}
 }

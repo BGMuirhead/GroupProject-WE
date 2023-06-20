@@ -70,8 +70,6 @@ public class AccidentServiceImpl implements AccidentServiceInterface {
 	@Override
 	public List<Accident> getAccidentsByWitnessEmail(String email) {
 
-		
-
 		return accidentDao.getAccidentsByWitnessEmail(email);
 	}
 
