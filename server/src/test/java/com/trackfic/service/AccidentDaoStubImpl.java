@@ -59,7 +59,7 @@ public class AccidentDaoStubImpl implements AccidentDaoInterface{
 	}
 
 	@Override
-	public List<Accident> getAccidentsByWitnessEmail(String email) {
+	public List<Accident> findAccidentsByWitnessEmail(String email) {
 
 		List<Accident> accidents = new ArrayList<>();
 		
