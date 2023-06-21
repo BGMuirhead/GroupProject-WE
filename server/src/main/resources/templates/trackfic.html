@@ -340,7 +340,7 @@
             <div id="profile-left-section" class="col-1 col-sm-2 col-md-2 col-lg-2 col-xl-3 col-xxl-3"></div>
             <div class="text-center col-10 col-sm-8 col-md-8 col-lg-8 col-xl-6 col-xxl-6">
                 <h2 class="container">Profile</h2>
-                <h6 class="text-center m-auto" style="width: 60%;">Hi {name}!<br> You can choose to update your personal details here, or make some changes to accident reports you've created.</h6>
+                <h6 class="text-center m-auto" style="width: 60%;">Hi <span id="getProfileFirstName"></span>!<br> You can choose to update your personal details here, or make some changes to accident reports you've created.</h6>
             </div>
             <div id="profile-right-section" class="col-1 col-sm-2 col-md-2 col-lg-2 col-xl-3 col-xxl-3"></div>
         </div>
@@ -363,12 +363,13 @@
                     </div>
                     <!-- Email input -->
                     <div class="form-outline px-3 py-1">
-                        <input type="email" id="profileEmail" class="form-control" placeholder="Email..."/>
+                        <input type="email" id="profileEmail" class="form-control" placeholder="Email..." disabled/>
                     </div>
                   
                     <!-- Password input -->
                     <div class="form-outline px-3 pt-1">
-                        <input type="password" id="profilePassword" class="form-control" placeholder="Password..."/>
+                        <input type="password" id="profileHiddenPassword" class="form-control" placeholder="Password..."/>
+                        <input type="text" id="profileShownPassword" class="form-control" placeholder="Password..."/>
                     </div>
 
                     <!-- Submit button -->
@@ -378,10 +379,30 @@
                 </form>
             </div>
             <div id="profile-right-inner-section" class="pt-3 mt-5 col-10 col-sm-10 col-md-6 col-lg-7 col-xl-7 col-xxl-7 border border-4 border-dark" style="background-color: white;">    
-                <h4 class="text-center pt-2 mb-2">Your Accident Reports</h4>
+                <h4 class="text-center pt-2 mb-2">My Accident Reports</h4>
                 <hr>
                 <div id="allUsersAccidents"></div>
             </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="deleteSelectedReport" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Confirm Deletion?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            <p>Are you sure you want to delete this accident report?</p>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" onclick="deleteReport()" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
         </div>
     </div>
     <footer class="new-accident all-accidents view-map login-signup profile bg-dark text-center text-white fixed-bottom" style="border-top: 5px solid black;">
