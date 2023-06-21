@@ -56,6 +56,8 @@ function showHomePage(){
         $('#profile-btn').hide();
         $('#logout-btn').hide();
   }
+  
+  document.getElementById('profile-btn').disabled = false;
 
   sessionStorage.setItem("activePage", '1');
   //console.log("sessionStorage: " + sessionStorage.getItem('activePage'))
@@ -91,6 +93,8 @@ function showNewAccident(){
         $('#profile-btn').hide();
         $('#logout-btn').hide();
   }
+  
+  document.getElementById('profile-btn').disabled = false;
 
   sessionStorage.setItem("activePage", '2');
   //console.log("sessionStorage: " + sessionStorage.getItem('activePage'))
@@ -121,6 +125,8 @@ function showMap(){
         $('#profile-btn').hide();
         $('#logout-btn').hide();
   }
+  
+  document.getElementById('profile-btn').disabled = false;
 
   sessionStorage.setItem("activePage", '3');
   //console.log("sessionStorage: " + sessionStorage.getItem('activePage'))
@@ -151,6 +157,8 @@ function showAllAccidents(){
         $('#profile-btn').hide();
         $('#logout-btn').hide();
   }
+  
+  document.getElementById('profile-btn').disabled = false;
 
   sessionStorage.setItem("activePage", '4');
   //console.log("sessionStorage: " + sessionStorage.getItem('activePage'))
@@ -171,6 +179,7 @@ function loginSignup(){
 
   document.getElementById('login-btn').disabled = true;
   document.getElementById('signup-btn').disabled = true;
+  document.getElementById('profile-btn').disabled = false;
 
   sessionStorage.setItem("activePage", '5');
   //console.log("sessionStorage: " + sessionStorage.getItem('activePage'))
@@ -269,6 +278,11 @@ function showProfile(){
   $('.login-signup').hide();
   $('.profile').show();
 
+  $('#profileHiddenPassword').show();
+  $('#profileShownPassword').hide();
+
+  allUserAccidents();
+
   if(sessionStorage.getItem("isLoggedIn") == 'true'){
         $('#login-btn').hide();
         $('#signup-btn').hide();
@@ -280,6 +294,23 @@ function showProfile(){
         $('#profile-btn').hide();
         $('#logout-btn').hide();
   }
+  
+  document.getElementById('profile-btn').disabled = true;
+
+  var userData = JSON.parse(sessionStorage.getItem('user'));
+
+  $('#getProfileFirstName').empty();
+  $('#getProfileFirstName').append(userData.firstName);
+  $('#profileFirstName').val(userData.firstName);
+  $('#profileLastName').val(userData.lastName);
+  $('#profileMobile').val(userData.mobile);
+  $('#profileEmail').val(userData.email);
+  $('#profileHiddenPassword').val(userData.password);
+  
+
+
+
+
 
   sessionStorage.setItem("activePage", '6');
   //console.log("sessionStorage: " + sessionStorage.getItem('activePage'))
@@ -408,7 +439,124 @@ function viewMap() {
 function allUserAccidents(){
 
   // get the user's accidents and display them here very similar to allAccidents()
-  console.log("allUserAccidents()");
+  var locationIds = [];
+  var locationList = [];
+  var locationStates = [];
+  
+  var typeIds = [];
+  var typeList = [];
+  
+  $.ajax({
+    type: 'GET',
+    url: 'http://localhost:3333/location/locations',
+    success: function (locationArray) {
+      //for each location
+      $.each(locationArray, function (index, location) {
+
+        locationIds[index] = location.locationId;
+
+        var locationData = "";
+        locationData += location.streetNumber + " ";
+        locationData += location.streetName + ", ";
+        locationData += location.suburb + " ";
+        locationData += location.postcode + ", ";
+        locationData += location.state;
+
+        locationList[index] = locationData;
+        locationStates[index] = location.state;
+      })
+
+      $.ajax({
+        type: 'GET',
+        url: 'http://localhost:3333/accidenttype/accidenttypes',
+        success: function (accidentTypeArray) {
+          //for each accidenttype
+          $.each(accidentTypeArray, function (index, accidentType) {
+            typeIds[index] = accidentType.typeId;
+            typeList[index] = accidentType.accidentType;
+          })
+    
+          $.ajax({
+            type: 'GET',
+            url: 'http://localhost:3333/accident/bywitnessemail/' + $('#profileEmail').val(),
+            success: function (accidentArray) {
+              var userAccidentDiv = $('div#allUsersAccidents');
+              if(accidentArray.length == 0){
+            	  userAccidentDiv.append("<h6 class='text-center py-5'>There are no accidents to display!</h6>");
+              }
+
+              $.each(accidentArray, function (index, accident) {
+        
+                var accidentInfo = '<div class="row"><div class="col-9 col-lg-10">';
+                accidentInfo += '<p style="margin-left: 4%; margin-right: 1%; margin-bottom: 0px">';
+                accidentInfo += '<b>Accident Description:</b> ' + accident.accidentDesc + '<br>';
+                accidentInfo += '<b>Accident Type:</b> ' + typeList[accident.accidentTypeId-1] + '<br>';
+                accidentInfo += '<b>Vehicles Involved:</b> ' + accident.vehicleCount + '<br>';
+                accidentInfo += '<b>Recorded at:</b> ' + accident.accidentTime + ' on ' + accident.accidentDate + '<br>';
+                accidentInfo += '<b>Located at:</b> ' + locationList[accident.locationId-1] + '<br>';
+                accidentInfo += '<b>Severity:</b> ' + accident.accidentSeverity + '<br>';
+                accidentInfo += "</p></div>";
+                accidentInfo += "<div class='col-2 d-flex align-items-center'>";
+                accidentInfo += "<button type='button' onclick='deleteSelectedReport(" + accident.accidentId + "," + accident.locationId + ")' data-toggle='modal' data-target='#deleteSelectedReport' class='btn btn-danger'>Delete</button>";
+                accidentInfo += "</div></div><hr style='margin: 10px auto; width: 95%'>";
+
+                userAccidentDiv.append(accidentInfo);
+              })
+            },
+            error: function (xhr) {
+              var err = JSON.parse(xhr.responseText);
+              alert(err.details + ": " + err.message);
+            }
+          });
+        },
+        error: function (xhr) {
+          var err = JSON.parse(xhr.responseText);
+          alert(err.details + ": " + err.message);
+        }
+      });
+    },
+    error: function (xhr) {
+      var err = JSON.parse(xhr.responseText);
+      alert(err.details + ": " + err.message);
+    }
+  });
+}
+
+function deleteSelectedReport(accidentId, locationId){
+  $('#deleteSelectedReport').attr('accidentId', accidentId);
+  $('#deleteSelectedReport').attr('locationId', locationId);
+}
+
+function deleteReport(){
+  var selectedAccidentId = $('#deleteSelectedReport').attr('accidentId');
+  var selectedLocationId = $('#deleteSelectedReport').attr('locationId');
+
+  $.ajax({
+    type: 'DELETE',
+    url: 'http://localhost:3333/accident/' + selectedAccidentId,
+    success: function () {
+      alert('The accident has been deleted successfully.');
+        //Log deletion
+        $.ajax({
+          type: 'DELETE',
+          url: 'http://localhost:3333/location/' + selectedLocationId,
+          success: function () {
+              alert('The location has been deleted successfully.');
+              //Log deletion
+              location.reload();
+          },
+          error: function (xhr) {
+            var err = JSON.parse(xhr.responseText);
+            alert(err.details + ": " + err.message);
+          }
+        });
+    },
+    error: function (xhr) {
+      var err = JSON.parse(xhr.responseText);
+      alert(err.details + ": " + err.message);
+    }
+  });
+  
 }
 
 function allAccidents() {
@@ -582,7 +730,7 @@ $(document).ready(function(){
 
       // set relevant location data to fill it in
       var reverseGeocodingUrl = "";
-      console.log($('#inputLatitude').val());
+      //console.log($('#inputLatitude').val());
       if($('#inputLatitude').val() != ""){
         reverseGeocodingUrl = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + $('#inputLatitude').val() + "," + $('#inputLongitude').val() + "&key=" + api;
 
@@ -590,23 +738,16 @@ $(document).ready(function(){
           type: 'GET',
           url: reverseGeocodingUrl,
           success: function(data) {
-            //console.log("Street Number: " + data.results[0].address_components[0].long_name);
-            //console.log("Street Name: " + data.results[0].address_components[1].short_name);
-            //console.log("Suburb: " + data.results[0].address_components[2].long_name);
-            //console.log("State: " + data.results[0].address_components[4].short_name);   
-            //console.log("Country: " + data.results[0].address_components[5].long_name);
-            //console.log("Postcode: " + data.results[0].address_components[6].long_name);
-  
             $('#inputStreetNum').val(data.results[0].address_components[0].long_name);
             $('#inputStreetName').val(data.results[0].address_components[1].short_name);
             $('#inputSuburb').val(data.results[0].address_components[2].long_name);
             $('#inputState').val(data.results[0].address_components[4].short_name);
             $('#inputPostcode').val(data.results[0].address_components[6].long_name);
-            console.log($('#inputStreetNum').val());
-            console.log($('#inputStreetName').val());
-            console.log($('#inputSuburb').val());
-            console.log($('#inputState').val());
-            console.log($('#inputPostcode').val());
+            // console.log($('#inputStreetNum').val());
+            // console.log($('#inputStreetName').val());
+            // console.log($('#inputSuburb').val());
+            // console.log($('#inputState').val());
+            // console.log($('#inputPostcode').val());
   
             postLocationData();
         },
@@ -729,14 +870,14 @@ function postAccidentData(newLocationId, newAccidentTypeId){
   var currentDate = date.getFullYear()+ "-" + month + "-" + date.getDate();
   var currentTime = date.getHours() + ":" + date.getMinutes()+ ":" + date.getSeconds();
 
-  console.log("vehicleCount: " + $('#inputVehicleCount').val());
-  console.log("accidentTime: " + currentTime);
-  console.log("accidentDate: " + currentDate);
-  console.log("accidentDesc: " + $('#inputAccDesc').val());
-  console.log("locationId: " + newLocationId);
-  console.log("accidentTypeId: " + newAccidentTypeId);
-  console.log("witnessEmail:" + $('#inputWitnessEmail').val());
-  console.log("accidentSeverity: " + $('#inputSeverity').val());
+  // console.log("vehicleCount: " + $('#inputVehicleCount').val());
+  // console.log("accidentTime: " + currentTime);
+  // console.log("accidentDate: " + currentDate);
+  // console.log("accidentDesc: " + $('#inputAccDesc').val());
+  // console.log("locationId: " + newLocationId);
+  // console.log("accidentTypeId: " + newAccidentTypeId);
+  // console.log("witnessEmail:" + $('#inputWitnessEmail').val());
+  // console.log("accidentSeverity: " + $('#inputSeverity').val());
 
   $.ajax({
     type: 'POST',
@@ -755,6 +896,40 @@ function postAccidentData(newLocationId, newAccidentTypeId){
     accept: 'application/json',
     success: function (data) {
       console.log('accident was created: ' + data);
+      
+      var frm = document.getElementById('new-accident-addForm');
+      frm.reset();
+      window.scrollTo(0, 0);
+      
+      document.getElementById('inputStreetNum').disabled = false;
+      document.getElementById('inputStreetNum').required = true;
+      $('#streetNumLabel').html('Street No. <span style="color:red">*</span>');
+      
+      document.getElementById('inputStreetName').disabled = false;
+      document.getElementById('inputStreetName').required = true;
+      $('#streetNameLabel').html('Street Name <span style="color:red">*</span>');
+      
+      document.getElementById('inputSuburb').disabled = false;
+      document.getElementById('inputSuburb').required = true;
+      $('#suburbLabel').html('Suburb <span style="color:red">*</span>');
+      
+      document.getElementById('inputPostcode').disabled = false;
+      document.getElementById('inputPostcode').required = true;
+      $('#postcodeLabel').html('Postcode <span style="color:red">*</span>');
+      
+      document.getElementById('inputState').disabled = false;
+      document.getElementById('inputState').required = true;
+      $('#stateLabel').html('State <span style="color:red">*</span>');
+        
+      document.getElementById('inputLatitude').disabled = false;
+      document.getElementById('inputLatitude').required = true;
+      $('#latitudeLabel').html('Latitude <span style="color:red">*</span>');
+      
+      document.getElementById('inputLongitude').disabled = false;
+      document.getElementById('inputLongitude').required = true;
+      $('#longitudeLabel').html('Longitude <span style="color:red">*</span>');
+      
+      
       $('#new-accident-post-notification').empty();
       $('#new-accident-post-notification').append("Success! The accident has been created and placed on the map.");
     },

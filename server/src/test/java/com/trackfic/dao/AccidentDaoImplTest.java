@@ -103,7 +103,7 @@ public class AccidentDaoImplTest {
 	@Order(6)
 	public void getAccidentsByEmailTest()
 	{
-		List<Accident> list = accidentDao.getAccidentsByWitnessEmail("genericman@email.com");
+		List<Accident> list = accidentDao.findAccidentsByWitnessEmail("genericman@email.com");
 		assertNotNull(list);
 		assertEquals(1, list.size());
 	}

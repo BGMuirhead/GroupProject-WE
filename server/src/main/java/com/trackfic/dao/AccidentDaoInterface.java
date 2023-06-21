@@ -11,7 +11,7 @@ public interface AccidentDaoInterface {
 
 	List<Accident> getAllAccidents();
 	
-	List<Accident> getAccidentsByWitnessEmail(String email);
+	List<Accident> findAccidentsByWitnessEmail(String email);
 
 	Accident findAccidentById(int id);
 

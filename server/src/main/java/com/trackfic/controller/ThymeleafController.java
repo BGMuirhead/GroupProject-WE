@@ -36,10 +36,7 @@ public class ThymeleafController {
 	
 	
 	@GetMapping(value = "/home")
-	public String goHome(ModelMap model) {
-
-		model.addAttribute("witness" , "null");
-//		return "login";
+	public String goHome() {
 		return "trackfic";
 	}
 	
