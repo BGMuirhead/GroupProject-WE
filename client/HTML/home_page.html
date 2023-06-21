@@ -26,6 +26,7 @@
             l.addEventListener('click', () => { bsCollapse.toggle() })
         });
     </script>
+
 </head>
 <body style="overflow-x: hidden;">
     <div id="header">
@@ -49,14 +50,14 @@
                                 <a class="nav-link active" href="new_accident_page.html">New Accident</a>
                             </li>
                             <li class="nav-item pe-4">
-                                <a class="nav-link active" href="#">View Map</a>
+                                <a class="nav-link active" href="map_view_page.html">View Map</a>
                             </li>
                             <li class="nav-item pe-1">
                                 <a class="nav-link active" href="all_accidents_page.html">All Accidents</a>
                             </li>
                         </ul>
-                        <button type="button" id="login" class="btn btn-warning nav-button my-1" style="margin-right: 10px; font-weight: bold;">Login</button>
-                        <button type="button" id="something" class="btn btn-warning nav-button my-1" style="font-weight: bold;">Call Triple Zero</button>
+                        <button type="button" onclick="location.href='signup_login_page.html'" id="login-btn" class="btn btn-warning nav-button my-1" style="margin-right: 10px; font-weight: bold;">Login</button>
+                        <button type="button" onclick="location.href='signup_login_page.html'" id="signup-btn" class="btn btn-warning nav-button my-1" style="font-weight: bold;">Signup</button>
                     </div>
                 </div>
             </div>
