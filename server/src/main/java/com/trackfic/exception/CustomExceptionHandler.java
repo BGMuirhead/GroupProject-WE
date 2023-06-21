@@ -23,7 +23,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 	}
 	
 	@ExceptionHandler(IntegrityConstraintUnsatisfiedException.class)
-	public final ResponseEntity<Object> handleAllExceptions(IntegrityConstraintUnsatisfiedException ex, WebRequest req) {
+	public final ResponseEntity<Object> handleIntegrityConstraintUnsatisfiedException(IntegrityConstraintUnsatisfiedException ex, WebRequest req) {
 		ExceptionResponse response = new ExceptionResponse(new Date(), ex.getMessage(), "A data integrity exception has occured");
 
 		return new ResponseEntity(response, HttpStatus.INTERNAL_SERVER_ERROR);

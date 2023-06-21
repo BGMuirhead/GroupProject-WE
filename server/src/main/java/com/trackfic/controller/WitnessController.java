@@ -32,8 +32,8 @@ public class WitnessController {
 	@Autowired
 	WitnessServiceImpl witnessService;
 	
-	@Autowired
-	AccidentServiceImpl accidentService;
+//	@Autowired
+//	AccidentServiceImpl accidentService;
 
 	
 //	Currently unimplemented in front end so hiding end point	

@@ -37,7 +37,7 @@ public class AccidentController {
 	
 	//USED
 	@GetMapping("/bywitnessemail/{email}")
-	public List<Accident> getAccidentByWitnessEmail(@PathVariable String email)
+	public List<Accident> getAccidentsByWitnessEmail(@PathVariable String email)
 	{
 		return accidentService.getAccidentsByWitnessEmail(email);
 		
