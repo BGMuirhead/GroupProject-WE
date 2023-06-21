@@ -97,7 +97,7 @@ public class AccidentDaoImpl implements AccidentDaoInterface {
 	}
 
 	@Override
-	public List<Accident> getAccidentsByWitnessEmail(String email) {
+	public List<Accident> findAccidentsByWitnessEmail(String email) {
 		
 		String sql = "select * from accident where witness_email=?";
 		
