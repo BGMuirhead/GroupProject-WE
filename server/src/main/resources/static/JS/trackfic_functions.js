@@ -1,7 +1,3 @@
-var user;
-var isLoggedIn = false;
-
-
 $('document').ready(function () {
   window.onbeforeunload = function () {
     window.scrollTo(0, 0);
@@ -12,7 +8,8 @@ $('document').ready(function () {
     sessionStorage.setItem('beenHereBefore', 'true');
     //console.log('have not been here!');
     sessionStorage.setItem('activePage', '1');
-    //console.log('intial value set');
+    sessionStorage.setItem('isLoggedIn', 'false');
+    //console.log('intial values set');
   }
   if(sessionStorage.getItem('activePage') == '1'){
     //console.log("Its equal to 1!");
@@ -48,8 +45,17 @@ function showHomePage(){
   $('.profile').hide();
   $('.home-page').show();
 
-  document.getElementById('login-btn').disabled = false;
-  document.getElementById('signup-btn').disabled = false;
+  if(sessionStorage.getItem("isLoggedIn") == 'true'){
+        $('#login-btn').hide();
+        $('#signup-btn').hide();
+        $('#profile-btn').show();
+        $('#logout-btn').show();
+  } else {
+        $('#login-btn').show();
+        $('#signup-btn').show();
+        $('#profile-btn').hide();
+        $('#logout-btn').hide();
+  }
 
   sessionStorage.setItem("activePage", '1');
   //console.log("sessionStorage: " + sessionStorage.getItem('activePage'))
@@ -62,7 +68,7 @@ function showHomePage(){
 
 function showNewAccident(){
 	
-	if(isLoggedIn == false)
+	if(sessionStorage.getItem('isLoggedIn') == 'false')
 		{
 		alert("Sorry, you must be logged in to use this feature");
 		return;
@@ -74,8 +80,17 @@ function showNewAccident(){
   $('.profile').hide();
   $('.new-accident').show();
 
-  document.getElementById('login-btn').disabled = false;
-  document.getElementById('signup-btn').disabled = false;
+  if(sessionStorage.getItem("isLoggedIn") == 'true'){
+        $('#login-btn').hide();
+        $('#signup-btn').hide();
+        $('#profile-btn').show();
+        $('#logout-btn').show();
+  } else {
+        $('#login-btn').show();
+        $('#signup-btn').show();
+        $('#profile-btn').hide();
+        $('#logout-btn').hide();
+  }
 
   sessionStorage.setItem("activePage", '2');
   //console.log("sessionStorage: " + sessionStorage.getItem('activePage'))
@@ -95,8 +110,17 @@ function showMap(){
   $('.view-map').show();
   viewMap();
 
-  document.getElementById('login-btn').disabled = false;
-  document.getElementById('signup-btn').disabled = false;
+  if(sessionStorage.getItem("isLoggedIn") == 'true'){
+        $('#login-btn').hide();
+        $('#signup-btn').hide();
+        $('#profile-btn').show();
+        $('#logout-btn').show();
+  } else {
+        $('#login-btn').show();
+        $('#signup-btn').show();
+        $('#profile-btn').hide();
+        $('#logout-btn').hide();
+  }
 
   sessionStorage.setItem("activePage", '3');
   //console.log("sessionStorage: " + sessionStorage.getItem('activePage'))
@@ -116,8 +140,17 @@ function showAllAccidents(){
   $('.all-accidents').show();
   allAccidents();
 
-  document.getElementById('login-btn').disabled = false;
-  document.getElementById('signup-btn').disabled = false;
+  if(sessionStorage.getItem("isLoggedIn") == 'true'){
+        $('#login-btn').hide();
+        $('#signup-btn').hide();
+        $('#profile-btn').show();
+        $('#logout-btn').show();
+  } else {
+        $('#login-btn').show();
+        $('#signup-btn').show();
+        $('#profile-btn').hide();
+        $('#logout-btn').hide();
+  }
 
   sessionStorage.setItem("activePage", '4');
   //console.log("sessionStorage: " + sessionStorage.getItem('activePage'))
@@ -169,9 +202,13 @@ function loginSignup(){
 			    	
 			    	//set the user to be logged in
 			    	
-			    	user = data;
-			    	isLoggedIn=true;
-			    	showProfile()
+//			    	user = data;
+//			    	isLoggedIn=true;
+			    	
+			    	sessionStorage.setItem('user', JSON.stringify(data));
+			    	sessionStorage.setItem('isLoggedIn', 'true');
+			    	
+			    	showProfile();
 			    },
 			    error: function (xhr) {
 //				      var err = JSON.parse(xhr.responseText);
@@ -206,20 +243,22 @@ function loginSignup(){
 			        
 			    	console.log(data);
 			    	//set the user to be logged in
-			    	user = data;
-			    	isLoggedIn=true;
-			    	showProfile()
+//			    	user = data;
+//			    	isLoggedIn=true;
+			    	
+			    	sessionStorage.setItem('user', JSON.stringify(data));
+			    	sessionStorage.setItem('isLoggedIn', 'true');
+
+			    	showProfile();
 			    },
 			    error: function (xhr) {
 				      var err = JSON.parse(xhr.responseText);
 				      alert(err.details + ": " + err.message);
 				     
-				    }   
+				}   
 		  });
 	    });
 	  });
-  
-  
 }
 
 function showProfile(){
@@ -230,8 +269,17 @@ function showProfile(){
   $('.login-signup').hide();
   $('.profile').show();
 
-  document.getElementById('login-btn').disabled = false;
-  document.getElementById('signup-btn').disabled = false;
+  if(sessionStorage.getItem("isLoggedIn") == 'true'){
+        $('#login-btn').hide();
+        $('#signup-btn').hide();
+        $('#profile-btn').show();
+        $('#logout-btn').show();
+  } else {
+        $('#login-btn').show();
+        $('#signup-btn').show();
+        $('#profile-btn').hide();
+        $('#logout-btn').hide();
+  }
 
   sessionStorage.setItem("activePage", '6');
   //console.log("sessionStorage: " + sessionStorage.getItem('activePage'))
@@ -240,6 +288,13 @@ function showProfile(){
   document.getElementById('new-accident-nav-link').classList.add('active');
   document.getElementById('view-map-nav-link').classList.add('active');
   document.getElementById('all-accidents-nav-link').classList.add('active');
+}
+
+function logoutUser(){
+	alert('logging out...');
+	sessionStorage.removeItem('user');
+	sessionStorage.setItem('isLoggedIn', 'false');
+	showHomePage();
 }
 
 function viewMap() {
