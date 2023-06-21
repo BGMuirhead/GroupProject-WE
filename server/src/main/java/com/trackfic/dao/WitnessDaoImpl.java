@@ -23,10 +23,10 @@ public class WitnessDaoImpl implements WitnessDaoInterface {
 
 	@Override
 	public Witness createNewWitness(Witness witness) {
-		
-		String sql = "insert into witness values (?,?,?,?)";
+
+		String sql = "insert into witness values (?,?,?,?,?)";
 		jdbcTemplate.update(sql, witness.getEmail(), witness.getFirstName(), witness.getLastName(),
-				witness.getMobile());
+				witness.getMobile(),witness.getPassword());
 
 		return witness;
 	}
@@ -44,15 +44,13 @@ public class WitnessDaoImpl implements WitnessDaoInterface {
 	public Witness findWitnessByEmail(String email) {
 
 		String sql = "select * from witness where witness_email=?";
-		
+
 		try {
-			returnedWitness =jdbcTemplate.queryForObject(sql, new Object[] { email }, new WitnessMapper());
+			returnedWitness = jdbcTemplate.queryForObject(sql, new Object[] { email }, new WitnessMapper());
+		} catch (Exception ex) {
+			throw new WitnessNotFoundException("Witness with email: " + email + " not found");
 		}
-		catch(Exception ex)
-		{
-			throw new WitnessNotFoundException("Witness with email: "+email+" not found");
-		}
-		
+
 		return returnedWitness;
 	}
 
@@ -75,6 +73,27 @@ public class WitnessDaoImpl implements WitnessDaoInterface {
 			throw new ForeignKeyDeletionException(
 					"Foreign key references object to be deleted ensure correct delete order is followed");
 		}
+	}
+
+	@Override
+	public Witness login(String email, String password) {
+		String sql = "select * from witness where witness_email=?";
+
+		try {
+			returnedWitness = jdbcTemplate.queryForObject(sql, new Object[] { email }, new WitnessMapper());
+
+			if (returnedWitness.getPassword().equals(password)) {
+				return returnedWitness;
+			}
+			else
+			{
+				throw new Exception();
+			}
+		} catch (Exception ex) {
+			throw new WitnessNotFoundException("Cannot find a witness matching those credentials");
+		}
+
+
 	}
 
 }

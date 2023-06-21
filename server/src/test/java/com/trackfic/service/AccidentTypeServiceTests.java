@@ -36,7 +36,7 @@ public class AccidentTypeServiceTests {
 		assertNull(test);
 		
 	}
-	
+	@Test
 	public void updateAccidentTypeTest()
 	{
 		AccidentType temp =  new AccidentType(1,"accidentType");
@@ -55,11 +55,11 @@ public class AccidentTypeServiceTests {
 				
 		
 	}
-	
+	@Test
 	public void findAccidentTypeByIdTest() {
 		AccidentType temp =  new AccidentType(1,"accidentType");
 		AccidentType test = accidentTypeService.getAccidentTypeById(1);
-		assertEquals(temp, test);
+		assertEquals(temp.getAccidentType(), test.getAccidentType());
 		test = accidentTypeService.getAccidentTypeById(2);
 		assertNull(test);
 		

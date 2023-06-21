@@ -26,6 +26,7 @@ public class AccidentTypeController {
 	@Autowired
 	AccidentTypeServiceImpl accidentTypeService;
 
+	//USED
 	@GetMapping("/accidenttypes")
 	public List<AccidentType> getAllAccidentTypes() {
 
@@ -33,33 +34,41 @@ public class AccidentTypeController {
 		return accidentTypes;
 	}
 	
-	@GetMapping("/{id}")
-	public AccidentType getAccidentTypeById(@PathVariable int id)
-	{
-		AccidentType accidentType = accidentTypeService.getAccidentTypeById(id);
-		return accidentType;
-	}
+//	Currently unimplemented in front end so hiding end point	
+//	
+//	@GetMapping("/{id}")
+//	public AccidentType getAccidentTypeById(@PathVariable int id)
+//	{
+//		AccidentType accidentType = accidentTypeService.getAccidentTypeById(id);
+//		return accidentType;
+//	}
 	
-	@PostMapping("/add")
-	public AccidentType addAccidentType(@RequestBody AccidentType accidentType)
-	{
-		AccidentType accidentType1 = accidentTypeService.addNewAccidentType(accidentType);
-		return accidentType1;
-	}
+//	Currently unimplemented in front end so hiding end point	
+//	
+//	@PostMapping("/add")
+//	public AccidentType addAccidentType(@RequestBody AccidentType accidentType)
+//	{
+//		AccidentType accidentType1 = accidentTypeService.addNewAccidentType(accidentType);
+//		return accidentType1;
+//	}
 	
 	
-	@PutMapping("{id}")
-	public AccidentType updateAccidentType(@PathVariable int id, @RequestBody AccidentType accidentType)
-	{
-		AccidentType accidentType1 = accidentTypeService.updateAccidentTypeData(id, accidentType);
-		return accidentType1;
-		
-	}
+//	Currently unimplemented in front end so hiding end point	
+//	
+//	@PutMapping("{id}")
+//	public AccidentType updateAccidentType(@PathVariable int id, @RequestBody AccidentType accidentType)
+//	{
+//		AccidentType accidentType1 = accidentTypeService.updateAccidentTypeData(id, accidentType);
+//		return accidentType1;
+//		
+//	}
 	
-	@DeleteMapping("/{id}")
-	public void deleteAccidentType(@PathVariable int id)
-	{
-		accidentTypeService.deleteAccidentType(id);
-		
-	}
+//	Currently unimplemented in front end so hiding end point	
+//	
+//	@DeleteMapping("/{id}")
+//	public void deleteAccidentType(@PathVariable int id)
+//	{
+//		accidentTypeService.deleteAccidentType(id);
+//		
+//	}
 }

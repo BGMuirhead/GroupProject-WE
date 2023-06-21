@@ -37,7 +37,7 @@ public class WitnessServiceImpl implements WitnessServiceInterface {
 
 	public Witness updateWitnessData(String email, Witness witness) {
 		
-		if(email.equals(witness.getEmail()))
+		if(!email.equals(witness.getEmail()))
 		{
 			//throw an error 
 			throw new DataMismatchException("Witness email does not match");
@@ -49,6 +49,11 @@ public class WitnessServiceImpl implements WitnessServiceInterface {
 	public void deleteWitness(String email) {
 
 		witnessDao.deleteWitness(email);
+	}
+
+	@Override
+	public Witness loginWitness(String email, String password) {
+		return witnessDao.login(email,password);
 	}
 
 	

@@ -11,6 +11,8 @@ public interface WitnessServiceInterface {
 
 	Witness addNewWitness(Witness witness);
 
+	Witness loginWitness(String email, String password);
+
 	Witness updateWitnessData(String email, Witness witness);
 
 	void deleteWitness(String email);

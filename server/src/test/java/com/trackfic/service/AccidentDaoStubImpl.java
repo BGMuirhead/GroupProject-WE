@@ -1,6 +1,7 @@
 package com.trackfic.service;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.tomcat.jni.Time;
@@ -55,6 +56,19 @@ public class AccidentDaoStubImpl implements AccidentDaoInterface{
 	@Override
 	public void deleteAccident(int id) {
 		 //Pass through method no tests		
+	}
+
+	@Override
+	public List<Accident> getAccidentsByWitnessEmail(String email) {
+
+		List<Accident> accidents = new ArrayList<>();
+		
+		if(singleAccident.getWitnessEmail().equals(email))
+		{
+			accidents.add(singleAccident) ;
+		}
+		
+		return accidents;
 	}
 
 	

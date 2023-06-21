@@ -10,7 +10,8 @@ CREATE TABLE witness (
   witness_email VARCHAR(40) PRIMARY KEY,
   first_name varchar(20) NOT NULL,
   last_name varchar(20) NOT NULL,
-  mobile int
+  mobile int,
+  password varchar(64) NOT NULL
 );
 
 CREATE TABLE accidenttype(
@@ -25,13 +26,13 @@ CREATE TABLE severity(
 
 CREATE TABLE location(
  location_id int AUTO_INCREMENT PRIMARY KEY,
- street_number varchar(5),
- street_name varchar(30),
- suburb VARCHAR(20),
+ street_number varchar(5) NOT NULL,
+ street_name varchar(30) NOT NULL,
+ suburb VARCHAR(30) NOT NULL,
  postcode int NOT NULL,
  loc_state VARCHAR(3) NOT NULL,
- latitude double ,
- longitude double 
+ latitude double NOT NULL,
+ longitude double NOT NULL
 );
 
 CREATE TABLE accident(

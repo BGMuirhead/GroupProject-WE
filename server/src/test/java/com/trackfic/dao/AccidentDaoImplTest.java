@@ -46,11 +46,11 @@ public class AccidentDaoImplTest {
 	{
 //		Accident accident = new Accident(3, "Test");
 		AccidentSeverity severity = AccidentSeverity.Major;
-		Accident accident = new Accident(2, 1, new java.sql.Time(2, 20, 10), new Date(2020, 10, 23), "Description", 1, 1, "testPerson@email.com", severity);
+		Accident accident = new Accident(4, 1, new java.sql.Time(2, 20, 10), new Date(2020, 10, 23), "Description", 1, 1, "testPerson@email.com", severity);
 		accidentDao.createNewAccident(accident);
 		List<Accident> list = accidentDao.getAllAccidents();
 		assertNotNull(list);
-		assertEquals(2, list.size());
+		assertEquals(4, list.size());
 	}
 	
 	//tests the get all method of accident dao layer
@@ -59,14 +59,14 @@ public class AccidentDaoImplTest {
 	{
 		List<Accident> list = accidentDao.getAllAccidents();
 		assertNotNull(list);
-		assertEquals(2, list.size());
+		assertEquals(4, list.size());
 	}
 	//tests the find accident by id method of accident dao layer
 	@Test
 	@Order(3)
 	public void getOneTest()
 	{
-		Accident accident = accidentDao.findAccidentById(2);
+		Accident accident = accidentDao.findAccidentById(4);
 		assertNotNull(accident);
 		assertEquals("Description", accident.getAccidentDesc());
 	}
@@ -77,12 +77,12 @@ public class AccidentDaoImplTest {
 	public void updateTest()
 	{
 		AccidentSeverity severity = AccidentSeverity.Major;
-		Accident accident = new Accident(3, 1, new java.sql.Time(2, 20, 10), new Date(2020, 10, 23), "Description", 1, 1, "testPerson@email.com", severity);
+		Accident accident = new Accident(5, 1, new java.sql.Time(2, 20, 10), new Date(2020, 10, 23), "Description", 1, 1, "testPerson@email.com", severity);
 		accidentDao.createNewAccident(accident);
 		accident.setAccidentDesc("Test Description");
 		accidentDao.updateAccident(accident);
 		
-		Accident returned = accidentDao.findAccidentById(3);
+		Accident returned = accidentDao.findAccidentById(5);
 		assertEquals(returned.getAccidentDesc(), "Test Description");
 	}
 	 
@@ -91,10 +91,19 @@ public class AccidentDaoImplTest {
 	@Order(5)
 	public void deleteTest()
 	{
-		accidentDao.deleteAccident(2);
-		accidentDao.deleteAccident(3);
+		accidentDao.deleteAccident(4);
+		accidentDao.deleteAccident(5);
 		
 		List<Accident> list = accidentDao.getAllAccidents();
+		assertNotNull(list);
+		assertEquals(3, list.size());
+	}
+	
+	@Test
+	@Order(6)
+	public void getAccidentsByEmailTest()
+	{
+		List<Accident> list = accidentDao.getAccidentsByWitnessEmail("genericman@email.com");
 		assertNotNull(list);
 		assertEquals(1, list.size());
 	}

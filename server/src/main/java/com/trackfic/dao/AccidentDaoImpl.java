@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import com.trackfic.exception.AccidentNotFoundException;
 import com.trackfic.exception.ForeignKeyDeletionException;
 import com.trackfic.exception.IntegrityConstraintUnsatisfiedException;
+import com.trackfic.exception.WitnessNotFoundException;
 import com.trackfic.mapper.AccidentMapper;
 import com.trackfic.model.Accident;
 
@@ -93,6 +94,21 @@ public class AccidentDaoImpl implements AccidentDaoInterface {
 			throw new ForeignKeyDeletionException("Foreign key references object to be deleted ensure correct delete order is followed");
 		}
 		
+	}
+
+	@Override
+	public List<Accident> getAccidentsByWitnessEmail(String email) {
+		
+		String sql = "select * from accident where witness_email=?";
+		
+		List<Accident> accidents = jdbcTemplate.query(sql, new Object[] {email} , new AccidentMapper());
+		
+		if(accidents==null)
+		{
+			throw new WitnessNotFoundException("Witness with email: "+email+" has not reported any accidents");
+		}
+		
+		return accidents;
 	}
 
 }

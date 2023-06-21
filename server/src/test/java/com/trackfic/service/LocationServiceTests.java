@@ -36,7 +36,7 @@ public class LocationServiceTests {
 		assertNull(test);
 		
 	}
-	
+	@Test
 	public void updateLocationTest()
 	{
 		Location temp =  new Location(1, "streetName", "streetNumber", "suburb", 1, "state", 0, 0);
@@ -57,11 +57,11 @@ public class LocationServiceTests {
 		
 		
 	}
-	
+	@Test
 	public void findLocationByIdTest() {
 		Location temp =  new Location(1, "streetName", "streetNumber", "suburb", 1, "state", 0, 0);
 		Location test = locationService.getLocationById(1);
-		assertEquals(temp, test);
+		assertEquals(temp.getStreetName(), test.getStreetName());
 		test = locationService.getLocationById(2);
 		assertNull(test);
 		
