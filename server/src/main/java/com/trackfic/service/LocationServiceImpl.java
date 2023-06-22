@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.trackfic.dao.LocationDaoInterface;
 import com.trackfic.exception.DataMismatchException;
 import com.trackfic.model.Location;
+
 @Service
 public class LocationServiceImpl implements LocationServiceInterface {
 
@@ -30,21 +31,20 @@ public class LocationServiceImpl implements LocationServiceInterface {
 	}
 
 	public Location addNewLocation(Location location) {
-		
+
 		returnedLocation = locationDao.createNewLocation(location);
 		return returnedLocation;
 	}
 
 	public Location updateLocationData(int id, Location location) {
-		
-		if(id!= location.getLocationId())
-		{
-			//throw an error 
+
+		if (id != location.getLocationId()) {
+			// throw an error
 			throw new DataMismatchException("Location id does not match");
 		}
-		
+
 		locationDao.updateLocation(location);
-		
+
 		return location;
 	}
 

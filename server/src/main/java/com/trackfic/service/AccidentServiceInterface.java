@@ -10,7 +10,7 @@ public interface AccidentServiceInterface {
 	List<Accident> getAllAccidents();
 
 	Accident getAccidentById(int id);
-	
+
 	List<Accident> getAccidentsByWitnessEmail(String email);
 
 	Accident addNewAccident(Accident accident);

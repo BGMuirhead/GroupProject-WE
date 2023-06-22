@@ -7,8 +7,9 @@ import org.springframework.stereotype.Service;
 import com.trackfic.dao.AccidentTypeDaoInterface;
 import com.trackfic.exception.DataMismatchException;
 import com.trackfic.model.AccidentType;
+
 @Service
-public class AccidentTypeServiceImpl implements AccidentTypeServiceInterface{
+public class AccidentTypeServiceImpl implements AccidentTypeServiceInterface {
 
 	AccidentType returnedAccidentType;
 
@@ -20,12 +21,12 @@ public class AccidentTypeServiceImpl implements AccidentTypeServiceInterface{
 	}
 
 	public List<AccidentType> getAllAccidentTypes() {
-		
+
 		return accidentTypeDao.getAllAccidentTypes();
 	}
 
 	public AccidentType getAccidentTypeById(int id) {
-		
+
 		returnedAccidentType = accidentTypeDao.findAccidentTypeById(id);
 		return returnedAccidentType;
 	}
@@ -36,15 +37,14 @@ public class AccidentTypeServiceImpl implements AccidentTypeServiceInterface{
 	}
 
 	public AccidentType updateAccidentTypeData(int id, AccidentType accidentType) {
-		
-		if(id!= accidentType.getTypeId())
-		{
-			//throw an error 
+
+		if (id != accidentType.getTypeId()) {
+			// throw an error
 			throw new DataMismatchException("Accident type id does not match");
 		}
-		
+
 		accidentTypeDao.updateAccidentType(accidentType);
-		
+
 		return accidentType;
 	}
 
