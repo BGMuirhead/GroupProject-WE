@@ -13,59 +13,52 @@ import com.trackfic.model.Location;
 public class LocationServiceTests {
 
 	private LocationServiceImpl locationService;
-	
+
 	public LocationServiceTests() {
 		LocationDaoInterface locationDao = new LocationDaoStubImpl();
 		locationService = new LocationServiceImpl(locationDao);
-		
+
 	}
-	
-	
+
 	@Test
-	public void createLocationTest()
-	{
+	public void createLocationTest() {
 		Location temp = new Location(1, "streetName", "streetNumber", "suburb", 1, "state", 0, 0);
 		Location test = locationService.addNewLocation(temp);
-		
+
 		assertEquals(temp, test);
-		
+
 		temp = new Location();
 		temp.setState("");
 		test = locationService.addNewLocation(temp);
-		
+
 		assertNull(test);
-		
+
 	}
+
 	@Test
-	public void updateLocationTest()
-	{
-		Location temp =  new Location(1, "streetName", "streetNumber", "suburb", 1, "state", 0, 0);
+	public void updateLocationTest() {
+		Location temp = new Location(1, "streetName", "streetNumber", "suburb", 1, "state", 0, 0);
 		Location test = locationService.updateLocationData(1, temp);
-				
+
 		assertEquals(temp, test);
-		
+
 		try {
 			temp = locationService.updateLocationData(2, temp);
 			assertTrue(false);
-		}
-		catch(DataMismatchException e)
-		{
+		} catch (DataMismatchException e) {
 			assertTrue(true);
 		}
-		
-		
-		
-		
+
 	}
+
 	@Test
 	public void findLocationByIdTest() {
-		Location temp =  new Location(1, "streetName", "streetNumber", "suburb", 1, "state", 0, 0);
+		Location temp = new Location(1, "streetName", "streetNumber", "suburb", 1, "state", 0, 0);
 		Location test = locationService.getLocationById(1);
 		assertEquals(temp.getStreetName(), test.getStreetName());
 		test = locationService.getLocationById(2);
 		assertNull(test);
-		
+
 	}
-	
-	
+
 }

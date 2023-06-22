@@ -20,10 +20,9 @@ public class WitnessDaoImplTest {
 
 	@Autowired
 	private WitnessDaoImpl witnessDao;
-	
 
 	public WitnessDaoImplTest() {
-		
+
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
@@ -31,60 +30,55 @@ public class WitnessDaoImplTest {
 		dataSource.setUsername("root");
 		dataSource.setPassword("root");
 		JdbcTemplate template = new JdbcTemplate(dataSource);
-		witnessDao= new WitnessDaoImpl(template);
-		
+		witnessDao = new WitnessDaoImpl(template);
+
 	}
-	
+
 	@Test
 	@Order(1)
-	public void createTest()
-	{
+	public void createTest() {
 		Witness witness = new Witness("test1@email.com", "Test", "User", 1234, "1");
 		witnessDao.createNewWitness(witness);
 		List<Witness> list = witnessDao.getAllWitnesss();
 		assertNotNull(list);
 		assertEquals(6, list.size());
 	}
-	
+
 	@Test
 	@Order(2)
-	public void getAllTest()
-	{
+	public void getAllTest() {
 		List<Witness> list = witnessDao.getAllWitnesss();
 		assertNotNull(list);
 		assertEquals(6, list.size());
 	}
-	
+
 	@Test
 	@Order(3)
-	public void getOneTest()
-	{
+	public void getOneTest() {
 		Witness witness = witnessDao.findWitnessByEmail("test1@email.com");
 		assertNotNull(witness);
 		assertEquals("Test", witness.getFirstName());
 	}
-	
+
 	@Test
 	@Order(4)
-	public void updateTest()
-	{
+	public void updateTest() {
 		Witness witness = new Witness("test2@email.com", "Test", "User", 1234, "1");
 		witnessDao.createNewWitness(witness);
 		witness.setLastName("Lastname");
 		witnessDao.updateWitness(witness);
-		
+
 		Witness returned = witnessDao.findWitnessByEmail(witness.getEmail());
 		assertEquals(returned.getLastName(), "Lastname");
 	}
-	
+
 	@Test
 	@Order(5)
-	public void deleteTest()
-	{
+	public void deleteTest() {
 		witnessDao.deleteWitness("test1@email.com");
 		witnessDao.deleteWitness("test2@email.com");
 //		assertNull(witnessDao.getAllWitnesss());
-		
+
 		List<Witness> list = witnessDao.getAllWitnesss();
 		assertNotNull(list);
 		assertEquals(5, list.size());
