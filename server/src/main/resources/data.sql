@@ -1,9 +1,9 @@
 
 INSERT INTO witness VALUES
-('testperson@email.com','Test', 'Person', 123456789 , "a4ayc/80/OGda4BO/1o/V0etpOqiLx1JwB5S3beHW0s="),
+('johnr@email.com','John', 'Reece', 123456789 , "a4ayc/80/OGda4BO/1o/V0etpOqiLx1JwB5S3beHW0s="),
 ('bevanmuirhead@gmail.com','Bevan', 'Muirhead', 987654321, "a4ayc/80/OGda4BO/1o/V0etpOqiLx1JwB5S3beHW0s="),
-('genericman@email.com','Generic', 'Man', 111111111, "a4ayc/80/OGda4BO/1o/V0etpOqiLx1JwB5S3beHW0s="),
-('genericwoman@email.com','Generic', 'Woman', 111111112, "a4ayc/80/OGda4BO/1o/V0etpOqiLx1JwB5S3beHW0s="),
+('marks@email.com','Mark', 'Snow', 111111111, "a4ayc/80/OGda4BO/1o/V0etpOqiLx1JwB5S3beHW0s="),
+('haroldfinch@email.com','Harold', 'Finch', 111111112, "a4ayc/80/OGda4BO/1o/V0etpOqiLx1JwB5S3beHW0s="),
 ('cayden.darley@gmail.com', 'Cayden', 'Darley', 1111222333, "a4ayc/80/OGda4BO/1o/V0etpOqiLx1JwB5S3beHW0s=");
 
 INSERT INTO accidenttype values
@@ -31,8 +31,8 @@ INSERT INTO location VALUES
 
 
 INSERT INTO accident VALUES
-(1,2,"2023-06-15","08:15:12","Two car major crash in middle of road",1,1,'testperson@email.com',"Minor"),
-(2,1,"2023-06-17","09:15:15","Massive Oil Spill",2,7,'genericman@email.com',"Major"),
-(3,3,"2023-06-19","10:15:19","2x motorbikes and one truck involved",3,3,'genericwoman@email.com',"Severe");
+(1,2,"2023-06-15","08:15:12","Two car major crash in the middle of the road",1,1,'johnr@email.com',"Minor"),
+(2,1,"2023-06-17","09:15:15","Massive Oil Spill",2,7,'marks@email.com',"Major"),
+(3,3,"2023-06-19","10:15:19","2x motorbikes and one truck involved",3,3,'haroldfinch@email.com',"Severe");
 
 
