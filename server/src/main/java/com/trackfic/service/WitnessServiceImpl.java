@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.trackfic.dao.WitnessDaoInterface;
 import com.trackfic.exception.DataMismatchException;
 import com.trackfic.model.Witness;
+
 @Service
 public class WitnessServiceImpl implements WitnessServiceInterface {
 
@@ -26,22 +27,20 @@ public class WitnessServiceImpl implements WitnessServiceInterface {
 
 	public Witness getWitnessByEmail(String email) {
 
-		returnedWitness =witnessDao.findWitnessByEmail(email);
+		returnedWitness = witnessDao.findWitnessByEmail(email);
 		return returnedWitness;
 	}
 
 	public Witness addNewWitness(Witness witness) {
-		returnedWitness =witnessDao.createNewWitness(witness);
+		returnedWitness = witnessDao.createNewWitness(witness);
 		return returnedWitness;
 	}
 
 	public Witness updateWitnessData(String email, Witness witness) {
-		System.out.println("email: " + email);
-		System.out.println("witEmail: " + witness.getEmail());
-		
-		if(!email.equals(witness.getEmail()))
-		{
-			//throw an error 
+
+		if (!email.equals(witness.getEmail()))
+    {
+			// throw an error
 			throw new DataMismatchException("Witness email does not match");
 		}
 		witnessDao.updateWitness(witness);
@@ -55,9 +54,7 @@ public class WitnessServiceImpl implements WitnessServiceInterface {
 
 	@Override
 	public Witness loginWitness(String email, String password) {
-		return witnessDao.login(email,password);
+		return witnessDao.login(email, password);
 	}
-
-	
 
 }

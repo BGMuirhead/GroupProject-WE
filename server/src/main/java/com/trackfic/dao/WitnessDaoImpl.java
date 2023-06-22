@@ -1,5 +1,9 @@
 package com.trackfic.dao;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -24,11 +28,24 @@ public class WitnessDaoImpl implements WitnessDaoInterface {
 	@Override
 	public Witness createNewWitness(Witness witness) {
 
-		String sql = "insert into witness values (?,?,?,?,?)";
-		jdbcTemplate.update(sql, witness.getEmail(), witness.getFirstName(), witness.getLastName(),
-				witness.getMobile(),witness.getPassword());
+		MessageDigest md;
+		try {
+			md = MessageDigest.getInstance("SHA-256");
+			byte[] hashedPassword = md.digest(witness.getPassword().getBytes(StandardCharsets.UTF_8));
 
-		return witness;
+			String password = Base64.getEncoder().encodeToString(hashedPassword);
+			String sql = "insert into witness values (?,?,?,?,?)";
+			jdbcTemplate.update(sql, witness.getEmail(), witness.getFirstName(), witness.getLastName(),
+					witness.getMobile(), password);
+
+			return witness;
+
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+
 	}
 
 	@Override
@@ -57,10 +74,22 @@ public class WitnessDaoImpl implements WitnessDaoInterface {
 	@Override
 	public void updateWitness(Witness witness) {
 
-		String sql = "update witness set first_name =?, last_name =?, mobile=? where witness_email=?";
+		String sql = "update witness set first_name =?, last_name =?, mobile=?, password=? where witness_email=?";
 
-		jdbcTemplate.update(sql, witness.getFirstName(), witness.getLastName(), witness.getMobile(),
-				witness.getEmail());
+		MessageDigest md;
+		try {
+			md = MessageDigest.getInstance("SHA-256");
+
+			byte[] hashedPassword = md.digest(witness.getPassword().getBytes(StandardCharsets.UTF_8));
+
+			String pword = Base64.getEncoder().encodeToString(hashedPassword);
+
+			jdbcTemplate.update(sql, witness.getFirstName(), witness.getLastName(), witness.getMobile(), pword,
+					witness.getEmail());
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
@@ -82,17 +111,20 @@ public class WitnessDaoImpl implements WitnessDaoInterface {
 		try {
 			returnedWitness = jdbcTemplate.queryForObject(sql, new Object[] { email }, new WitnessMapper());
 
-			if (returnedWitness.getPassword().equals(password)) {
+			MessageDigest md = MessageDigest.getInstance("SHA-256");
+			byte[] hashedPassword = md.digest(password.getBytes(StandardCharsets.UTF_8));
+
+			String pword = Base64.getEncoder().encodeToString(hashedPassword);
+
+			if (returnedWitness.getPassword().equals(pword)) {
+				returnedWitness.setPassword(password);
 				return returnedWitness;
-			}
-			else
-			{
+			} else {
 				throw new Exception();
 			}
 		} catch (Exception ex) {
 			throw new WitnessNotFoundException("Cannot find a witness matching those credentials");
 		}
-
 
 	}
 

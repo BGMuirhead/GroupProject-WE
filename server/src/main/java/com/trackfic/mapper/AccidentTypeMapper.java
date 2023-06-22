@@ -14,7 +14,7 @@ public class AccidentTypeMapper implements RowMapper<AccidentType> {
 
 		int typeId = rs.getInt("accident_type_id");
 		String accidentType = rs.getString("accident_type");
-		
+
 		AccidentType accType = new AccidentType(typeId, accidentType);
 		return accType;
 	}
