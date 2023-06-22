@@ -4,10 +4,12 @@ $('document').ready(function () {
   }
 
   // Determine if is the first time on this page and set user as false (not logged in)
-  if (!sessionStorage.getItem("beenHereBefore")) {
+  const beenHereBefore = sessionStorage.getItem('beenHereBefore');
+  if (beenHereBefore == null) {
     sessionStorage.setItem('beenHereBefore', 'true');
     sessionStorage.setItem('activePage', '1');
     sessionStorage.setItem('isLoggedIn', 'false');
+    location.reload();
   }
 
   // on page reload, check sessionStorage to keep the same page
@@ -754,13 +756,17 @@ function deleteReport() {
     type: 'DELETE',
     url: 'http://localhost:3333/accident/' + selectedAccidentId,
     success: function () {
-      alert('The accident has been deleted successfully.');
       $.ajax({
         type: 'DELETE',
         url: 'http://localhost:3333/location/' + selectedLocationId,
         success: function () {
-          alert('The location has been deleted successfully.');
-          location.reload();
+          $('#universalErrorTitle').html("<span style='color:green'>Success!</span>");
+          $('#universalErrorBody').html("<span style='color:green'>The accident report has been deleted successfully.</span>");
+          $('#universalErrors').modal('toggle');
+          $('.universalErrorClose').on('click', function () {
+            $('#universalErrors').modal('toggle');
+            location.reload();
+          });
         },
         error: function (xhr) {
           var err = JSON.parse(xhr.responseText);
@@ -1025,7 +1031,6 @@ $(document).ready(function () {
         type: 'GET',
         url: reverseGeocodingUrl,
         success: function (data) {
-          console.log(data.results[0])
           if (data.results[0] == undefined) {
             $('#universalErrorTitle').html("<span style='color:darkred'>There's Been An Error!</span>");
             $('#universalErrorBody').html("<span style='color:darkred'>Unable to read the address. Please check the API key or contact the server admin.</span>");
@@ -1069,10 +1074,10 @@ $(document).ready(function () {
 
       fetch(reverseGeocodingUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=" + apiKey)
         .then((response) => {
-          console.log(response);
+          //console.log(response);
           return response.json();
         }).then(jsonData => {
-          console.log(jsonData);
+          //console.log(jsonData);
           $('#inputLatitude').val(jsonData.results[0].geometry.location.lat);
           $('#inputLongitude').val(jsonData.results[0].geometry.location.lng);
 
@@ -1118,7 +1123,7 @@ function postLocationData() {
     contentType: 'application/json',
     accept: 'application/json',
     success: function (data) {
-      console.log('location was created: ' + data);
+      //console.log('location was created: ' + data);
 
       getRelevantAccidentData();
     },
@@ -1243,7 +1248,7 @@ function postAccidentData(newLocationId, newAccidentTypeId) {
     contentType: 'application/json',
     accept: 'application/json',
     success: function (data) {
-      console.log('accident was created: ' + data);
+      //console.log('accident was created: ' + data);
 
       var frm = document.getElementById('new-accident-addForm');
       frm.reset();
