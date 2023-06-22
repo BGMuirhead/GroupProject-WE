@@ -16,13 +16,13 @@
     </script>
     <script>
         (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
-        key: "AIzaSyBIV-yfyLwbrQh7fGqgrkMFHGXGjgn6258",
+        key: "[THE_API_KEY_HERE]",
         v: "weekly",
         // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
         // Add other bootstrap parameters as needed, using camel case.
         });
     </script>
-    <script async th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyBIV-yfyLwbrQh7fGqgrkMFHGXGjgn6258&callback=viewMap}"></script>
+    <script async th:src="@{https://maps.googleapis.com/maps/api/js?key=[THE_API_KEY_HERE]&callback=viewMap}"></script>
     <script th:src="@{../JS/trackfic_functions.js}"></script>
     <link th:href="@{../BOOTSTRAP/bootstrap-5.1.0-dist/css/bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{../BOOTSTRAP/external.css}" rel="stylesheet">
@@ -36,6 +36,7 @@
         });
     </script>
 </head>
+<!-- The header / navbar -->
 <body style="overflow-x: hidden;">
     <div id="header">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="border-bottom: 5px solid black; font-weight: bold;">
@@ -73,6 +74,7 @@
             </div>
         </nav>
     </div>
+    <!-- Homepage Content -->
     <div class="home-page vid-container">
         <video th:src="@{../videos/herovid.mp4}" autoPlay loop muted></video>
         <div class="text-center">
@@ -84,6 +86,7 @@
             </div>
         </div>
     </div>
+    <!-- New Accident Form Content -->
     <div id="new-accident-body" class="new-accident img-container">
         <img class="bg-image" th:src="@{../images/city_bg.jpg}" />
         <div class="row" style="margin-right: 0px !important; color: white; padding-top: 100px;">
@@ -102,11 +105,11 @@
                 <form role="form" id="new-accident-addForm" method="POST">      
                     <div class="row pb-3 mx-auto" style="width: 96%">
                         <div class="col-6">
-                            <label for="inputLatitude" id="latitudeLabel" class="form-label">Latitude <span style="color:red">*</span></label>
+                            <label id="latitudeLabel" class="form-label">Latitude <span style="color:red">*</span></label>
                             <input type="number" step="any" class="form-control" id="inputLatitude" required>
                         </div>
                         <div class="col-6">
-                            <label for="inputLongitude" id="longitudeLabel" class="form-label">Longitude <span style="color:red">*</span></label>
+                            <label id="longitudeLabel" class="form-label">Longitude <span style="color:red">*</span></label>
                             <input type="number" step="any" class="form-control" id="inputLongitude" required>
                         </div>
                     </div>
@@ -117,25 +120,25 @@
                     <hr>
                     <div class="row py-3 mx-auto" style="width: 96%">
                         <div class="col-4">
-                            <label for="inputStreetNum" id="streetNumLabel" class="form-label">Street No. <span style="color:red">*</span></label>
+                            <label id="streetNumLabel" class="form-label">Street No. <span style="color:red">*</span></label>
                             <input type="text" class="form-control" id="inputStreetNum" required>
                         </div>
                         <div class="col-8">
-                            <label for="inputStreetName" id="streetNameLabel" class="form-label">Street Name <span style="color:red">*</span></label>
+                            <label id="streetNameLabel" class="form-label">Street Name <span style="color:red">*</span></label>
                             <input type="text" class="form-control" id="inputStreetName" required>
                         </div>      
                     </div>
                     <div class="row py-3 mx-auto" style="width: 96%">
                         <div class="col-4">
-                            <label for="inputSuburb" id="suburbLabel" class="form-label">Suburb <span style="color:red">*</span></label>
+                            <label id="suburbLabel" class="form-label">Suburb <span style="color:red">*</span></label>
                             <input type="text" class="form-control" id="inputSuburb">
                         </div>
                         <div class="col-4">
-                            <label for="inputPostcode" id="postcodeLabel" class="form-label">Postcode <span style="color:red">*</span></label>
+                            <label id="postcodeLabel" class="form-label">Postcode <span style="color:red">*</span></label>
                             <input type="number" class="form-control" id="inputPostcode">
                         </div>
                         <div class="col-4">
-                            <label for="inputState" id="stateLabel" class="form-label">State <span style="color:red">*</span></label>
+                            <label id="stateLabel" class="form-label">State <span style="color:red">*</span></label>
                             <select class="form-control" id="inputState" onchange="getLocation(false)">
                                 <option value="bad" selected disabled>Select State...</option>
                                 <option value="NSW">NSW</option>
@@ -152,7 +155,7 @@
                     <hr>
                     <div class="row pb-3 mx-auto" style="width: 96%">
                         <div class="col-12">
-                            <label for="inputAccType" class="form-label">Accident Type <span style="color:red">*</span></label>
+                            <label class="form-label">Accident Type <span style="color:red">*</span></label>
                             <select class="form-control" id="inputAccType" onchange="isOther()" required>
                                 <option value="" selected disabled>Select Accident Type...</option>
                                 <option value="Car Crash">Car Crash</option>
@@ -168,17 +171,17 @@
                             </select>
                         </div>
                         <div class="col-12 pt-3">
-                            <label for="inputAccDesc" id="inputAccDescLabel" class="form-label">Accident Description <span style="color:red">*</span></label>
+                            <label id="inputAccDescLabel" class="form-label">Accident Description <span style="color:red">*</span></label>
                             <input type="textarea" class="form-control" id="inputAccDesc" required>
                         </div>
                     </div>   
                     <div class="row pb-3 mx-auto" style="width: 96%">   
                         <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-4 col-xxl-3">
-                            <label for="inputVehicleCount" class="form-label">Vehicles Involved <span style="color:red">*</span></label>
+                            <label class="form-label">Vehicles Involved <span style="color:red">*</span></label>
                             <input type="number" class="form-control" id="inputVehicleCount" required>
                         </div>
                         <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3 col-xxl-3">
-                            <label for="inputSeverity" class="form-label">Severity <span style="color:red">*</span></label>
+                            <label class="form-label">Severity <span style="color:red">*</span></label>
                             <select class="form-control" id="inputSeverity" required>
                                 <option value="" selected disabled>Select Severity...</option>
                                 <option value="Minor">Minor</option>
@@ -187,7 +190,7 @@
                             </select>
                         </div>
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-5 col-xxl-6 pt-3 pt-sm-3 pt-md-3 pt-lg-3 pt-xl-0">
-                            <label for="inputWitnessEmail" class="form-label">Witness Email <span style="color:red">*</span></label>
+                            <label class="form-label">Witness Email <span style="color:red">*</span></label>
                             <input type="email" class="form-control" id="inputWitnessEmail" required>
                         </div>    
                         
@@ -203,6 +206,7 @@
             <div id="new-accident-right-section" class="col-1 col-sm-2 col-md-2 col-lg-3 col-xl-3 col-xxl-3 mb-5"></div>
         </div>
     </div>
+    <!-- Map Content -->
     <div id="view-map-body" class="view-map img-container">
         <img class="bg-image" th:src="@{../images/city_bg.jpg}" />
         <div class="row" style="margin-right: 0px !important; color: white; padding-top: 100px;">
@@ -222,6 +226,7 @@
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-5"></div>
         </div>
     </div>
+    <!-- All Accidents Content -->
     <div id="all-accidents-body" class="all-accidents img-container">
         <img class="bg-image" th:src="@{../images/city_bg.jpg}" />
         <div class="row" style="margin-right: 0px !important; color: white; padding-top: 100px;">
@@ -237,9 +242,9 @@
             <div id="all-accidents-selector-body" class="col-10 col-sm-10 col-md-8 col-lg-8 col-xl-8 col-xxl-6 text-center mt-4 mb-1 m-auto border border-4 border-warning" style="border-radius: 15px; background-color: white; height: 75%">
                 <form style="color: black;" class="form-inline text-center pt-2 mb-2">
                     <div class="row align-items-center" style="padding-left: 3%; padding-right: 3%;">
-                        <label style="word-wrap:break-word;" class="col-3 my-2" for="minorOpt"><input type="checkbox" id="minor_opt" name="selector[]" value="Minor" onchange="allAccidents()" checked/> Minor Accidents</label>
-                        <label style="word-wrap:break-word;" class="col-3 my-2" for="majorOpt"><input type="checkbox" id="major_opt" name="selector[]" value="Major" onchange="allAccidents()" checked/> Major Accidents</label>
-                        <label style="word-wrap:break-word;" class="col-3 my-2" for="severeOpt"><input type="checkbox" id="severe_opt" name="selector[]" value="Severe" onchange="allAccidents()" checked/> Severe Accidents</label>
+                        <label style="word-wrap:break-word;" class="col-3 my-2"><input type="checkbox" id="minor_opt" name="selector[]" value="Minor" onchange="allAccidents()" checked/> Minor Accidents</label>
+                        <label style="word-wrap:break-word;" class="col-3 my-2"><input type="checkbox" id="major_opt" name="selector[]" value="Major" onchange="allAccidents()" checked/> Major Accidents</label>
+                        <label style="word-wrap:break-word;" class="col-3 my-2"><input type="checkbox" id="severe_opt" name="selector[]" value="Severe" onchange="allAccidents()" checked/> Severe Accidents</label>
                         <select class="form-control col" id="state_dd" onchange="allAccidents()">
                             <option value="All" id="all_state" selected>All States</option>
                             <option value="NSW" id="nsw_state">NSW</option>
@@ -270,6 +275,7 @@
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-5"></div>
         </div>
     </div>
+    <!-- Login/Signup Content -->
     <div id="login-signup-body" class="login-signup img-container">
         <img class="bg-image" th:src="@{../images/city_bg.jpg}" />
         <div class="row" style="margin-left: 0px !important; margin-right: 0px !important; color: white; padding-top: 100px;">
@@ -334,6 +340,7 @@
             </div>
         </div>
     </div>
+    <!-- Profile Content -->
     <div id="profile-body" class="profile img-container">
         <img class="bg-image" th:src="@{../images/city_bg.jpg}" />
         <div class="row" style="margin-right: 0px !important; color: white; padding-top: 100px;">
@@ -345,36 +352,50 @@
             <div id="profile-right-section" class="col-1 col-sm-2 col-md-2 col-lg-2 col-xl-3 col-xxl-3"></div>
         </div>
         <div id="profile-inside-body" class="row justify-content-center" style="margin-right: 0px !important; padding-top: 5px; padding-bottom: 140px;">
-            <div id="profile-left-inner-section" class="mt-5 me-1 me-md-5 pt-3 col-10 col-sm-10 col-md-4 col-lg-3 col-xl-3 col-xxl-3 border border-4 border-dark" style="background-color: white; min-height: 50vh; max-height: 75vh;">    
+            <div id="profile-left-inner-section" class="mt-5 me-1 me-md-5 pt-3 col-10 col-sm-10 col-md-4 col-lg-3 col-xl-3 col-xxl-3 border border-4 border-dark" style="background-color: white; max-height: 88vh;">    
                 <div class="mt-2 mx-2 py-1 border border-2 border-dark bg-secondary bg-gradient">
                     <img th:src="@{../images/trackfic_logo_transparent.png}" class="img-fluid justify-content-center" style="padding-left: 14%; padding-right: 14%;">
                 </div>
                 <p class="px-3 pt-4"><b>Your personal details:</b></p>
                 <form>
                     <!-- First name, last name and mobile -->  
-                    <div class="form-outline px-3 pb-1">
-                        <input type="text" id="profileFirstName" class="form-control" placeholder="First Name..."/>
+                    <div id="profileFirstNameInfo" class="form-outline px-3 pb-1">
+                        <label id="profileFirstNameLabel">First Name: </label>
+                        <input type="text" id="profileEditFirstNameInput" class="form-control" placeholder="First Name..." disabled/>
                     </div>
-                    <div class="form-outline px-3 py-1">
-                        <input type="text" id="profileLastName" class="form-control" placeholder="Last Name..."/>
+
+                    <div id="profileLastNameInfo" class="form-outline px-3 py-1">
+                        <label id="profileLastNameLabel">Last Name:  </label>
+                        <input type="text" id="profileEditLastNameInput" class="form-control" placeholder="Last Name..." disabled/>
                     </div>
-                    <div class="form-outline px-3 py-1">
-                        <input type="text" id="profileMobile" class="form-control" placeholder="Mobile..."/>
+
+                    <div id="profileMobileInfo" class="form-outline px-3 py-1">
+                        <label id="profileMobileLabel">Mobile: </label>
+                        <input type="text" id="profileEditMobileInput" class="form-control" placeholder="Mobile..." disabled/>
                     </div>
+
                     <!-- Email input -->
-                    <div class="form-outline px-3 py-1">
-                        <input type="email" id="profileEmail" class="form-control" placeholder="Email..." disabled/>
+                    <div id="profileEmailInfo" class="form-outline px-3 py-1">
+                        <label id="profileEmailLabel">Email: </label>
+                        <input type="email" id="profileEditEmailInput" class="form-control" placeholder="Email..." disabled/>
                     </div>
-                  
+                
                     <!-- Password input -->
-                    <div class="form-outline px-3 pt-1">
-                        <input type="password" id="profileHiddenPassword" class="form-control" placeholder="Password..."/>
-                        <input type="text" id="profileShownPassword" class="form-control" placeholder="Password..."/>
+                    <div id="profilePasswordInfo" class="form-outline px-3 py-1">
+                        <label id="profilePasswordLabel">Password: </label>
+                        <input type="password" id="profileEditPasswordInput" class="form-control" placeholder="Password..." disabled/>
+                    </div>
+
+                    <div id="profileConfirmPassword" class="form-outline px-3 pt-1">
+                        <label id="profileConfirmPasswordLabel">Confirm Password: </label>
+                        <input type="text" id="profileConfirmPasswordInput" class="form-control" placeholder="Confirm Password..."/>
                     </div>
 
                     <!-- Submit button -->
-                    <div class="text-center">
-                        <button type="button" class="btn btn-warning mt-3 mb-3 pb-1 text-center" style="font-weight: bold; width: 50%">Edit details?</button>
+                    <div class="text-center pt-2">
+                        <button type="button" onclick="updateProfileDetails()" id="editProfileDetails" class="btn btn-warning mt-3 mb-3 pb-1 text-center" style="font-weight: bold; width: 52%">Edit Details</button>
+                        <button type="button" onclick="cancelProfileEdit()" id="cancelWitnessEdit" class="btn btn-warning mt-3 mb-3 pb-1 text-center" style="font-weight: bold; width: 30%">Cancel</button>
+                        <button type="button" onclick="confirmProfileEdit()" id="confirmWitnessEdit" class="btn btn-warning mt-3 mb-3 pb-1 text-center" style="font-weight: bold; width: 50%">Confirm Changes</button>
                     </div>
                 </form>
             </div>
@@ -385,12 +406,12 @@
             </div>
         </div>
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="deleteSelectedReport" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <!-- Modal for Delete Report -->
+    <div class="modal fade" id="deleteSelectedReport" tabindex="-1" role="dialog" aria-labelledby="selectedReportModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Confirm Deletion?</h5>
+            <h5 class="modal-title" id="selected-report-title">Confirm Deletion?</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -405,12 +426,33 @@
         </div>
         </div>
     </div>
+    <!-- Modal for Error Messages -->
+    <div class="modal fade" id="universalErrors" tabindex="-1" role="dialog" aria-labelledby="universalErrors" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="universalErrorTitle"></h5>
+            <button type="button" class="close universalErrorClose" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <p id="universalErrorBody"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary universalErrorClose" data-toggle="modal">Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- Footer for most pages -->
     <footer class="new-accident all-accidents view-map login-signup profile bg-dark text-center text-white fixed-bottom" style="border-top: 5px solid black;">
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
             <p>Developed by Traffic Buffering... <span>&copy</span> 2023</p>
             <p style="margin-top: -10px; margin-bottom: 3px; font-size: x-small;"><a class="text-white" style="text-decoration: none;" th:href="@{https://www.vecteezy.com/free-vector/night}">Night Vectors by Vecteezy</a></p>
         </div>
     </footer>
+    <!-- Footer for homepage -->
     <footer class="home-page bg-dark text-center text-white fixed-bottom" style="border-top: 5px solid black;">
         <div class="text-center p-4 pb-2" style="background-color: rgba(0, 0, 0, 0.2);">
             <p class="footer-group">Developed by Traffic Buffering... <span>&copy</span> 2023</p>

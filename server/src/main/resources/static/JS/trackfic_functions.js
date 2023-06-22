@@ -3,41 +3,36 @@ $('document').ready(function () {
     window.scrollTo(0, 0);
   }
 
-  // Determine if is the first time on this page
+  // Determine if is the first time on this page and set user as false (not logged in)
   if (!sessionStorage.getItem("beenHereBefore")) {
     sessionStorage.setItem('beenHereBefore', 'true');
-    //console.log('have not been here!');
     sessionStorage.setItem('activePage', '1');
     sessionStorage.setItem('isLoggedIn', 'false');
-    //console.log('intial values set');
   }
-  if(sessionStorage.getItem('activePage') == '1'){
-    //console.log("Its equal to 1!");
+
+  // on page reload, check sessionStorage to keep the same page
+  if (sessionStorage.getItem('activePage') == '1') {
     showHomePage();
   }
-  if(sessionStorage.getItem('activePage') == '2'){
-    //console.log("Its equal to 2!");
+  if (sessionStorage.getItem('activePage') == '2') {
     showNewAccident();
   }
-  if(sessionStorage.getItem('activePage') == '3'){
-    //console.log("Its equal to 3!");
+  if (sessionStorage.getItem('activePage') == '3') {
     showMap();
   }
-  if(sessionStorage.getItem('activePage') == '4'){
-    //console.log("Its equal to 4!");
+  if (sessionStorage.getItem('activePage') == '4') {
     showAllAccidents();
   }
-  if(sessionStorage.getItem('activePage') == '5'){
-    //console.log("Its equal to 5!");
+  if (sessionStorage.getItem('activePage') == '5') {
     loginSignup();
   }
-  if(sessionStorage.getItem('activePage') == '6'){
-    //console.log("Its equal to 6!");
+  if (sessionStorage.getItem('activePage') == '6') {
     showProfile();
   }
 });
 
-function showHomePage(){
+// show the home page's contents
+function showHomePage() {
   $('.new-accident').hide();
   $('.all-accidents').hide();
   $('.view-map').hide();
@@ -45,22 +40,23 @@ function showHomePage(){
   $('.profile').hide();
   $('.home-page').show();
 
-  if(sessionStorage.getItem("isLoggedIn") == 'true'){
-        $('#login-btn').hide();
-        $('#signup-btn').hide();
-        $('#profile-btn').show();
-        $('#logout-btn').show();
+  if (sessionStorage.getItem("isLoggedIn") == 'true') {
+    $('#login-btn').hide();
+    $('#signup-btn').hide();
+    $('#profile-btn').show();
+    $('#logout-btn').show();
   } else {
-        $('#login-btn').show();
-        $('#signup-btn').show();
-        $('#profile-btn').hide();
-        $('#logout-btn').hide();
+    $('#login-btn').show();
+    $('#signup-btn').show();
+    $('#profile-btn').hide();
+    $('#logout-btn').hide();
   }
-  
+
+  document.getElementById('login-btn').disabled = false;
+  document.getElementById('signup-btn').disabled = false;
   document.getElementById('profile-btn').disabled = false;
 
   sessionStorage.setItem("activePage", '1');
-  //console.log("sessionStorage: " + sessionStorage.getItem('activePage'))
 
   document.getElementById('home-page-nav-link').classList.remove('active');
   document.getElementById('new-accident-nav-link').classList.add('active');
@@ -68,13 +64,19 @@ function showHomePage(){
   document.getElementById('all-accidents-nav-link').classList.add('active');
 }
 
-function showNewAccident(){
-	
-	if(sessionStorage.getItem('isLoggedIn') == 'false')
-		{
-		alert("Sorry, you must be logged in to use this feature");
-		return;
-		}
+// show the new accident form's contents
+function showNewAccident() {
+
+  if (sessionStorage.getItem('isLoggedIn') == 'false') {
+    $('#universalErrorTitle').html("<span style='color:darkred'>There's Been An Error!</span>");
+    $('#universalErrorBody').html("<span style='color:darkred'>Sorry, you must be logged in to use this feature.</span>");
+    $('#universalErrors').modal('toggle');
+    $('.universalErrorClose').on('click', function () {
+      $('#universalErrors').modal('toggle');
+    });
+    return;
+  }
+  
   $('.all-accidents').hide();
   $('.home-page').hide();
   $('.view-map').hide();
@@ -82,22 +84,23 @@ function showNewAccident(){
   $('.profile').hide();
   $('.new-accident').show();
 
-  if(sessionStorage.getItem("isLoggedIn") == 'true'){
-        $('#login-btn').hide();
-        $('#signup-btn').hide();
-        $('#profile-btn').show();
-        $('#logout-btn').show();
+  if (sessionStorage.getItem("isLoggedIn") == 'true') {
+    $('#login-btn').hide();
+    $('#signup-btn').hide();
+    $('#profile-btn').show();
+    $('#logout-btn').show();
   } else {
-        $('#login-btn').show();
-        $('#signup-btn').show();
-        $('#profile-btn').hide();
-        $('#logout-btn').hide();
+    $('#login-btn').show();
+    $('#signup-btn').show();
+    $('#profile-btn').hide();
+    $('#logout-btn').hide();
   }
-  
+
+  document.getElementById('login-btn').disabled = false;
+  document.getElementById('signup-btn').disabled = false;
   document.getElementById('profile-btn').disabled = false;
 
   sessionStorage.setItem("activePage", '2');
-  //console.log("sessionStorage: " + sessionStorage.getItem('activePage'))
 
   document.getElementById('home-page-nav-link').classList.add('active');
   document.getElementById('new-accident-nav-link').classList.remove('active');
@@ -105,7 +108,8 @@ function showNewAccident(){
   document.getElementById('all-accidents-nav-link').classList.add('active');
 }
 
-function showMap(){
+// show the map's contents
+function showMap() {
   $('.new-accident').hide();
   $('.home-page').hide();
   $('.all-accidents').hide();
@@ -114,22 +118,23 @@ function showMap(){
   $('.view-map').show();
   viewMap();
 
-  if(sessionStorage.getItem("isLoggedIn") == 'true'){
-        $('#login-btn').hide();
-        $('#signup-btn').hide();
-        $('#profile-btn').show();
-        $('#logout-btn').show();
+  if (sessionStorage.getItem("isLoggedIn") == 'true') {
+    $('#login-btn').hide();
+    $('#signup-btn').hide();
+    $('#profile-btn').show();
+    $('#logout-btn').show();
   } else {
-        $('#login-btn').show();
-        $('#signup-btn').show();
-        $('#profile-btn').hide();
-        $('#logout-btn').hide();
+    $('#login-btn').show();
+    $('#signup-btn').show();
+    $('#profile-btn').hide();
+    $('#logout-btn').hide();
   }
-  
+
+  document.getElementById('login-btn').disabled = false;
+  document.getElementById('signup-btn').disabled = false;
   document.getElementById('profile-btn').disabled = false;
 
   sessionStorage.setItem("activePage", '3');
-  //console.log("sessionStorage: " + sessionStorage.getItem('activePage'))
 
   document.getElementById('home-page-nav-link').classList.add('active');
   document.getElementById('new-accident-nav-link').classList.add('active');
@@ -137,7 +142,8 @@ function showMap(){
   document.getElementById('all-accidents-nav-link').classList.add('active');
 }
 
-function showAllAccidents(){
+// show the all accident contents
+function showAllAccidents() {
   $('.new-accident').hide();
   $('.home-page').hide();
   $('.view-map').hide();
@@ -146,22 +152,23 @@ function showAllAccidents(){
   $('.all-accidents').show();
   allAccidents();
 
-  if(sessionStorage.getItem("isLoggedIn") == 'true'){
-        $('#login-btn').hide();
-        $('#signup-btn').hide();
-        $('#profile-btn').show();
-        $('#logout-btn').show();
+  if (sessionStorage.getItem("isLoggedIn") == 'true') {
+    $('#login-btn').hide();
+    $('#signup-btn').hide();
+    $('#profile-btn').show();
+    $('#logout-btn').show();
   } else {
-        $('#login-btn').show();
-        $('#signup-btn').show();
-        $('#profile-btn').hide();
-        $('#logout-btn').hide();
+    $('#login-btn').show();
+    $('#signup-btn').show();
+    $('#profile-btn').hide();
+    $('#logout-btn').hide();
   }
-  
+
+  document.getElementById('login-btn').disabled = false;
+  document.getElementById('signup-btn').disabled = false;
   document.getElementById('profile-btn').disabled = false;
 
   sessionStorage.setItem("activePage", '4');
-  //console.log("sessionStorage: " + sessionStorage.getItem('activePage'))
 
   document.getElementById('home-page-nav-link').classList.add('active');
   document.getElementById('new-accident-nav-link').classList.add('active');
@@ -169,7 +176,8 @@ function showAllAccidents(){
   document.getElementById('all-accidents-nav-link').classList.remove('active');
 }
 
-function loginSignup(){
+// show the login/signup contents
+function loginSignup() {
   $('.new-accident').hide();
   $('.home-page').hide();
   $('.view-map').hide();
@@ -182,95 +190,98 @@ function loginSignup(){
   document.getElementById('profile-btn').disabled = false;
 
   sessionStorage.setItem("activePage", '5');
-  //console.log("sessionStorage: " + sessionStorage.getItem('activePage'))
 
   document.getElementById('home-page-nav-link').classList.add('active');
   document.getElementById('new-accident-nav-link').classList.add('active');
   document.getElementById('view-map-nav-link').classList.add('active');
   document.getElementById('all-accidents-nav-link').classList.add('active');
-  
-  
-  
-  /////////////////////////////////////////////////////
-  //  		Logs in and directs to profile
-  ////////////////////////////////////////////////////
-  $(document).ready(function(){
-	    $('#loginSubmit').on("click",function(){
-	      $.ajax({
-			    type: 'POST',
-			    url: 'http://localhost:3333/witness/login',
-			    data: JSON.stringify({
-			        email: $('#loginEmail').val(),
-			        password: $('#loginPassword').val()
-			    }),
-			    contentType: 'application/json',
-			    accept: 'application/json',
-			    success: function (data) {
-			    	alert("success")
-			        
-			    	
-			    	//set the user to be logged in
-			    	
-//			    	user = data;
-//			    	isLoggedIn=true;
-			    	
-			    	sessionStorage.setItem('user', JSON.stringify(data));
-			    	sessionStorage.setItem('isLoggedIn', 'true');
-			    	
-			    	showProfile();
-			    },
-			    error: function (xhr) {
-//				      var err = JSON.parse(xhr.responseText);
-//				      alert(err.details + ": " + err.message);
-				      alert("Sorry, cannot find a match on the given credentials")
-				     
-				    }   
-		  });
-	    });
-	  });
-  
- /////////////////////////////////////////////////////
- //  		Adds the user and directs to profile
- ////////////////////////////////////////////////////
- 
-  $(document).ready(function(){
-	    $('#signupSubmit').on("click",function(){
-	      $.ajax({
-			    type: 'POST',
-			    url: 'http://localhost:3333/witness/add',
-			    data: JSON.stringify({
-			    	firstName:$('#signupFirstName').val(),
-			      	lastName:$('#signupLastName').val(),
-			      	mobile:$('#signupMobile').val(),
-			        email: $('#signupEmail').val(),
-			        password: $('#signupPassword').val()
-			    }),
-			    contentType: 'application/json',
-			    accept: 'application/json',
-			    success: function (data) {
-			    	alert("success")
-			        
-			    	console.log(data);
-			    	//set the user to be logged in
-//			    	user = data;
-//			    	isLoggedIn=true;
-			    	
-			    	sessionStorage.setItem('user', JSON.stringify(data));
-			    	sessionStorage.setItem('isLoggedIn', 'true');
 
-			    	showProfile();
-			    },
-			    error: function (xhr) {
-				      var err = JSON.parse(xhr.responseText);
-				      alert(err.details + ": " + err.message);
-				     
-				}   
-		  });
-	    });
-	  });
+  // Logs in and directs to profile
+  $(document).ready(function () {
+    $('#loginSubmit').on("click", function () {
+      $.ajax({
+        type: 'POST',
+        url: 'http://localhost:3333/witness/login',
+        data: JSON.stringify({
+          email: $('#loginEmail').val(),
+          password: $('#loginPassword').val()
+        }),
+        contentType: 'application/json',
+        accept: 'application/json',
+        success: function (data) {
+
+          //set the user to be logged in		    	
+          sessionStorage.setItem('user', JSON.stringify(data));
+          sessionStorage.setItem('isLoggedIn', 'true');
+
+          showProfile();
+        },
+        error: function (xhr) {
+          $('#universalErrorTitle').html("<span style='color:darkred'>There's Been An Error!</span>");
+          $('#universalErrorBody').html("<span style='color:darkred'>Sorry, we cannot find a match on the given credentials.</span>");
+          $('#universalErrors').modal('toggle');
+          $('.universalErrorClose').on('click', function () {
+            $('#universalErrors').modal('toggle');
+          });
+        }
+      });
+    });
+  });
+
+  // Adds the user and directs to profile
+  $(document).ready(function () {
+    $('#signupSubmit').on("click", function () {
+      $.ajax({
+        type: 'POST',
+        url: 'http://localhost:3333/witness/add',
+        data: JSON.stringify({
+          firstName: $('#signupFirstName').val(),
+          lastName: $('#signupLastName').val(),
+          mobile: $('#signupMobile').val(),
+          email: $('#signupEmail').val(),
+          password: $('#signupPassword').val()
+        }),
+        contentType: 'application/json',
+        accept: 'application/json',
+        success: function (data) {
+          //set the user to be logged in
+          $('#universalErrorTitle').html("<span style='color:green'>Thanks For Registering!</span>");
+          $('#universalErrorBody').html("<span style='color:green'>Your account has been successfully made.</span>");
+          $('#universalErrors').modal('toggle');
+          $('.universalErrorClose').on('click', function () {
+            $('#universalErrors').modal('toggle');
+            sessionStorage.setItem('user', JSON.stringify(data));
+            sessionStorage.setItem('isLoggedIn', 'true');
+            showProfile();
+          });
+        },
+        error: function (xhr) {
+          var err = JSON.parse(xhr.responseText);
+          if (xhr.status >= 500) {
+            console.log(err);
+
+            $('#universalErrorTitle').html("<span style='color:darkred'>There's Been A Server Error!</span>");
+            $('#universalErrorBody').html("<span style='color:darkred'>Sorry, there's been a server error. Please check the website's console log to investigate.</span>");
+            $('#universalErrors').modal('toggle');
+            $('.universalErrorClose').on('click', function () {
+              $('#universalErrors').modal('toggle');
+            });
+          } else {
+            $('#universalErrorTitle').html("<span style='color:darkred'>There's Been An Error!</span>");
+            $('#universalErrorBody').html("<span style='color:darkred'>" + err.message + "</span>");
+            $('#universalErrors').modal('toggle');
+            $('.universalErrorClose').on('click', function () {
+              $('#universalErrors').modal('toggle');
+            });
+          }
+        }
+      });
+    });
+  });
 }
 
-function showProfile(){
+// show the profile contents
+function showProfile() {
   $('.new-accident').hide();
   $('.home-page').hide();
   $('.view-map').hide();
@@ -278,42 +289,45 @@ function showProfile(){
   $('.login-signup').hide();
   $('.profile').show();
 
-  $('#profileHiddenPassword').show();
-  $('#profileShownPassword').hide();
-
-  allUserAccidents();
-
-  if(sessionStorage.getItem("isLoggedIn") == 'true'){
-        $('#login-btn').hide();
-        $('#signup-btn').hide();
-        $('#profile-btn').show();
-        $('#logout-btn').show();
+  if (sessionStorage.getItem("isLoggedIn") == 'true') {
+    $('#login-btn').hide();
+    $('#signup-btn').hide();
+    $('#profile-btn').show();
+    $('#logout-btn').show();
   } else {
-        $('#login-btn').show();
-        $('#signup-btn').show();
-        $('#profile-btn').hide();
-        $('#logout-btn').hide();
+    $('#login-btn').show();
+    $('#signup-btn').show();
+    $('#profile-btn').hide();
+    $('#logout-btn').hide();
   }
-  
+
   document.getElementById('profile-btn').disabled = true;
 
   var userData = JSON.parse(sessionStorage.getItem('user'));
 
+  $('#allUsersAccidents').empty();
+  allUserAccidents(userData.email);
+
   $('#getProfileFirstName').empty();
   $('#getProfileFirstName').append(userData.firstName);
-  $('#profileFirstName').val(userData.firstName);
-  $('#profileLastName').val(userData.lastName);
-  $('#profileMobile').val(userData.mobile);
-  $('#profileEmail').val(userData.email);
-  $('#profileHiddenPassword').val(userData.password);
-  
+  $('#profileEditFirstNameInput').val(userData.firstName);
+  $('#profileEditLastNameInput').val(userData.lastName);
+  $('#profileEditMobileInput').val(userData.mobile);
+  $('#profileEditEmailInput').val(userData.email);
+  $('#profileEditPasswordInput').val(userData.password);
 
+  document.getElementById('profileEditFirstNameInput').disabled = true;
+  document.getElementById('profileEditLastNameInput').disabled = true;
+  document.getElementById('profileEditMobileInput').disabled = true;
+  document.getElementById('profileEditPasswordInput').disabled = true;
+  document.getElementById('profileEditPasswordInput').type = "password";
 
-
-
+  $('#editProfileDetails').show();
+  $('#profileConfirmPassword').hide();
+  $('#cancelWitnessEdit').hide();
+  $('#confirmWitnessEdit').hide();
 
   sessionStorage.setItem("activePage", '6');
-  //console.log("sessionStorage: " + sessionStorage.getItem('activePage'))
 
   document.getElementById('home-page-nav-link').classList.add('active');
   document.getElementById('new-accident-nav-link').classList.add('active');
@@ -321,16 +335,120 @@ function showProfile(){
   document.getElementById('all-accidents-nav-link').classList.add('active');
 }
 
-function logoutUser(){
-	alert('logging out...');
-	sessionStorage.removeItem('user');
-	sessionStorage.setItem('isLoggedIn', 'false');
-	showHomePage();
+// allow the user to change their details
+function updateProfileDetails() {
+
+  document.getElementById('profileEditFirstNameInput').disabled = false;
+  document.getElementById('profileEditLastNameInput').disabled = false;
+  document.getElementById('profileEditMobileInput').disabled = false;
+  document.getElementById('profileEditPasswordInput').disabled = false;
+  document.getElementById('profileEditPasswordInput').type = "text";
+
+  $('#editProfileDetails').hide();
+  $('#profileConfirmPassword').show();
+  $('#cancelWitnessEdit').show();
+  $('#confirmWitnessEdit').show();
 }
 
+// allow the user to cancel the changes to their details
+function cancelProfileEdit() {
+  document.getElementById('profileEditFirstNameInput').disabled = true;
+  document.getElementById('profileEditLastNameInput').disabled = true;
+  document.getElementById('profileEditMobileInput').disabled = true;
+  document.getElementById('profileEditPasswordInput').disabled = true;
+  document.getElementById('profileEditPasswordInput').type = "password";
+
+  var userData = JSON.parse(sessionStorage.getItem('user'));
+  $('#profileEditFirstNameInput').val(userData.firstName);
+  $('#profileEditLastNameInput').val(userData.lastName);
+  $('#profileEditMobileInput').val(userData.mobile);
+  $('#profileEditPasswordInput').val(userData.password);
+
+  $('#editProfileDetails').show();
+  $('#profileConfirmPassword').hide();
+  $('#cancelWitnessEdit').hide();
+  $('#confirmWitnessEdit').hide();
+}
+
+// confirm the changes to the user's details
+function confirmProfileEdit() {
+  var userData = JSON.parse(sessionStorage.getItem('user'));
+  if ($('#profileEditPasswordInput').val() != $('#profileConfirmPasswordInput').val()) {
+    $('#universalErrorTitle').html("<span style='color:darkred'>There's Been An Error!</span>");
+    $('#universalErrorBody').html("<span style='color:darkred'>Your new password does not match the confirmed password.</span>");
+    $('#universalErrors').modal('toggle');
+    $('.universalErrorClose').on('click', function () {
+      $('#universalErrors').modal('toggle');
+      cancelProfileEdit();
+    });
+  } else {
+    $.ajax({
+      type: 'PUT',
+      url: 'http://localhost:3333/witness/' + userData.email,
+      data: JSON.stringify({
+        email: userData.email,
+        firstName: $('#profileEditFirstNameInput').val(),
+        lastName: $('#profileEditLastNameInput').val(),
+        mobile: $('#profileEditMobileInput').val(),
+        password: $('#profileEditPasswordInput').val()
+      }),
+      contentType: 'application/json',
+      accept: 'application/json',
+      success: function (data) {
+        //alert that accident updated
+        $('#universalErrorTitle').html("<span style='color:green'>Success!</span>");
+        $('#universalErrorBody').html("<span style='color:green'>Profile details updated successfully!</span>");
+        $('#universalErrors').modal('toggle');
+        $('.universalErrorClose').on('click', function () {
+          $('#universalErrors').modal('toggle');
+        });
+        sessionStorage.setItem('user', JSON.stringify(data));
+        showProfile();
+      },
+      error: function (xhr) {
+        var err = JSON.parse(xhr.responseText);
+        if (xhr.status >= 500) {
+          console.log(err);
+
+          $('#universalErrorTitle').html("<span style='color:darkred'>There's Been A Server Error!</span>");
+          $('#universalErrorBody').html("<span style='color:darkred'>Sorry, there's been a server error. Please check the website's console log to investigate.</span>");
+          $('#universalErrors').modal('toggle');
+          $('.universalErrorClose').on('click', function () {
+            $('#universalErrors').modal('toggle');
+          });
+        } else {
+          $('#universalErrorTitle').html("<span style='color:darkred'>There's Been An Error!</span>");
+          $('#universalErrorBody').html("<span style='color:darkred'>" + err.message + "</span>");
+          $('#universalErrors').modal('toggle');
+          $('.universalErrorClose').on('click', function () {
+            $('#universalErrors').modal('toggle');
+          });
+        }
+      }
+    });
+  }
+}
+
+//There's Been An Error!
+
+
+// logout the user and delete sessionStorage item
+function logoutUser() {
+  $('#universalErrorTitle').html("<span>Logging You Out...</span>");
+  $('#universalErrorBody').html("<span>You are now logged out.</span>");
+  $('#universalErrors').modal('toggle');
+  $('.universalErrorClose').on('click', function () {
+    $('#universalErrors').modal('toggle');
+    sessionStorage.removeItem('user');
+    sessionStorage.setItem('isLoggedIn', 'false');
+    showHomePage();
+  });
+}
+
+// use google maps js API to view the map and use the markers
 function viewMap() {
   let map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -25, lng: 135  },
+    center: { lat: -25, lng: 135 },
     zoom: 4,
   });
 
@@ -338,10 +456,10 @@ function viewMap() {
   var locationList = [];
   var locationLat = [];
   var locationLng = [];
-  
+
   var typeIds = [];
   var typeList = [];
-  
+
   $.ajax({
     type: 'GET',
     url: 'http://localhost:3333/location/locations',
@@ -349,16 +467,16 @@ function viewMap() {
       //for each location
       $.each(locationArray, function (index, location) {
 
-        locationIds[index] = location.locationId;
+        locationIds[location.locationId] = location.locationId;
 
         var locationData = "";
         locationData += location.suburb + " ";
         locationData += location.postcode + ", ";
         locationData += location.state;
 
-        locationList[index] = locationData;
-        locationLat[index] = location.latitude;
-        locationLng[index] = location.longitude;
+        locationList[location.locationId] = locationData;
+        locationLat[location.locationId] = location.latitude;
+        locationLng[location.locationId] = location.longitude;
       })
 
       $.ajax({
@@ -370,44 +488,46 @@ function viewMap() {
             typeIds[index] = accidentType.typeId;
             typeList[index] = accidentType.accidentType;
           })
-    
+
           $.ajax({
             type: 'GET',
             url: 'http://localhost:3333/accident/accidents',
-            success: function (accidentArray) { 
+            success: function (accidentArray) {
               $.each(accidentArray, function (index, accident) {
-        
-                var contentString =
-                '<div id="content">' +
-                '<h3>' + typeList[accident.accidentTypeId-1] + '</h3><div>' +
-                "<p><b>Accident Description:</b> " + accident.accidentDesc + "<br>" + 
-                '<b>Accident Type:</b> ' + typeList[accident.accidentTypeId-1] + '<br>' +
-                '<b>Severity:</b> ' + accident.accidentSeverity + '<br>' +
-                '<b>Vehicles Involved:</b> ' + accident.vehicleCount + '<br>' +
-                '<b>Recorded at:</b> ' + accident.accidentTime + ' on ' + accident.accidentDate + '<br></p>' +
-                "</div></div>";
+
+                var contentString = '<div id="content">';
+                contentString += '<h3>' + typeList[accident.accidentTypeId - 1] + '</h3><div><p>';
+
+                if (accident.accidentDesc != "") {
+                  contentString += "<b>Accident Description:</b> " + accident.accidentDesc + "<br>";
+                }
+                contentString += '<b>Accident Type:</b> ' + typeList[accident.accidentTypeId - 1] + '<br>';
+                contentString += '<b>Severity:</b> ' + accident.accidentSeverity + '<br>';
+                contentString += '<b>Vehicles Involved:</b> ' + accident.vehicleCount + '<br>';
+                contentString += '<b>Recorded at:</b> ' + accident.accidentTime + ' on ' + accident.accidentDate + '<br></p>';
+                contentString += "</div></div>";
 
                 const infowindow = new google.maps.InfoWindow({
                   content: contentString,
-                  ariaLabel: typeList[accident.accidentTypeId-1],
+                  ariaLabel: typeList[accident.accidentTypeId - 1],
                 });
 
                 var severityIcon = "";
-                if(accident.accidentSeverity == "Minor"){
+                if (accident.accidentSeverity == "Minor") {
                   severityIcon = "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png";
-                } else if (accident.accidentSeverity == "Major"){
+                } else if (accident.accidentSeverity == "Major") {
                   severityIcon = "http://maps.google.com/mapfiles/ms/icons/orange-dot.png";
                 } else {
                   severityIcon = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
                 }
 
                 const marker = new google.maps.Marker({
-                  position: { lat: locationLat[index], lng: locationLng[index]  },
+                  position: { lat: locationLat[accident.locationId], lng: locationLng[accident.locationId] },
                   map,
-                  title: typeList[accident.accidentTypeId-1] + " at " + locationList[accident.locationId-1],
+                  title: typeList[accident.accidentTypeId - 1] + " at " + locationList[accident.locationId],
                   icon: severityIcon
                 });
-              
+
                 marker.addListener("click", () => {
                   infowindow.open({
                     anchor: marker,
@@ -418,34 +538,82 @@ function viewMap() {
             },
             error: function (xhr) {
               var err = JSON.parse(xhr.responseText);
-              alert(err.details + ": " + err.message);
+              if (xhr.status >= 500) {
+                console.log(err);
+
+                $('#universalErrorTitle').html("<span style='color:darkred'>There's Been A Server Error!</span>");
+                $('#universalErrorBody').html("<span style='color:darkred'>Sorry, there's been a server error. Please check the website's console log to investigate.</span>");
+                $('#universalErrors').modal('toggle');
+                $('.universalErrorClose').on('click', function () {
+                  $('#universalErrors').modal('toggle');
+                });
+              } else {
+                $('#universalErrorTitle').html("<span style='color:darkred'>There's Been An Error!</span>");
+                $('#universalErrorBody').html("<span style='color:darkred'>" + err.message + "</span>");
+                $('#universalErrors').modal('toggle');
+                $('.universalErrorClose').on('click', function () {
+                  $('#universalErrors').modal('toggle');
+                });
+              }
             }
           });
         },
         error: function (xhr) {
           var err = JSON.parse(xhr.responseText);
-          alert(err.details + ": " + err.message);
+          if (xhr.status >= 500) {
+            console.log(err);
+
+            $('#universalErrorTitle').html("<span style='color:darkred'>There's Been A Server Error!</span>");
+            $('#universalErrorBody').html("<span style='color:darkred'>Sorry, there's been a server error. Please check the website's console log to investigate.</span>");
+            $('#universalErrors').modal('toggle');
+            $('.universalErrorClose').on('click', function () {
+              $('#universalErrors').modal('toggle');
+            });
+          } else {
+            $('#universalErrorTitle').html("<span style='color:darkred'>There's Been An Error!</span>");
+            $('#universalErrorBody').html("<span style='color:darkred'>" + err.message + "</span>");
+            $('#universalErrors').modal('toggle');
+            $('.universalErrorClose').on('click', function () {
+              $('#universalErrors').modal('toggle');
+            });
+          }
         }
       });
     },
     error: function (xhr) {
       var err = JSON.parse(xhr.responseText);
-      alert(err.details + ": " + err.message);
+      if (xhr.status >= 500) {
+        console.log(err);
+
+        $('#universalErrorTitle').html("<span style='color:darkred'>There's Been A Server Error!</span>");
+        $('#universalErrorBody').html("<span style='color:darkred'>Sorry, there's been a server error. Please check the website's console log to investigate.</span>");
+        $('#universalErrors').modal('toggle');
+        $('.universalErrorClose').on('click', function () {
+          $('#universalErrors').modal('toggle');
+        });
+      } else {
+        $('#universalErrorTitle').html("<span style='color:darkred'>There's Been An Error!</span>");
+        $('#universalErrorBody').html("<span style='color:darkred'>" + err.message + "</span>");
+        $('#universalErrors').modal('toggle');
+        $('.universalErrorClose').on('click', function () {
+          $('#universalErrors').modal('toggle');
+        });
+      }
     }
   });
 
 }
 
-function allUserAccidents(){
+// get the user's accidents and display them
+function allUserAccidents(userEmail) {
 
-  // get the user's accidents and display them here very similar to allAccidents()
   var locationIds = [];
   var locationList = [];
   var locationStates = [];
-  
+
   var typeIds = [];
   var typeList = [];
-  
+
   $.ajax({
     type: 'GET',
     url: 'http://localhost:3333/location/locations',
@@ -453,7 +621,7 @@ function allUserAccidents(){
       //for each location
       $.each(locationArray, function (index, location) {
 
-        locationIds[index] = location.locationId;
+        locationIds[location.locationId] = location.locationId;
 
         var locationData = "";
         locationData += location.streetNumber + " ";
@@ -462,7 +630,7 @@ function allUserAccidents(){
         locationData += location.postcode + ", ";
         locationData += location.state;
 
-        locationList[index] = locationData;
+        locationList[location.locationId] = locationData;
         locationStates[index] = location.state;
       })
 
@@ -475,25 +643,27 @@ function allUserAccidents(){
             typeIds[index] = accidentType.typeId;
             typeList[index] = accidentType.accidentType;
           })
-    
+
           $.ajax({
             type: 'GET',
-            url: 'http://localhost:3333/accident/bywitnessemail/' + $('#profileEmail').val(),
+            url: 'http://localhost:3333/accident/bywitnessemail/' + userEmail,
             success: function (accidentArray) {
               var userAccidentDiv = $('div#allUsersAccidents');
-              if(accidentArray.length == 0){
-            	  userAccidentDiv.append("<h6 class='text-center py-5'>There are no accidents to display!</h6>");
+              if (accidentArray.length == 0) {
+                userAccidentDiv.append("<h6 class='text-center py-5'>There are no accidents to display!</h6>");
               }
 
               $.each(accidentArray, function (index, accident) {
-        
+
                 var accidentInfo = '<div class="row"><div class="col-9 col-lg-10">';
                 accidentInfo += '<p style="margin-left: 4%; margin-right: 1%; margin-bottom: 0px">';
-                accidentInfo += '<b>Accident Description:</b> ' + accident.accidentDesc + '<br>';
-                accidentInfo += '<b>Accident Type:</b> ' + typeList[accident.accidentTypeId-1] + '<br>';
+                if (accident.accidentDesc != "") {
+                  accidentInfo += "<b>Accident Description:</b> " + accident.accidentDesc + "<br>";
+                }
+                accidentInfo += '<b>Accident Type:</b> ' + typeList[accident.accidentTypeId - 1] + '<br>';
                 accidentInfo += '<b>Vehicles Involved:</b> ' + accident.vehicleCount + '<br>';
                 accidentInfo += '<b>Recorded at:</b> ' + accident.accidentTime + ' on ' + accident.accidentDate + '<br>';
-                accidentInfo += '<b>Located at:</b> ' + locationList[accident.locationId-1] + '<br>';
+                accidentInfo += '<b>Located at:</b> ' + locationList[accident.locationId] + '<br>';
                 accidentInfo += '<b>Severity:</b> ' + accident.accidentSeverity + '<br>';
                 accidentInfo += "</p></div>";
                 accidentInfo += "<div class='col-2 d-flex align-items-center'>";
@@ -505,29 +675,78 @@ function allUserAccidents(){
             },
             error: function (xhr) {
               var err = JSON.parse(xhr.responseText);
-              alert(err.details + ": " + err.message);
+              if (xhr.status >= 500) {
+                console.log(err);
+
+                $('#universalErrorTitle').html("<span style='color:darkred'>There's Been A Server Error!</span>");
+                $('#universalErrorBody').html("<span style='color:darkred'>Sorry, there's been a server error. Please check the website's console log to investigate.</span>");
+                $('#universalErrors').modal('toggle');
+                $('.universalErrorClose').on('click', function () {
+                  $('#universalErrors').modal('toggle');
+                });
+              } else {
+                $('#universalErrorTitle').html("<span style='color:darkred'>There's Been An Error!</span>");
+                $('#universalErrorBody').html("<span style='color:darkred'>" + err.message + "</span>");
+                $('#universalErrors').modal('toggle');
+                $('.universalErrorClose').on('click', function () {
+                  $('#universalErrors').modal('toggle');
+                });
+              }
             }
           });
         },
         error: function (xhr) {
           var err = JSON.parse(xhr.responseText);
-          alert(err.details + ": " + err.message);
+          if (xhr.status >= 500) {
+            console.log(err);
+
+            $('#universalErrorTitle').html("<span style='color:darkred'>There's Been A Server Error!</span>");
+            $('#universalErrorBody').html("<span style='color:darkred'>Sorry, there's been a server error. Please check the website's console log to investigate.</span>");
+            $('#universalErrors').modal('toggle');
+            $('.universalErrorClose').on('click', function () {
+              $('#universalErrors').modal('toggle');
+            });
+          } else {
+            $('#universalErrorTitle').html("<span style='color:darkred'>There's Been An Error!</span>");
+            $('#universalErrorBody').html("<span style='color:darkred'>" + err.message + "</span>");
+            $('#universalErrors').modal('toggle');
+            $('.universalErrorClose').on('click', function () {
+              $('#universalErrors').modal('toggle');
+            });
+          }
         }
       });
     },
     error: function (xhr) {
       var err = JSON.parse(xhr.responseText);
-      alert(err.details + ": " + err.message);
+      if (xhr.status >= 500) {
+        console.log(err);
+
+        $('#universalErrorTitle').html("<span style='color:darkred'>There's Been A Server Error!</span>");
+        $('#universalErrorBody').html("<span style='color:darkred'>Sorry, there's been a server error. Please check the website's console log to investigate.</span>");
+        $('.universalErrorClose').on('click', function () {
+          $('#universalErrors').modal('toggle');
+        });
+      } else {
+        $('#universalErrorTitle').html("<span style='color:darkred'>There's Been An Error!</span>");
+        $('#universalErrorBody').html("<span style='color:darkred'>" + err.message + "</span>");
+        $('#universalErrors').modal('toggle');
+        $('.universalErrorClose').on('click', function () {
+          $('#universalErrors').modal('toggle');
+        });
+      }
     }
   });
 }
 
-function deleteSelectedReport(accidentId, locationId){
+// get the values to delete an accident report
+function deleteSelectedReport(accidentId, locationId) {
   $('#deleteSelectedReport').attr('accidentId', accidentId);
   $('#deleteSelectedReport').attr('locationId', locationId);
 }
 
-function deleteReport(){
+// delete the accident report
+function deleteReport() {
   var selectedAccidentId = $('#deleteSelectedReport').attr('accidentId');
   var selectedLocationId = $('#deleteSelectedReport').attr('locationId');
 
@@ -536,29 +755,60 @@ function deleteReport(){
     url: 'http://localhost:3333/accident/' + selectedAccidentId,
     success: function () {
       alert('The accident has been deleted successfully.');
-        //Log deletion
-        $.ajax({
-          type: 'DELETE',
-          url: 'http://localhost:3333/location/' + selectedLocationId,
-          success: function () {
-              alert('The location has been deleted successfully.');
-              //Log deletion
-              location.reload();
-          },
-          error: function (xhr) {
-            var err = JSON.parse(xhr.responseText);
-            alert(err.details + ": " + err.message);
+      $.ajax({
+        type: 'DELETE',
+        url: 'http://localhost:3333/location/' + selectedLocationId,
+        success: function () {
+          alert('The location has been deleted successfully.');
+          location.reload();
+        },
+        error: function (xhr) {
+          var err = JSON.parse(xhr.responseText);
+          if (xhr.status >= 500) {
+            console.log(err);
+
+            $('#universalErrorTitle').html("<span style='color:darkred'>There's Been A Server Error!</span>");
+            $('#universalErrorBody').html("<span style='color:darkred'>Sorry, there's been a server error. Please check the website's console log to investigate.</span>");
+            $('#universalErrors').modal('toggle');
+            $('.universalErrorClose').on('click', function () {
+              $('#universalErrors').modal('toggle');
+            });
+          } else {
+            $('#universalErrorTitle').html("<span style='color:darkred'>There's Been An Error!</span>");
+            $('#universalErrorBody').html("<span style='color:darkred'>" + err.message + "</span>");
+            $('#universalErrors').modal('toggle');
+            $('.universalErrorClose').on('click', function () {
+              $('#universalErrors').modal('toggle');
+            });
           }
-        });
+        }
+      });
     },
     error: function (xhr) {
       var err = JSON.parse(xhr.responseText);
-      alert(err.details + ": " + err.message);
+      if (xhr.status >= 500) {
+        console.log(err);
+
+        $('#universalErrorTitle').html("<span style='color:darkred'>There's Been A Server Error!</span>");
+        $('#universalErrorBody').html("<span style='color:darkred'>Sorry, there's been a server error. Please check the website's console log to investigate.</span>");
+        $('#universalErrors').modal('toggle');
+        $('.universalErrorClose').on('click', function () {
+          $('#universalErrors').modal('toggle');
+        });
+      } else {
+        $('#universalErrorTitle').html("<span style='color:darkred'>There's Been An Error!</span>");
+        $('#universalErrorBody').html("<span style='color:darkred'>" + err.message + "</span>");
+        $('#universalErrors').modal('toggle');
+        $('.universalErrorClose').on('click', function () {
+          $('#universalErrors').modal('toggle');
+        });
+      }
     }
   });
-  
+
 }
 
+// ajax call to get all the accidents for all accidents content
 function allAccidents() {
   var selectElement = document.querySelector('#state_dd');
   var stateOutput = selectElement.value;
@@ -573,18 +823,17 @@ function allAccidents() {
   var locationIds = [];
   var locationList = [];
   var locationStates = [];
-  
+
   var typeIds = [];
   var typeList = [];
-  
+
   $.ajax({
     type: 'GET',
     url: 'http://localhost:3333/location/locations',
     success: function (locationArray) {
       //for each location
       $.each(locationArray, function (index, location) {
-
-        locationIds[index] = location.locationId;
+        locationIds[location.locationId] = location.locationId;
 
         var locationData = "";
         locationData += location.streetNumber + " ";
@@ -593,7 +842,7 @@ function allAccidents() {
         locationData += location.postcode + ", ";
         locationData += location.state;
 
-        locationList[index] = locationData;
+        locationList[location.locationId] = locationData;
         locationStates[index] = location.state;
       })
 
@@ -606,37 +855,27 @@ function allAccidents() {
             typeIds[index] = accidentType.typeId;
             typeList[index] = accidentType.accidentType;
           })
-    
+
           $.ajax({
             type: 'GET',
             url: 'http://localhost:3333/accident/accidents',
             success: function (accidentArray) {
               var accidentDiv = $('div#allAccidents');
-        
-              //         accident.accidentId;
-              //         accident.vehicleCount;
-              //         accident.accidentTime;
-              //         accident.accidentDate;
-              //         accident.accidentDesc;
-              //         accident.locationId;
-              //         accident.accidentTypeId;
-              //         accident.witnessEmail;
-              //         accident.accidentSeverity;
-        
               $.each(accidentArray, function (index, accident) {
-        
                 var accidentInfo = '<p style="margin-left: 10px;">';
-                accidentInfo += '<b>Accident Description:</b> ' + accident.accidentDesc + '<br>';
-                accidentInfo += '<b>Accident Type:</b> ' + typeList[accident.accidentTypeId-1] + '<br>';
+                if (accident.accidentDesc != "") {
+                  accidentInfo += "<b>Accident Description:</b> " + accident.accidentDesc + "<br>";
+                }
+                accidentInfo += '<b>Accident Type:</b> ' + typeList[accident.accidentTypeId - 1] + '<br>';
                 accidentInfo += '<b>Vehicles Involved:</b> ' + accident.vehicleCount + '<br>';
                 accidentInfo += '<b>Recorded at:</b> ' + accident.accidentTime + ' on ' + accident.accidentDate + '<br>';
-                accidentInfo += '<b>Located at:</b> ' + locationList[accident.locationId-1] + '<br>';
+                accidentInfo += '<b>Located at:</b> ' + locationList[accident.locationId] + '<br>';
                 accidentInfo += '<b>Severity:</b> ' + accident.accidentSeverity + '<br>';
                 accidentInfo += '</p><hr>';
-        
+
                 for (let i = 0; i < checkboxed.length; i++) {
                   if (checkboxed[i] == accident.accidentSeverity) {
-                    if(stateOutput == "All" || stateOutput == locationStates[index]){
+                    if (stateOutput == "All" || stateOutput == locationStates[index]) {
                       accidentDiv.append(accidentInfo);
                     }
                   }
@@ -645,31 +884,79 @@ function allAccidents() {
             },
             error: function (xhr) {
               var err = JSON.parse(xhr.responseText);
-              alert(err.details + ": " + err.message);
+              if (xhr.status >= 500) {
+                console.log(err);
+
+                $('#universalErrorTitle').html("<span style='color:darkred'>There's Been A Server Error!</span>");
+                $('#universalErrorBody').html("<span style='color:darkred'>Sorry, there's been a server error. Please check the website's console log to investigate.</span>");
+                $('#universalErrors').modal('toggle');
+                $('.universalErrorClose').on('click', function () {
+                  $('#universalErrors').modal('toggle');
+                });
+              } else {
+                $('#universalErrorTitle').html("<span style='color:darkred'>There's Been An Error!</span>");
+                $('#universalErrorBody').html("<span style='color:darkred'>" + err.message + "</span>");
+                $('#universalErrors').modal('toggle');
+                $('.universalErrorClose').on('click', function () {
+                  $('#universalErrors').modal('toggle');
+                });
+              }
             }
           });
         },
         error: function (xhr) {
           var err = JSON.parse(xhr.responseText);
-          alert(err.details + ": " + err.message);
+          if (xhr.status >= 500) {
+            console.log(err);
+
+            $('#universalErrorTitle').html("<span style='color:darkred'>There's Been A Server Error!</span>");
+            $('#universalErrorBody').html("<span style='color:darkred'>Sorry, there's been a server error. Please check the website's console log to investigate.</span>");
+            $('#universalErrors').modal('toggle');
+            $('.universalErrorClose').on('click', function () {
+              $('#universalErrors').modal('toggle');
+            });
+          } else {
+            $('#universalErrorTitle').html("<span style='color:darkred'>There's Been An Error!</span>");
+            $('#universalErrorBody').html("<span style='color:darkred'>" + err.message + "</span>");
+            $('#universalErrors').modal('toggle');
+            $('.universalErrorClose').on('click', function () {
+              $('#universalErrors').modal('toggle');
+            });
+          }
         }
       });
     },
     error: function (xhr) {
       var err = JSON.parse(xhr.responseText);
-      alert(err.details + ": " + err.message);
+      if (xhr.status >= 500) {
+        console.log(err);
+
+        $('#universalErrorTitle').html("<span style='color:darkred'>There's Been A Server Error!</span>");
+        $('#universalErrorBody').html("<span style='color:darkred'>Sorry, there's been a server error. Please check the website's console log to investigate.</span>");
+        $('#universalErrors').modal('toggle');
+        $('.universalErrorClose').on('click', function () {
+          $('#universalErrors').modal('toggle');
+        });
+      } else {
+        $('#universalErrorTitle').html("<span style='color:darkred'>There's Been An Error!</span>");
+        $('#universalErrorBody').html("<span style='color:darkred'>" + err.message + "</span>");
+        $('#universalErrors').modal('toggle');
+        $('.universalErrorClose').on('click', function () {
+          $('#universalErrors').modal('toggle');
+        });
+      }
     }
   });
 }
 
-function getLocation(isCoords){
+// disable the other field if one is used
+function getLocation(isCoords) {
 
-  if(isCoords){
+  if (isCoords) {
     const successCallback = (position) => {
-      //console.log(position);
       $('#inputLatitude').val(position.coords.latitude);
       $('#inputLongitude').val(position.coords.longitude);
-      
+
       document.getElementById('inputStreetNum').required = false;
       $('#streetNumLabel').html('Street No.');
       document.getElementById('inputStreetName').required = false;
@@ -690,7 +977,7 @@ function getLocation(isCoords){
 
     const errorCallback = (error) => {
       $('#coordsError').html('<h6 class="pt-3" style="color: darkred">Geolocation is not supported by this browser, please enter your address manually.</h6>');
-      
+
       document.getElementById('inputLatitude').disabled = true;
       document.getElementById('inputLongitude').disabled = true;
 
@@ -711,9 +998,9 @@ function getLocation(isCoords){
   }
 }
 
-function isOther(){
-  //alert($('#inputAccType').val());
-  if($('#inputAccType').val() == "Other"){
+// getting the accident description if accident type is 'other'
+function isOther() {
+  if ($('#inputAccType').val() == "Other") {
     document.getElementById('inputAccDesc').required = true;
     $('#inputAccDescLabel').html('Accident Description <span style="color:red">*</span>');
   } else {
@@ -722,97 +1009,144 @@ function isOther(){
   }
 }
 
-$(document).ready(function(){
-  $('#addAccident').on("click", function(event) {
-      event.preventDefault();
+$(document).ready(function () {
+  // get the location from data using google geolocation api or reverse geocoding api
+  $('#addAccident').on("click", function (event) {
+    event.preventDefault();
 
-      const api = "AIzaSyBIV-yfyLwbrQh7fGqgrkMFHGXGjgn6258";
+    const apiKey = "[THE_API_KEY_HERE]";
 
-      // set relevant location data to fill it in
-      var reverseGeocodingUrl = "";
-      //console.log($('#inputLatitude').val());
-      if($('#inputLatitude').val() != ""){
-        reverseGeocodingUrl = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + $('#inputLatitude').val() + "," + $('#inputLongitude').val() + "&key=" + api;
+    // set relevant location data to fill it in
+    var reverseGeocodingUrl = "";
+    if ($('#inputLatitude').val() != "") {
+      reverseGeocodingUrl = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + $('#inputLatitude').val() + "," + $('#inputLongitude').val() + "&key=" + apiKey;
 
-        $.ajax({
-          type: 'GET',
-          url: reverseGeocodingUrl,
-          success: function(data) {
+      $.ajax({
+        type: 'GET',
+        url: reverseGeocodingUrl,
+        success: function (data) {
+          console.log(data.results[0])
+          if (data.results[0] == undefined) {
+            $('#universalErrorTitle').html("<span style='color:darkred'>There's Been An Error!</span>");
+            $('#universalErrorBody').html("<span style='color:darkred'>Unable to read the address. Please check the API key or contact the server admin.</span>");
+            $('#universalErrors').modal('toggle');
+            $('.universalErrorClose').on('click', function () {
+              $('#universalErrors').modal('toggle');
+            });
+          } else {
             $('#inputStreetNum').val(data.results[0].address_components[0].long_name);
             $('#inputStreetName').val(data.results[0].address_components[1].short_name);
             $('#inputSuburb').val(data.results[0].address_components[2].long_name);
             $('#inputState').val(data.results[0].address_components[4].short_name);
             $('#inputPostcode').val(data.results[0].address_components[6].long_name);
-            // console.log($('#inputStreetNum').val());
-            // console.log($('#inputStreetName').val());
-            // console.log($('#inputSuburb').val());
-            // console.log($('#inputState').val());
-            // console.log($('#inputPostcode').val());
-  
+
             postLocationData();
+          }
         },
         error: function (xhr) {
           var err = JSON.parse(xhr.responseText);
-          alert(err.details + ": " + err.message);
+          if (xhr.status >= 500) {
+            console.log(err);
+
+            $('#universalErrorTitle').html("<span style='color:darkred'>There's Been A Server Error!</span>");
+            $('#universalErrorBody').html("<span style='color:darkred'>Sorry, there's been a server error. Please check the website's console log to investigate.</span>");
+            $('#universalErrors').modal('toggle');
+            $('.universalErrorClose').on('click', function () {
+              $('#universalErrors').modal('toggle');
+            });
+          } else {
+            $('#universalErrorTitle').html("<span style='color:darkred'>There's Been An Error!</span>");
+            $('#universalErrorBody').html("<span style='color:darkred'>" + err.message + "</span>");
+            $('#universalErrors').modal('toggle');
+            $('.universalErrorClose').on('click', function () {
+              $('#universalErrors').modal('toggle');
+            });
+          }
         }
-        })  
-      } else {
+      })
+    } else {
+      const address = $('#inputStreetNum').val() + " " + $('#inputStreetName').val() + ", " + $('#inputSuburb').val() + ", " + $('#inputState').val() + " " + $('#inputPostcode').val();
 
-        const address = $('#inputStreetNum').val() + " " + $('#inputStreetName').val() + ", " + $('#inputSuburb').val() + ", " + $('#inputState').val() + " " + $('#inputPostcode').val();
-
-        console.log($('#inputStreetNum').val() + " " + $('#inputStreetName').val() + ", " + $('#inputSuburb').val() + ", " + $('#inputState').val() + " " + $('#inputPostcode').val());
-
-        fetch(reverseGeocodingUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=" + api)
+      fetch(reverseGeocodingUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=" + apiKey)
         .then((response) => {
           console.log(response);
           return response.json();
         }).then(jsonData => {
           console.log(jsonData);
-          //console.log(jsonData.results[0].geometry.location.lat);
-          //console.log(jsonData.results[0].geometry.location.lng);
           $('#inputLatitude').val(jsonData.results[0].geometry.location.lat);
           $('#inputLongitude').val(jsonData.results[0].geometry.location.lng);
 
           postLocationData();
-        }).catch(error => {
-          console.log(error);
+        }).catch(xhr => {
+          var err = JSON.parse(xhr.responseText);
+          if (xhr.status >= 500) {
+            console.log(err);
+            $('#universalErrorTitle').html("<span style='color:darkred'>There's Been A Server Error!</span>");
+            $('#universalErrorBody').html("<span style='color:darkred'>Sorry, there's been a server error. Please check the website's console log to investigate.</span>");
+            $('#universalErrors').modal('toggle');
+            $('.universalErrorClose').on('click', function () {
+              $('#universalErrors').modal('toggle');
+            });
+          } else {
+            $('#universalErrorTitle').html("<span style='color:darkred'>There's Been An Error!</span>");
+            $('#universalErrorBody').html("<span style='color:darkred'>" + err.message + "</span>");
+            $('#universalErrors').modal('toggle');
+            $('.universalErrorClose').on('click', function () {
+              $('#universalErrors').modal('toggle');
+            });
+          }
         })
-      }
-             
+    }
+
   });
 });
 
-function postLocationData(){
+// post the location data to the database
+function postLocationData() {
   $.ajax({
     type: 'POST',
     url: 'http://localhost:3333/location/add',
     data: JSON.stringify({
-        streetNumber: $('#inputStreetNum').val(),
-        streetName: $('#inputStreetName').val(),
-        suburb: $('#inputSuburb').val(),
-        postcode: $('#inputPostcode').val(),
-        state: $('#inputState').val(),
-        latitude: $('#inputLatitude').val(),
-        longitude: $('#inputLongitude').val()
+      streetNumber: $('#inputStreetNum').val(),
+      streetName: $('#inputStreetName').val(),
+      suburb: $('#inputSuburb').val(),
+      postcode: $('#inputPostcode').val(),
+      state: $('#inputState').val(),
+      latitude: $('#inputLatitude').val(),
+      longitude: $('#inputLongitude').val()
     }),
     contentType: 'application/json',
     accept: 'application/json',
     success: function (data) {
-        console.log('location was created: ' + data);
+      console.log('location was created: ' + data);
 
-        getRelevantAccidentData();
+      getRelevantAccidentData();
     },
     error: function (xhr) {
       var err = JSON.parse(xhr.responseText);
-      alert(err.details + ": " + err.message);
-    
-      $('#new-accident-post-notification').empty();
-      $('#new-accident-post-notification').append("Oh no! There's been an error with the <b>location information</b> in the form, please fix accordingly.");
+      if (xhr.status >= 500) {
+        console.log(err);
+
+        $('#universalErrorTitle').html("<span style='color:darkred'>There's Been A Server Error!</span>");
+        $('#universalErrorBody').html("<span style='color:darkred'>Sorry, there's been a server error. Please check the website's console log to investigate.</span>");
+        $('#universalErrors').modal('toggle');
+        $('.universalErrorClose').on('click', function () {
+          $('#universalErrors').modal('toggle');
+        });
+      } else {
+        $('#universalErrorTitle').html("<span style='color:darkred'>There's Been An Error!</span>");
+        $('#universalErrorBody').html("<span style='color:darkred'>Oh no! There's been an error with the <b>location information</b> in the form, please fix accordingly.</span>");
+        $('#universalErrors').modal('toggle');
+        $('.universalErrorClose').on('click', function () {
+          $('#universalErrors').modal('toggle');
+        });
+      }
     }
   })
 }
 
-function getRelevantAccidentData(){
+// get the relevant accident data to post to the database
+function getRelevantAccidentData() {
 
   var locationId = '';
   var accidentTypeId = '';
@@ -822,62 +1156,76 @@ function getRelevantAccidentData(){
     type: 'GET',
     url: 'http://localhost:3333/location/locations',
     success: function (locationArray) {
-        $.each(locationArray, function (index, location) {
-          if(location.latitude == $('#inputLatitude').val() && location.longitude == $('#inputLongitude').val()){
-            locationId = location.locationId;
-            //console.log("finished locations");
-            //console.log(locationId);
-          }
-        })
+      $.each(locationArray, function (index, location) {
+        if (location.latitude == $('#inputLatitude').val() && location.longitude == $('#inputLongitude').val()) {
+          locationId = location.locationId;
+        }
+      })
       $.ajax({
         type: 'GET',
         url: 'http://localhost:3333/accidenttype/accidenttypes',
         success: function (accidentTypeArray) {
           $.each(accidentTypeArray, function (index, accidentType) {
-            if(accidentType.accidentType == $('#inputAccType').val()){
+            if (accidentType.accidentType == $('#inputAccType').val()) {
               accidentTypeId = accidentType.typeId;
-              //console.log("finished accident types");
-              //console.log(accidentTypeId);
-            }    
+            }
           })
           postAccidentData(locationId, accidentTypeId);
         },
         error: function (xhr) {
           var err = JSON.parse(xhr.responseText);
-          alert(err.details + ": " + err.message);
-        
-          $('#new-accident-post-notification').empty();
-          $('#new-accident-post-notification').append("Oh no! There's been an error with the <b>accident type reference</b> in the form.");
+          if (xhr.status >= 500) {
+            console.log(err);
+
+            $('#universalErrorTitle').html("<span style='color:darkred'>There's Been A Server Error!</span>");
+            $('#universalErrorBody').html("<span style='color:darkred'>Sorry, there's been a server error. Please check the website's console log to investigate.</span>");
+            $('#universalErrors').modal('toggle');
+            $('.universalErrorClose').on('click', function () {
+              $('#universalErrors').modal('toggle');
+            });
+          } else {
+            $('#universalErrorTitle').html("<span style='color:darkred'>There's Been An Error!</span>");
+            $('#universalErrorBody').html("<span style='color:darkred'>Oh no! There's been an error with the <b>accident type</b> reference in the form, please fix accordingly.</span>");
+            $('#universalErrors').modal('toggle');
+            $('.universalErrorClose').on('click', function () {
+              $('#universalErrors').modal('toggle');
+            });
+          }
         }
       });
     },
     error: function (xhr) {
       var err = JSON.parse(xhr.responseText);
-      alert(err.details + ": " + err.message);
-    
-      $('#new-accident-post-notification').empty();
-      $('#new-accident-post-notification').append("Oh no! There's been an error with the <b>location reference</b> in the form.");
+      if (xhr.status >= 500) {
+        console.log(err);
+
+        $('#universalErrorTitle').html("<span style='color:darkred'>There's Been A Server Error!</span>");
+        $('#universalErrorBody').html("<span style='color:darkred'>Sorry, there's been a server error. Please check the website's console log to investigate.</span>");
+        $('#universalErrors').modal('toggle');
+        $('.universalErrorClose').on('click', function () {
+          $('#universalErrors').modal('toggle');
+        });
+      } else {
+        $('#universalErrorTitle').html("<span style='color:darkred'>There's Been An Error!</span>");
+        $('#universalErrorBody').html("<span style='color:darkred'>Oh no! There's been an error with the <b>location reference</b> in the form, please fix accordingly.</span>");
+        $('#universalErrors').modal('toggle');
+        $('.universalErrorClose').on('click', function () {
+          $('#universalErrors').modal('toggle');
+        });
+      }
     }
   });
 }
 
-function postAccidentData(newLocationId, newAccidentTypeId){
+// post the accident data to the database
+function postAccidentData(newLocationId, newAccidentTypeId) {
   var date = new Date();
   var month = date.getMonth() + 1;
-  if(month < 10){
+  if (month < 10) {
     month = "0" + month.toString();
   }
-  var currentDate = date.getFullYear()+ "-" + month + "-" + date.getDate();
-  var currentTime = date.getHours() + ":" + date.getMinutes()+ ":" + date.getSeconds();
-
-  // console.log("vehicleCount: " + $('#inputVehicleCount').val());
-  // console.log("accidentTime: " + currentTime);
-  // console.log("accidentDate: " + currentDate);
-  // console.log("accidentDesc: " + $('#inputAccDesc').val());
-  // console.log("locationId: " + newLocationId);
-  // console.log("accidentTypeId: " + newAccidentTypeId);
-  // console.log("witnessEmail:" + $('#inputWitnessEmail').val());
-  // console.log("accidentSeverity: " + $('#inputSeverity').val());
+  var currentDate = date.getFullYear() + "-" + month + "-" + date.getDate();
+  var currentTime = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 
   $.ajax({
     type: 'POST',
@@ -896,54 +1244,62 @@ function postAccidentData(newLocationId, newAccidentTypeId){
     accept: 'application/json',
     success: function (data) {
       console.log('accident was created: ' + data);
-      
+
       var frm = document.getElementById('new-accident-addForm');
       frm.reset();
       window.scrollTo(0, 0);
-      
+
       document.getElementById('inputStreetNum').disabled = false;
       document.getElementById('inputStreetNum').required = true;
       $('#streetNumLabel').html('Street No. <span style="color:red">*</span>');
-      
+
       document.getElementById('inputStreetName').disabled = false;
       document.getElementById('inputStreetName').required = true;
       $('#streetNameLabel').html('Street Name <span style="color:red">*</span>');
-      
+
       document.getElementById('inputSuburb').disabled = false;
       document.getElementById('inputSuburb').required = true;
       $('#suburbLabel').html('Suburb <span style="color:red">*</span>');
-      
+
       document.getElementById('inputPostcode').disabled = false;
       document.getElementById('inputPostcode').required = true;
       $('#postcodeLabel').html('Postcode <span style="color:red">*</span>');
-      
+
       document.getElementById('inputState').disabled = false;
       document.getElementById('inputState').required = true;
       $('#stateLabel').html('State <span style="color:red">*</span>');
-        
+
       document.getElementById('inputLatitude').disabled = false;
       document.getElementById('inputLatitude').required = true;
       $('#latitudeLabel').html('Latitude <span style="color:red">*</span>');
-      
+
       document.getElementById('inputLongitude').disabled = false;
       document.getElementById('inputLongitude').required = true;
       $('#longitudeLabel').html('Longitude <span style="color:red">*</span>');
-      
-      
+
+
       $('#new-accident-post-notification').empty();
       $('#new-accident-post-notification').append("Success! The accident has been created and placed on the map.");
     },
     error: function (xhr) {
       var err = JSON.parse(xhr.responseText);
-      alert(err.details + ": " + err.message);
-    
-      $('#new-accident-post-notification').empty();
-      $('#new-accident-post-notification').append("Oh no! There's been an error with the <b>accident information</b> in the form, please fix accordingly.");
+      if (xhr.status >= 500) {
+        console.log(err);
+
+        $('#universalErrorTitle').html("<span style='color:darkred'>There's Been A Server Error!</span>");
+        $('#universalErrorBody').html("<span style='color:darkred'>Sorry, there's been a server error. Please check the website's console log to investigate.</span>");
+        $('#universalErrors').modal('toggle');
+        $('.universalErrorClose').on('click', function () {
+          $('#universalErrors').modal('toggle');
+        });
+      } else {
+        $('#universalErrorTitle').html("<span style='color:darkred'>There's Been An Error!</span>");
+        $('#universalErrorBody').html("<span style='color:darkred'>Oh no! There's been an error with the <b>accident information</b> in the form, please fix accordingly.</span>");
+        $('#universalErrors').modal('toggle');
+        $('.universalErrorClose').on('click', function () {
+          $('#universalErrors').modal('toggle');
+        });
+      }
     }
   });
-}	  
-
-
-
-
-
+}
