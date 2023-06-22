@@ -23,16 +23,16 @@ public class AccidentTypeDaoImpl implements AccidentTypeDaoInterface {
 
 	@Override
 	public AccidentType createNewAccidentType(AccidentType accidentType) {
-		
+
 		jdbcTemplate.update("ALTER TABLE accidenttype AUTO_INCREMENT =1;");
-		
+
 		String sql = "insert into accidenttype (accident_type) values (?)";
 
 		jdbcTemplate.update(sql, accidentType.getAccidentType());
-		
+
 		sql = "select max(accident_type_id) from accidenttype";
 		int max = jdbcTemplate.queryForObject(sql, Integer.class);
-		
+
 		accidentType.setTypeId(max);
 
 		return accidentType;

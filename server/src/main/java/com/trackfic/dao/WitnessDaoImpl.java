@@ -27,26 +27,25 @@ public class WitnessDaoImpl implements WitnessDaoInterface {
 
 	@Override
 	public Witness createNewWitness(Witness witness) {
-		
+
 		MessageDigest md;
 		try {
 			md = MessageDigest.getInstance("SHA-256");
 			byte[] hashedPassword = md.digest(witness.getPassword().getBytes(StandardCharsets.UTF_8));
 
-
-			String password = Base64.getEncoder().encodeToString(hashedPassword); 
+			String password = Base64.getEncoder().encodeToString(hashedPassword);
 			String sql = "insert into witness values (?,?,?,?,?)";
 			jdbcTemplate.update(sql, witness.getEmail(), witness.getFirstName(), witness.getLastName(),
-					witness.getMobile(),password);
+					witness.getMobile(), password);
 
 			return witness;
-			
+
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
-		
+
 	}
 
 	@Override
@@ -80,19 +79,17 @@ public class WitnessDaoImpl implements WitnessDaoInterface {
 		MessageDigest md;
 		try {
 			md = MessageDigest.getInstance("SHA-256");
-			
+
 			byte[] hashedPassword = md.digest(witness.getPassword().getBytes(StandardCharsets.UTF_8));
 
-			
 			String pword = Base64.getEncoder().encodeToString(hashedPassword);
-			
+
 			jdbcTemplate.update(sql, witness.getFirstName(), witness.getLastName(), witness.getMobile(), pword,
 					witness.getEmail());
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 
 	}
 
@@ -117,21 +114,17 @@ public class WitnessDaoImpl implements WitnessDaoInterface {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
 			byte[] hashedPassword = md.digest(password.getBytes(StandardCharsets.UTF_8));
 
-			
 			String pword = Base64.getEncoder().encodeToString(hashedPassword);
-			
+
 			if (returnedWitness.getPassword().equals(pword)) {
 				returnedWitness.setPassword(password);
 				return returnedWitness;
-			}
-			else
-			{
+			} else {
 				throw new Exception();
 			}
 		} catch (Exception ex) {
 			throw new WitnessNotFoundException("Cannot find a witness matching those credentials");
 		}
-
 
 	}
 
