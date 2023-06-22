@@ -1,10 +1,10 @@
 
 INSERT INTO witness VALUES
-('testperson@email.com','Test', 'Person', 123456789 , 1),
-('bevanmuirhead@gmail.com','Bevan', 'Muirhead', 987654321, 2),
-('genericman@email.com','Generic', 'Man', 111111111, 3),
-('genericwoman@email.com','Generic', 'Woman', 111111112, 4),
-('cayden.darley@gmail.com', 'Cayden', 'Darley', 1111222333, 5);
+('testperson@email.com','Test', 'Person', 123456789 , "a4ayc/80/OGda4BO/1o/V0etpOqiLx1JwB5S3beHW0s="),
+('bevanmuirhead@gmail.com','Bevan', 'Muirhead', 987654321, "a4ayc/80/OGda4BO/1o/V0etpOqiLx1JwB5S3beHW0s="),
+('genericman@email.com','Generic', 'Man', 111111111, "a4ayc/80/OGda4BO/1o/V0etpOqiLx1JwB5S3beHW0s="),
+('genericwoman@email.com','Generic', 'Woman', 111111112, "a4ayc/80/OGda4BO/1o/V0etpOqiLx1JwB5S3beHW0s="),
+('cayden.darley@gmail.com', 'Cayden', 'Darley', 1111222333, "a4ayc/80/OGda4BO/1o/V0etpOqiLx1JwB5S3beHW0s=");
 
 INSERT INTO accidenttype values
 (1,"Car Crash"),

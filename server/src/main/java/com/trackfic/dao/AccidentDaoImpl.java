@@ -21,7 +21,7 @@ public class AccidentDaoImpl implements AccidentDaoInterface {
 
 	public AccidentDaoImpl(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
-		returnedAccident=new Accident();
+		returnedAccident = new Accident();
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class AccidentDaoImpl implements AccidentDaoInterface {
 
 	@Override
 	public List<Accident> getAllAccidents() {
-		//Get all records from DB
+		// Get all records from DB
 		String sql = "select * from accident";
 		return jdbcTemplate.query(sql, new AccidentMapper());
 	}
@@ -58,56 +58,52 @@ public class AccidentDaoImpl implements AccidentDaoInterface {
 	@Override
 	public Accident findAccidentById(int id) {
 
-		//Get a specific record from DB
+		// Get a specific record from DB
 		String sql = "select * from accident where accident_id=?";
 
 		try {
-			returnedAccident=jdbcTemplate.queryForObject(sql, new Object[] { id }, new AccidentMapper());
-		}
-		catch(Exception ex)
-		{
-			//If not found throw accident not found exception
-			throw new AccidentNotFoundException("Accident with ID: "+id+" not found");
+			returnedAccident = jdbcTemplate.queryForObject(sql, new Object[] { id }, new AccidentMapper());
+		} catch (Exception ex) {
+			// If not found throw accident not found exception
+			throw new AccidentNotFoundException("Accident with ID: " + id + " not found");
 		}
 		return returnedAccident;
 	}
 
 	@Override
 	public void updateAccident(Accident accident) {
-		//Update an existing record in DB
+		// Update an existing record in DB
 		String sql = "update accident set vehicle_count=?, accident_date=?, accident_time=?, accident_desc=?, location_id=?, accident_type_id=?, witness_email=?, severity=? where accident_id=? ";
 		jdbcTemplate.update(sql, accident.getVehicleCount(), accident.getAccidentDate(), accident.getAccidentTime(),
 				accident.getAccidentDesc(), accident.getLocationId(), accident.getAccidentTypeId(),
-				accident.getWitnessEmail(), accident.getAccidentSeverity().toString() , accident.getAccidentId());
+				accident.getWitnessEmail(), accident.getAccidentSeverity().toString(), accident.getAccidentId());
 	}
 
 	@Override
-	public void deleteAccident(int id){
-		//Delete specific record in DB
+	public void deleteAccident(int id) {
+		// Delete specific record in DB
 		try {
 			String sql = "delete from accident where accident_id=?";
 			jdbcTemplate.update(sql, new Object[] { id });
+		} catch (Exception e) {
+			// Should only enter when record references this record
+			throw new ForeignKeyDeletionException(
+					"Foreign key references object to be deleted ensure correct delete order is followed");
 		}
-		catch(Exception e)
-		{
-			//Should only enter when record references this record
-			throw new ForeignKeyDeletionException("Foreign key references object to be deleted ensure correct delete order is followed");
-		}
-		
+
 	}
 
 	@Override
 	public List<Accident> findAccidentsByWitnessEmail(String email) {
-		
+
 		String sql = "select * from accident where witness_email=?";
-		
-		List<Accident> accidents = jdbcTemplate.query(sql, new Object[] {email} , new AccidentMapper());
-		
-		if(accidents==null)
-		{
-			throw new WitnessNotFoundException("Witness with email: "+email+" has not reported any accidents");
+
+		List<Accident> accidents = jdbcTemplate.query(sql, new Object[] { email }, new AccidentMapper());
+
+		if (accidents == null) {
+			throw new WitnessNotFoundException("Witness with email: " + email + " has not reported any accidents");
 		}
-		
+
 		return accidents;
 	}
 

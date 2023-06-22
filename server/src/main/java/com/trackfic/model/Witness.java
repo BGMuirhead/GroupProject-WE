@@ -14,7 +14,7 @@ public class Witness {
 	@NotBlank(message = "Witness password is required")
 	private String password;
 
-	public Witness(String email, String firstName, String lastName, int mobile , String password) {
+	public Witness(String email, String firstName, String lastName, int mobile, String password) {
 		super();
 		this.witnessEmail = email;
 		this.firstName = firstName;

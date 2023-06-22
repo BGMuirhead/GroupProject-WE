@@ -23,10 +23,9 @@ public class AccidentDaoImplTest {
 
 	@Autowired
 	private AccidentDaoImpl accidentDao;
-	
 
 	public AccidentDaoImplTest() {
-		
+
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
@@ -34,75 +33,71 @@ public class AccidentDaoImplTest {
 		dataSource.setUsername("root");
 		dataSource.setPassword("root");
 		JdbcTemplate template = new JdbcTemplate(dataSource);
-		accidentDao= new AccidentDaoImpl(template);
-		
+		accidentDao = new AccidentDaoImpl(template);
+
 	}
-	
-	
-	//tests the create method of accident dao layer
+
+	// tests the create method of accident dao layer
 	@Test
 	@Order(1)
-	public void createTest()
-	{
+	public void createTest() {
 //		Accident accident = new Accident(3, "Test");
 		AccidentSeverity severity = AccidentSeverity.Major;
-		Accident accident = new Accident(4, 1, new java.sql.Time(2, 20, 10), new Date(2020, 10, 23), "Description", 1, 1, "testPerson@email.com", severity);
+		Accident accident = new Accident(4, 1, new java.sql.Time(2, 20, 10), new Date(2020, 10, 23), "Description", 1,
+				1, "testPerson@email.com", severity);
 		accidentDao.createNewAccident(accident);
 		List<Accident> list = accidentDao.getAllAccidents();
 		assertNotNull(list);
 		assertEquals(4, list.size());
 	}
-	
-	//tests the get all method of accident dao layer
+
+	// tests the get all method of accident dao layer
 	@Order(2)
-	public void getAllTest()
-	{
+	public void getAllTest() {
 		List<Accident> list = accidentDao.getAllAccidents();
 		assertNotNull(list);
 		assertEquals(4, list.size());
 	}
-	//tests the find accident by id method of accident dao layer
+
+	// tests the find accident by id method of accident dao layer
 	@Test
 	@Order(3)
-	public void getOneTest()
-	{
+	public void getOneTest() {
 		Accident accident = accidentDao.findAccidentById(4);
 		assertNotNull(accident);
 		assertEquals("Description", accident.getAccidentDesc());
 	}
-	 
-	//tests the update accident of accident dao layer
+
+	// tests the update accident of accident dao layer
 	@Test
 	@Order(4)
-	public void updateTest()
-	{
+	public void updateTest() {
 		AccidentSeverity severity = AccidentSeverity.Major;
-		Accident accident = new Accident(5, 1, new java.sql.Time(2, 20, 10), new Date(2020, 10, 23), "Description", 1, 1, "testPerson@email.com", severity);
+		Accident accident = new Accident(5, 1, new java.sql.Time(2, 20, 10), new Date(2020, 10, 23), "Description", 1,
+				1, "testPerson@email.com", severity);
 		accidentDao.createNewAccident(accident);
 		accident.setAccidentDesc("Test Description");
 		accidentDao.updateAccident(accident);
-		
+
 		Accident returned = accidentDao.findAccidentById(5);
 		assertEquals(returned.getAccidentDesc(), "Test Description");
 	}
-	 
-	//tests the delete accident of accident dao layer
+
+	// tests the delete accident of accident dao layer
 	@Test
 	@Order(5)
-	public void deleteTest()
-	{
+	public void deleteTest() {
 		accidentDao.deleteAccident(4);
 		accidentDao.deleteAccident(5);
-		
+
 		List<Accident> list = accidentDao.getAllAccidents();
 		assertNotNull(list);
 		assertEquals(3, list.size());
 	}
-	
+
 	@Test
 	@Order(6)
-	public void getAccidentsByEmailTest()
-	{
+	public void getAccidentsByEmailTest() {
 		List<Accident> list = accidentDao.findAccidentsByWitnessEmail("genericman@email.com");
 		assertNotNull(list);
 		assertEquals(1, list.size());

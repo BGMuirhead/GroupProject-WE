@@ -8,12 +8,10 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.trackfic.exception.LocationNotFoundException;
 import com.trackfic.model.Location;
 import com.trackfic.service.LocationServiceImpl;
 
@@ -21,19 +19,17 @@ import com.trackfic.service.LocationServiceImpl;
 @RequestMapping("/location")
 @CrossOrigin
 public class LocationController {
-	
+
 	@Autowired
 	LocationServiceImpl locationService;
 
-	
-	//USED 
 	@GetMapping("/locations")
 	public List<Location> getAllLocations() {
 
 		List<Location> locations = locationService.getAllLocations();
 		return locations;
 	}
-	
+
 //	Currently unimplemented in front end so hiding end point	
 //	
 //	@GetMapping("/{id}")
@@ -42,15 +38,13 @@ public class LocationController {
 //		Location location = locationService.getLocationById(id);
 //		return location;
 //	}
-	
-	//USED
+
 	@PostMapping("/add")
-	public Location addLocation(@RequestBody Location location)
-	{
+	public Location addLocation(@RequestBody Location location) {
 		Location location1 = locationService.addNewLocation(location);
 		return location1;
 	}
-	
+
 //	Currently unimplemented in front end so hiding end point	
 //	
 //	@PutMapping("{id}")
@@ -60,13 +54,11 @@ public class LocationController {
 //		return location1;
 //		
 //	}
-	
-	
+
 	@DeleteMapping("/{id}")
-	public void deleteLocation(@PathVariable int id)
-	{
+	public void deleteLocation(@PathVariable int id) {
 		locationService.deleteLocation(id);
-		
+
 	}
 
 }

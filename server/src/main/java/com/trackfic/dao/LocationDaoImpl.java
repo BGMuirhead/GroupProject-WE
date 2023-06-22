@@ -23,20 +23,19 @@ public class LocationDaoImpl implements LocationDaoInterface {
 
 	@Override
 	public Location createNewLocation(Location location) {
-		
-		jdbcTemplate.update("ALTER TABLE location AUTO_INCREMENT =1;");
-		String sql = "insert into location (street_number, street_name, suburb, postcode, loc_state, latitude, longitude)" + 
-				" values(?,?,?,?,?,?,?)";
 
-		jdbcTemplate.update(sql, location.getStreetNumber(), location.getStreetName(),
-				location.getSuburb(), location.getPostcode(), location.getState(), location.getLatitude(),
-				location.getLongitude());
+		jdbcTemplate.update("ALTER TABLE location AUTO_INCREMENT =1;");
+		String sql = "insert into location (street_number, street_name, suburb, postcode, loc_state, latitude, longitude)"
+				+ " values(?,?,?,?,?,?,?)";
+
+		jdbcTemplate.update(sql, location.getStreetNumber(), location.getStreetName(), location.getSuburb(),
+				location.getPostcode(), location.getState(), location.getLatitude(), location.getLongitude());
 
 		sql = "select max(location_id) from location";
 		int max = jdbcTemplate.queryForObject(sql, Integer.class);
-		
+
 		location.setLocationId(max);
-		
+
 		return location;
 	}
 
@@ -53,11 +52,9 @@ public class LocationDaoImpl implements LocationDaoInterface {
 
 		String sql = "select * from location where location_id=?";
 		try {
-			returnedLocation= jdbcTemplate.queryForObject(sql, new Object[] { id }, new LocationMapper());
-		}
-		catch(Exception ex)
-		{
-			throw new LocationNotFoundException("Location with ID: "+id+" not found");
+			returnedLocation = jdbcTemplate.queryForObject(sql, new Object[] { id }, new LocationMapper());
+		} catch (Exception ex) {
+			throw new LocationNotFoundException("Location with ID: " + id + " not found");
 		}
 
 		return returnedLocation;

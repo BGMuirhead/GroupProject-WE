@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.trackfic.enums.AccidentSeverity;
-import com.trackfic.model.Witness;
 import com.trackfic.service.SeverityServiceImpl;
 
 @RestController
@@ -18,24 +17,20 @@ import com.trackfic.service.SeverityServiceImpl;
 @CrossOrigin
 public class SeverityController {
 
-	
 	@Autowired
 	SeverityServiceImpl severityService;
 
-	
 	@GetMapping("/{value}")
-	public AccidentSeverity getAccidentSeverityByValue(@PathVariable String value)
-	{
+	public AccidentSeverity getAccidentSeverityByValue(@PathVariable String value) {
 		AccidentSeverity severity = severityService.getSeverityByValue(value);
 		return severity;
 	}
-	
+
 	@GetMapping("/severities")
 	public List<AccidentSeverity> getAllSeverities() {
 
 		List<AccidentSeverity> severities = severityService.getAllSeverities();
 		return severities;
 	}
-	
-	
+
 }

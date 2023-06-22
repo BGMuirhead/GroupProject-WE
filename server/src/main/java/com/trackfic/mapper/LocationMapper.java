@@ -21,7 +21,8 @@ public class LocationMapper implements RowMapper<Location> {
 		double latitude = rs.getDouble("latitude");
 		double longitude = rs.getDouble("longitude");
 
-		Location location = new Location(locationId,streetName, streetNumber, suburb, postcode, state, latitude, longitude);
+		Location location = new Location(locationId, streetName, streetNumber, suburb, postcode, state, latitude,
+				longitude);
 
 		return location;
 	}

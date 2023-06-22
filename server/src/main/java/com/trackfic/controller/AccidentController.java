@@ -10,12 +10,10 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.trackfic.exception.AccidentNotFoundException;
 import com.trackfic.model.Accident;
 import com.trackfic.service.AccidentServiceImpl;
 
@@ -27,20 +25,19 @@ public class AccidentController {
 	@Autowired
 	AccidentServiceImpl accidentService;
 
-	//USED
+	// USED
 	@GetMapping("/accidents")
 	public List<Accident> getAllAccidents() {
 
 		List<Accident> accidents = accidentService.getAllAccidents();
 		return accidents;
 	}
-	
-	//USED
+
+	// USED
 	@GetMapping("/bywitnessemail/{email}")
-	public List<Accident> getAccidentsByWitnessEmail(@PathVariable String email)
-	{
+	public List<Accident> getAccidentsByWitnessEmail(@PathVariable String email) {
 		return accidentService.getAccidentsByWitnessEmail(email);
-		
+
 	}
 //	Currently unimplemented in front end so hiding end point	
 //	
@@ -51,15 +48,14 @@ public class AccidentController {
 //		
 //		return accident;
 //	}
-	
-	//USED
+
+	// USED
 	@PostMapping("/add")
-	public Accident addAccident(@Valid @RequestBody Accident accident)
-	{
+	public Accident addAccident(@Valid @RequestBody Accident accident) {
 		Accident accident1 = accidentService.addNewAccident(accident);
 		return accident1;
 	}
-	
+
 //	Currently unimplemented in front end so hiding end point	
 //	
 //	@PutMapping("{id}")
@@ -69,12 +65,11 @@ public class AccidentController {
 //		return accident1;
 //		
 //	}
-	
+
 	@DeleteMapping("/{id}")
-	public void deleteAccident(@PathVariable int id)
-	{
+	public void deleteAccident(@PathVariable int id) {
 		accidentService.deleteAccident(id);
-		
+
 	}
 
 }

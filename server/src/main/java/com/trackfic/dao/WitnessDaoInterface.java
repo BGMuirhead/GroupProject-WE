@@ -11,6 +11,7 @@ public interface WitnessDaoInterface {
 	List<Witness> getAllWitnesss();
 
 	Witness findWitnessByEmail(String email);
+
 	Witness login(String email, String password);
 
 	void updateWitness(Witness witness);
