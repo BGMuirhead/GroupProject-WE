@@ -16,13 +16,13 @@
     </script>
     <script>
         (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
-        key: "AIzaSyBIV-yfyLwbrQh7fGqgrkMFHGXGjgn6258",
+        key: "[THE_API_KEY_HERE]",
         v: "weekly",
         // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
         // Add other bootstrap parameters as needed, using camel case.
         });
     </script>
-    <script async th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyBIV-yfyLwbrQh7fGqgrkMFHGXGjgn6258&callback=viewMap}"></script>
+    <script async th:src="@{https://maps.googleapis.com/maps/api/js?key=[THE_API_KEY_HERE]&callback=viewMap}"></script>
     <script th:src="@{../JS/trackfic_functions.js}"></script>
     <link th:href="@{../BOOTSTRAP/bootstrap-5.1.0-dist/css/bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{../BOOTSTRAP/external.css}" rel="stylesheet">
@@ -36,6 +36,7 @@
         });
     </script>
 </head>
+<!-- The header / navbar -->
 <body style="overflow-x: hidden;">
     <div id="header">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="border-bottom: 5px solid black; font-weight: bold;">
@@ -73,6 +74,7 @@
             </div>
         </nav>
     </div>
+    <!-- Homepage Content -->
     <div class="home-page vid-container">
         <video th:src="@{../videos/herovid.mp4}" autoPlay loop muted></video>
         <div class="text-center">
@@ -84,6 +86,7 @@
             </div>
         </div>
     </div>
+    <!-- New Accident Form Content -->
     <div id="new-accident-body" class="new-accident img-container">
         <img class="bg-image" th:src="@{../images/city_bg.jpg}" />
         <div class="row" style="margin-right: 0px !important; color: white; padding-top: 100px;">
@@ -203,6 +206,7 @@
             <div id="new-accident-right-section" class="col-1 col-sm-2 col-md-2 col-lg-3 col-xl-3 col-xxl-3 mb-5"></div>
         </div>
     </div>
+    <!-- Map Content -->
     <div id="view-map-body" class="view-map img-container">
         <img class="bg-image" th:src="@{../images/city_bg.jpg}" />
         <div class="row" style="margin-right: 0px !important; color: white; padding-top: 100px;">
@@ -222,6 +226,7 @@
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-5"></div>
         </div>
     </div>
+    <!-- All Accidents Content -->
     <div id="all-accidents-body" class="all-accidents img-container">
         <img class="bg-image" th:src="@{../images/city_bg.jpg}" />
         <div class="row" style="margin-right: 0px !important; color: white; padding-top: 100px;">
@@ -270,6 +275,7 @@
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-5"></div>
         </div>
     </div>
+    <!-- Login/Signup Content -->
     <div id="login-signup-body" class="login-signup img-container">
         <img class="bg-image" th:src="@{../images/city_bg.jpg}" />
         <div class="row" style="margin-left: 0px !important; margin-right: 0px !important; color: white; padding-top: 100px;">
@@ -334,6 +340,7 @@
             </div>
         </div>
     </div>
+    <!-- Profile Content -->
     <div id="profile-body" class="profile img-container">
         <img class="bg-image" th:src="@{../images/city_bg.jpg}" />
         <div class="row" style="margin-right: 0px !important; color: white; padding-top: 100px;">
@@ -399,12 +406,12 @@
             </div>
         </div>
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="deleteSelectedReport" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <!-- Modal for Delete Report -->
+    <div class="modal fade" id="deleteSelectedReport" tabindex="-1" role="dialog" aria-labelledby="selectedReportModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Confirm Deletion?</h5>
+            <h5 class="modal-title" id="selected-report-title">Confirm Deletion?</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -419,12 +426,33 @@
         </div>
         </div>
     </div>
+    <!-- Modal for Error Messages -->
+    <div class="modal fade" id="universalErrors" tabindex="-1" role="dialog" aria-labelledby="universalErrors" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="universalErrorTitle"></h5>
+            <button type="button" class="close universalErrorClose" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <p id="universalErrorBody"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary universalErrorClose" data-toggle="modal">Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- Footer for most pages -->
     <footer class="new-accident all-accidents view-map login-signup profile bg-dark text-center text-white fixed-bottom" style="border-top: 5px solid black;">
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
             <p>Developed by Traffic Buffering... <span>&copy</span> 2023</p>
             <p style="margin-top: -10px; margin-bottom: 3px; font-size: x-small;"><a class="text-white" style="text-decoration: none;" th:href="@{https://www.vecteezy.com/free-vector/night}">Night Vectors by Vecteezy</a></p>
         </div>
     </footer>
+    <!-- Footer for homepage -->
     <footer class="home-page bg-dark text-center text-white fixed-bottom" style="border-top: 5px solid black;">
         <div class="text-center p-4 pb-2" style="background-color: rgba(0, 0, 0, 0.2);">
             <p class="footer-group">Developed by Traffic Buffering... <span>&copy</span> 2023</p>
