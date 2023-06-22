@@ -239,7 +239,7 @@ function loginSignup(){
 			    type: 'POST',
 			    url: 'http://localhost:3333/witness/add',
 			    data: JSON.stringify({
-			    	firstName:$('#signupFirstName').val(),
+			    	  firstName:$('#signupFirstName').val(),
 			      	lastName:$('#signupLastName').val(),
 			      	mobile:$('#signupMobile').val(),
 			        email: $('#signupEmail').val(),
@@ -251,19 +251,14 @@ function loginSignup(){
 			    	alert("success")
 			        
 			    	console.log(data);
-			    	//set the user to be logged in
-//			    	user = data;
-//			    	isLoggedIn=true;
-			    	
+			    	//set the user to be logged in			    	
 			    	sessionStorage.setItem('user', JSON.stringify(data));
 			    	sessionStorage.setItem('isLoggedIn', 'true');
-
 			    	showProfile();
 			    },
 			    error: function (xhr) {
 				      var err = JSON.parse(xhr.responseText);
-				      alert(err.details + ": " + err.message);
-				     
+				      alert(err.details + ": " + err.message);    
 				}   
 		  });
 	    });
@@ -281,18 +276,19 @@ function showProfile(){
   $('#profileHiddenPassword').show();
   $('#profileShownPassword').hide();
 
+  $('#allUsersAccidents').empty();
   allUserAccidents();
 
   if(sessionStorage.getItem("isLoggedIn") == 'true'){
-        $('#login-btn').hide();
-        $('#signup-btn').hide();
-        $('#profile-btn').show();
-        $('#logout-btn').show();
+    $('#login-btn').hide();
+    $('#signup-btn').hide();
+    $('#profile-btn').show();
+    $('#logout-btn').show();
   } else {
-        $('#login-btn').show();
-        $('#signup-btn').show();
-        $('#profile-btn').hide();
-        $('#logout-btn').hide();
+    $('#login-btn').show();
+    $('#signup-btn').show();
+    $('#profile-btn').hide();
+    $('#logout-btn').hide();
   }
   
   document.getElementById('profile-btn').disabled = true;
@@ -307,11 +303,6 @@ function showProfile(){
   $('#profileEmail').val(userData.email);
   $('#profileHiddenPassword').val(userData.password);
   
-
-
-
-
-
   sessionStorage.setItem("activePage", '6');
   //console.log("sessionStorage: " + sessionStorage.getItem('activePage'))
 
@@ -349,16 +340,16 @@ function viewMap() {
       //for each location
       $.each(locationArray, function (index, location) {
 
-        locationIds[index] = location.locationId;
+        locationIds[location.locationId] = location.locationId;
 
         var locationData = "";
         locationData += location.suburb + " ";
         locationData += location.postcode + ", ";
         locationData += location.state;
 
-        locationList[index] = locationData;
-        locationLat[index] = location.latitude;
-        locationLng[index] = location.longitude;
+        locationList[location.locationId] = locationData;
+        locationLat[location.locationId] = location.latitude;
+        locationLng[location.locationId] = location.longitude;
       })
 
       $.ajax({
@@ -377,15 +368,17 @@ function viewMap() {
             success: function (accidentArray) { 
               $.each(accidentArray, function (index, accident) {
         
-                var contentString =
-                '<div id="content">' +
-                '<h3>' + typeList[accident.accidentTypeId-1] + '</h3><div>' +
-                "<p><b>Accident Description:</b> " + accident.accidentDesc + "<br>" + 
-                '<b>Accident Type:</b> ' + typeList[accident.accidentTypeId-1] + '<br>' +
-                '<b>Severity:</b> ' + accident.accidentSeverity + '<br>' +
-                '<b>Vehicles Involved:</b> ' + accident.vehicleCount + '<br>' +
-                '<b>Recorded at:</b> ' + accident.accidentTime + ' on ' + accident.accidentDate + '<br></p>' +
-                "</div></div>";
+                var contentString = '<div id="content">';
+                contentString += '<h3>' + typeList[accident.accidentTypeId-1] + '</h3><div><p>';
+
+                if(accident.accidentDesc != ""){
+                  contentString += "<b>Accident Description:</b> " + accident.accidentDesc + "<br>";
+                }
+                contentString += '<b>Accident Type:</b> ' + typeList[accident.accidentTypeId-1] + '<br>';
+                contentString += '<b>Severity:</b> ' + accident.accidentSeverity + '<br>';
+                contentString += '<b>Vehicles Involved:</b> ' + accident.vehicleCount + '<br>';
+                contentString += '<b>Recorded at:</b> ' + accident.accidentTime + ' on ' + accident.accidentDate + '<br></p>';
+                contentString += "</div></div>";
 
                 const infowindow = new google.maps.InfoWindow({
                   content: contentString,
@@ -402,9 +395,9 @@ function viewMap() {
                 }
 
                 const marker = new google.maps.Marker({
-                  position: { lat: locationLat[index], lng: locationLng[index]  },
+                  position: { lat: locationLat[accident.locationId], lng: locationLng[accident.locationId]  },
                   map,
-                  title: typeList[accident.accidentTypeId-1] + " at " + locationList[accident.locationId-1],
+                  title: typeList[accident.accidentTypeId-1] + " at " + locationList[accident.locationId],
                   icon: severityIcon
                 });
               
@@ -453,7 +446,7 @@ function allUserAccidents(){
       //for each location
       $.each(locationArray, function (index, location) {
 
-        locationIds[index] = location.locationId;
+        locationIds[location.locationId] = location.locationId;
 
         var locationData = "";
         locationData += location.streetNumber + " ";
@@ -462,7 +455,7 @@ function allUserAccidents(){
         locationData += location.postcode + ", ";
         locationData += location.state;
 
-        locationList[index] = locationData;
+        locationList[location.locationId] = locationData;
         locationStates[index] = location.state;
       })
 
@@ -489,11 +482,13 @@ function allUserAccidents(){
         
                 var accidentInfo = '<div class="row"><div class="col-9 col-lg-10">';
                 accidentInfo += '<p style="margin-left: 4%; margin-right: 1%; margin-bottom: 0px">';
-                accidentInfo += '<b>Accident Description:</b> ' + accident.accidentDesc + '<br>';
+                if(accident.accidentDesc != ""){
+                  accidentInfo += "<b>Accident Description:</b> " + accident.accidentDesc + "<br>";
+                }
                 accidentInfo += '<b>Accident Type:</b> ' + typeList[accident.accidentTypeId-1] + '<br>';
                 accidentInfo += '<b>Vehicles Involved:</b> ' + accident.vehicleCount + '<br>';
                 accidentInfo += '<b>Recorded at:</b> ' + accident.accidentTime + ' on ' + accident.accidentDate + '<br>';
-                accidentInfo += '<b>Located at:</b> ' + locationList[accident.locationId-1] + '<br>';
+                accidentInfo += '<b>Located at:</b> ' + locationList[accident.locationId] + '<br>';
                 accidentInfo += '<b>Severity:</b> ' + accident.accidentSeverity + '<br>';
                 accidentInfo += "</p></div>";
                 accidentInfo += "<div class='col-2 d-flex align-items-center'>";
@@ -583,8 +578,7 @@ function allAccidents() {
     success: function (locationArray) {
       //for each location
       $.each(locationArray, function (index, location) {
-
-        locationIds[index] = location.locationId;
+        locationIds[location.locationId] = location.locationId;
 
         var locationData = "";
         locationData += location.streetNumber + " ";
@@ -593,7 +587,7 @@ function allAccidents() {
         locationData += location.postcode + ", ";
         locationData += location.state;
 
-        locationList[index] = locationData;
+        locationList[location.locationId] = locationData;
         locationStates[index] = location.state;
       })
 
@@ -611,26 +605,16 @@ function allAccidents() {
             type: 'GET',
             url: 'http://localhost:3333/accident/accidents',
             success: function (accidentArray) {
-              var accidentDiv = $('div#allAccidents');
-        
-              //         accident.accidentId;
-              //         accident.vehicleCount;
-              //         accident.accidentTime;
-              //         accident.accidentDate;
-              //         accident.accidentDesc;
-              //         accident.locationId;
-              //         accident.accidentTypeId;
-              //         accident.witnessEmail;
-              //         accident.accidentSeverity;
-        
+              var accidentDiv = $('div#allAccidents');  
               $.each(accidentArray, function (index, accident) {
-        
                 var accidentInfo = '<p style="margin-left: 10px;">';
-                accidentInfo += '<b>Accident Description:</b> ' + accident.accidentDesc + '<br>';
+                if(accident.accidentDesc != ""){
+                  accidentInfo += "<b>Accident Description:</b> " + accident.accidentDesc + "<br>";
+                }
                 accidentInfo += '<b>Accident Type:</b> ' + typeList[accident.accidentTypeId-1] + '<br>';
                 accidentInfo += '<b>Vehicles Involved:</b> ' + accident.vehicleCount + '<br>';
                 accidentInfo += '<b>Recorded at:</b> ' + accident.accidentTime + ' on ' + accident.accidentDate + '<br>';
-                accidentInfo += '<b>Located at:</b> ' + locationList[accident.locationId-1] + '<br>';
+                accidentInfo += '<b>Located at:</b> ' + locationList[accident.locationId] + '<br>';
                 accidentInfo += '<b>Severity:</b> ' + accident.accidentSeverity + '<br>';
                 accidentInfo += '</p><hr>';
         
@@ -870,15 +854,6 @@ function postAccidentData(newLocationId, newAccidentTypeId){
   var currentDate = date.getFullYear()+ "-" + month + "-" + date.getDate();
   var currentTime = date.getHours() + ":" + date.getMinutes()+ ":" + date.getSeconds();
 
-  // console.log("vehicleCount: " + $('#inputVehicleCount').val());
-  // console.log("accidentTime: " + currentTime);
-  // console.log("accidentDate: " + currentDate);
-  // console.log("accidentDesc: " + $('#inputAccDesc').val());
-  // console.log("locationId: " + newLocationId);
-  // console.log("accidentTypeId: " + newAccidentTypeId);
-  // console.log("witnessEmail:" + $('#inputWitnessEmail').val());
-  // console.log("accidentSeverity: " + $('#inputSeverity').val());
-
   $.ajax({
     type: 'POST',
     url: 'http://localhost:3333/accident/add',
@@ -941,9 +916,4 @@ function postAccidentData(newLocationId, newAccidentTypeId){
       $('#new-accident-post-notification').append("Oh no! There's been an error with the <b>accident information</b> in the form, please fix accordingly.");
     }
   });
-}	  
-
-
-
-
-
+}
