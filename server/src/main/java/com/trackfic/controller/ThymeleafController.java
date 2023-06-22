@@ -1,16 +1,7 @@
 package com.trackfic.controller;
 
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.trackfic.model.Accident;
-import com.trackfic.model.Witness;
 
 @Controller
 public class ThymeleafController {
@@ -22,8 +13,7 @@ public class ThymeleafController {
 //		Witness w = (Witness) redirectAttrs.getAttribute("witness");
 //		return "thymetemplate";
 //	}
-	
-	
+
 //	@GetMapping(value = "/login")
 //	public String loginUser(ModelMap model, @ModelAttribute("witness") Object witness, @ModelAttribute("accidents") List<Accident> accidents) {
 //
@@ -32,13 +22,10 @@ public class ThymeleafController {
 //		model.addAttribute("accidents" , accidents);
 //		return "login";
 //	}
-	
-	
-	
+
 	@GetMapping(value = "/home")
 	public String goHome() {
 		return "trackfic";
 	}
-	
-	
+
 }
