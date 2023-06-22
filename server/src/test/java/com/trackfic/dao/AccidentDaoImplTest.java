@@ -44,7 +44,7 @@ public class AccidentDaoImplTest {
 //		Accident accident = new Accident(3, "Test");
 		AccidentSeverity severity = AccidentSeverity.Major;
 		Accident accident = new Accident(4, 1, new java.sql.Time(2, 20, 10), new Date(2020, 10, 23), "Description", 1,
-				1, "testPerson@email.com", severity);
+				1, "johnr@email.com", severity);
 		accidentDao.createNewAccident(accident);
 		List<Accident> list = accidentDao.getAllAccidents();
 		assertNotNull(list);
@@ -74,7 +74,7 @@ public class AccidentDaoImplTest {
 	public void updateTest() {
 		AccidentSeverity severity = AccidentSeverity.Major;
 		Accident accident = new Accident(5, 1, new java.sql.Time(2, 20, 10), new Date(2020, 10, 23), "Description", 1,
-				1, "testPerson@email.com", severity);
+				1, "johnr@email.com", severity);
 		accidentDao.createNewAccident(accident);
 		accident.setAccidentDesc("Test Description");
 		accidentDao.updateAccident(accident);
@@ -98,7 +98,7 @@ public class AccidentDaoImplTest {
 	@Test
 	@Order(6)
 	public void getAccidentsByEmailTest() {
-		List<Accident> list = accidentDao.findAccidentsByWitnessEmail("genericman@email.com");
+		List<Accident> list = accidentDao.findAccidentsByWitnessEmail("johnr@email.com");
 		assertNotNull(list);
 		assertEquals(1, list.size());
 	}
