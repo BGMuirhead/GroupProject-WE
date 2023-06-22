@@ -21,6 +21,7 @@ public class AccidentType {
 	public void setTypeId(int typeId) {
 		this.typeId = typeId;
 	}
+
 	public String getAccidentType() {
 		return accidentType;
 	}
