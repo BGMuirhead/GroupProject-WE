@@ -38,7 +38,7 @@ public class WitnessServiceImpl implements WitnessServiceInterface {
 
 	public Witness updateWitnessData(String email, Witness witness) {
 
-		if (!email.equals(witness.getEmail())){
+		if (!email.equals(witness.getEmail())) {
 			// throw an error
 			throw new DataMismatchException("Witness email does not match");
 		}
