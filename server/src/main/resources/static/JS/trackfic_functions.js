@@ -189,8 +189,6 @@ function loginSignup(){
   document.getElementById('view-map-nav-link').classList.add('active');
   document.getElementById('all-accidents-nav-link').classList.add('active');
   
-  
-  
   /////////////////////////////////////////////////////
   //  		Logs in and directs to profile
   ////////////////////////////////////////////////////
@@ -259,7 +257,7 @@ function loginSignup(){
 			    error: function (xhr) {
 				      var err = JSON.parse(xhr.responseText);
 				      alert(err.details + ": " + err.message);    
-				}   
+				  }   
 		  });
 	    });
 	  });
@@ -272,12 +270,6 @@ function showProfile(){
   $('.all-accidents').hide();
   $('.login-signup').hide();
   $('.profile').show();
-
-  $('#profileHiddenPassword').show();
-  $('#profileShownPassword').hide();
-
-  $('#allUsersAccidents').empty();
-  allUserAccidents();
 
   if(sessionStorage.getItem("isLoggedIn") == 'true'){
     $('#login-btn').hide();
@@ -295,13 +287,27 @@ function showProfile(){
 
   var userData = JSON.parse(sessionStorage.getItem('user'));
 
+  $('#allUsersAccidents').empty();
+  allUserAccidents(userData.email);
+
   $('#getProfileFirstName').empty();
   $('#getProfileFirstName').append(userData.firstName);
-  $('#profileFirstName').val(userData.firstName);
-  $('#profileLastName').val(userData.lastName);
-  $('#profileMobile').val(userData.mobile);
-  $('#profileEmail').val(userData.email);
-  $('#profileHiddenPassword').val(userData.password);
+  $('#profileEditFirstNameInput').val(userData.firstName);
+  $('#profileEditLastNameInput').val(userData.lastName);
+  $('#profileEditMobileInput').val(userData.mobile);
+  $('#profileEditEmailInput').val(userData.email);
+  $('#profileEditPasswordInput').val(userData.password);
+
+  document.getElementById('profileEditFirstNameInput').disabled = true;
+  document.getElementById('profileEditLastNameInput').disabled = true;
+  document.getElementById('profileEditMobileInput').disabled = true;
+  document.getElementById('profileEditPasswordInput').disabled = true;
+  document.getElementById('profileEditPasswordInput').type = "password";
+  
+  $('#editProfileDetails').show();
+  $('#profileConfirmPassword').hide();
+  $('#cancelWitnessEdit').hide();
+  $('#confirmWitnessEdit').hide();
   
   sessionStorage.setItem("activePage", '6');
   //console.log("sessionStorage: " + sessionStorage.getItem('activePage'))
@@ -310,6 +316,72 @@ function showProfile(){
   document.getElementById('new-accident-nav-link').classList.add('active');
   document.getElementById('view-map-nav-link').classList.add('active');
   document.getElementById('all-accidents-nav-link').classList.add('active');
+}
+
+function updateProfileDetails(){
+
+  document.getElementById('profileEditFirstNameInput').disabled = false;
+  document.getElementById('profileEditLastNameInput').disabled = false;
+  document.getElementById('profileEditMobileInput').disabled = false;
+  document.getElementById('profileEditPasswordInput').disabled = false;
+  document.getElementById('profileEditPasswordInput').type = "text";
+
+  $('#editProfileDetails').hide();
+  $('#profileConfirmPassword').show();
+  $('#cancelWitnessEdit').show();
+  $('#confirmWitnessEdit').show();
+
+}
+
+function cancelProfileEdit(){
+  document.getElementById('profileEditFirstNameInput').disabled = true;
+  document.getElementById('profileEditLastNameInput').disabled = true;
+  document.getElementById('profileEditMobileInput').disabled = true;
+  document.getElementById('profileEditPasswordInput').disabled = true;
+  document.getElementById('profileEditPasswordInput').type = "password";
+
+  var userData = JSON.parse(sessionStorage.getItem('user'));
+  $('#profileEditFirstNameInput').val(userData.firstName);
+  $('#profileEditLastNameInput').val(userData.lastName);
+  $('#profileEditMobileInput').val(userData.mobile);
+  $('#profileEditPasswordInput').val(userData.password);
+
+  $('#editProfileDetails').show();
+  $('#profileConfirmPassword').hide();
+  $('#cancelWitnessEdit').hide();
+  $('#confirmWitnessEdit').hide();
+}
+
+function confirmProfileEdit(){
+  var userData = JSON.parse(sessionStorage.getItem('user'));
+  if($('#profileEditPasswordInput').val() != $('#profileConfirmPasswordInput').val()){
+    alert("Your new password does not match the confirmed password.");
+    cancelProfileEdit();
+  } else {
+    $.ajax({
+      type: 'PUT',
+      url: 'http://localhost:3333/witness/' + userData.email,
+      data: JSON.stringify({
+        email: userData.email,
+        firstName: $('#profileEditFirstNameInput').val(),
+        lastName: $('#profileEditLastNameInput').val(),
+        mobile: $('#profileEditMobileInput').val(),
+        password: $('#profileEditPasswordInput').val()
+      }),
+      contentType: 'application/json',
+      accept: 'application/json',
+      success: function (data) {
+          ///alert that accident updated
+          alert('Profile details updated successfully!');
+          sessionStorage.setItem('user', JSON.stringify(data));
+          showProfile();
+      },
+      error: function (xhr) {
+        var err = JSON.parse(xhr.responseText);
+        alert(err.details + ": " + err.message);    
+      } 
+    });
+  }
 }
 
 function logoutUser(){
@@ -429,7 +501,7 @@ function viewMap() {
 
 }
 
-function allUserAccidents(){
+function allUserAccidents(userEmail){
 
   // get the user's accidents and display them here very similar to allAccidents()
   var locationIds = [];
@@ -471,7 +543,7 @@ function allUserAccidents(){
     
           $.ajax({
             type: 'GET',
-            url: 'http://localhost:3333/accident/bywitnessemail/' + $('#profileEmail').val(),
+            url: 'http://localhost:3333/accident/bywitnessemail/' + userEmail,
             success: function (accidentArray) {
               var userAccidentDiv = $('div#allUsersAccidents');
               if(accidentArray.length == 0){

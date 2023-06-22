@@ -36,6 +36,8 @@ public class WitnessServiceImpl implements WitnessServiceInterface {
 	}
 
 	public Witness updateWitnessData(String email, Witness witness) {
+		System.out.println("email: " + email);
+		System.out.println("witEmail: " + witness.getEmail());
 		
 		if(!email.equals(witness.getEmail()))
 		{
