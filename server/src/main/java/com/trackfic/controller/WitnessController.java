@@ -36,12 +36,13 @@ public class WitnessController {
 
 	@GetMapping("/{email}")
 	public Witness getWitnessById(@PathVariable String email) {
-		Witness witness = witnessService.getWitnessByEmail(email);
+		Witness witness = witnessService.getWitnessByEmail(email.toLowerCase());
 		return witness;
 	}
 
 	@PostMapping("/add")
 	public Witness addWitness(@RequestBody Witness witness) {
+		witness.setEmail(witness.getEmail().toLowerCase());
 		Witness witness1 = witnessService.addNewWitness(witness);
 		return witness1;
 	}
@@ -60,20 +61,21 @@ public class WitnessController {
 
 	@PostMapping("/login")
 	public Witness loginWitness(@RequestBody Witness witness) {
-		Witness witness1 = witnessService.loginWitness(witness.getEmail(), witness.getPassword());
+		Witness witness1 = witnessService.loginWitness(witness.getEmail().toLowerCase(), witness.getPassword());
 		return witness1;
 	}
 
 	@PutMapping("{email}")
 	public Witness updateWitness(@PathVariable String email, @RequestBody Witness witness) {
-		Witness witness1 = witnessService.updateWitnessData(email, witness);
+		witness.setEmail(witness.getEmail().toLowerCase());
+		Witness witness1 = witnessService.updateWitnessData(email.toLowerCase(), witness);
 		return witness1;
 
 	}
 
 	@DeleteMapping("/{email}")
 	public void deleteWitness(@PathVariable String email) {
-		witnessService.deleteWitness(email);
+		witnessService.deleteWitness(email.toLowerCase());
 
 	}
 
